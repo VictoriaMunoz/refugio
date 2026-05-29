@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Respaldo Virtual // Día 01</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .card-container {
+      width: 100%;
+      max-width: 550px;
+      padding: 20px;
+    }
+    .card {
+      background-color: #120d16;
+      border: 2px solid #b388ff;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(179, 136, 255, 0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      box-shadow: 0 0 30px rgba(255, 128, 171, 0.3);
+      border-color: #ff80ab;
+    }
+    .card-header {
+      background-color: #1a1221;
+      padding: 14px 20px;
+      border-bottom: 1px solid #2a1b35;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: #b388ff;
+      font-weight: 600;
+    }
+    .header-icon {
+      font-size: 14px;
+    }
+    .card-body {
+      padding: 45px 35px;
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, #1a1221 0%, #120d16 100%);
+    }
+    #quote {
+      font-family: 'Comfortaa', cursive;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #f3e5f5;
+      text-align: center;
+    }
+    .card-footer {
+      padding: 22px;
+      background-color: #1a1221;
+      border-top: 1px solid #2a1b35;
+      display: flex;
+      justify-content: center;
+    }
+    #generate-btn {
+      background-color: #120d16;
+      color: #ff80ab;
+      border: 1px solid #ff80ab;
+      padding: 12px 28px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 128, 171, 0.1);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    #generate-btn:hover {
+      background-color: #ff80ab;
+      color: #120d16;
+      transform: scale(1.05);
+    }
+    .fade-in {
+      animation: fadeInEffect 0.5s ease forwards;
+    }
+    @keyframes fadeInEffect {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card-container">
+  <div class="card">
+    <div class="card-header">
+      <span class="header-title">SISTEMA DE RESPALDO VIRTUAL // DÍA 01</span>
+      <div class="header-icon">💜✨</div>
+    </div>
+    <div class="card-body">
+      <p id="quote" class="fade-in">Haz clic abajo para extraer un recordatorio de lo mucho que te quiero y lo valiosa que eres. 🌸</p>
+    </div>
+    <div class="card-footer">
+      <button id="generate-btn">GENERAR RECORDATORIO 💜</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const afirmacionesOriginales = [
+  "Sé perfectamente que ambas somos personas independientes y capaces de avanzar solas, pero estar contigo, escucharte y compartir la vida hace que mi universo sea exponencialmente más feliz.",
+  "La distancia geográfica se vuelve completamente minúscula cuando dos mentes logran sintonizar con tanta pureza, honestidad y elocuencia a través de una pantalla.",
+  "Tu presencia en mi vida es la prueba viviente de que no se necesita habitar el mismo espacio físico para cuidar, sostener y hacer feliz a alguien de verdad.",
+  "Saber que estás al otro lado de la red transforma por completo la pesadez de cualquier rutina; eres un refugio lleno de calma al que siempre da gusto regresar.",
+  "Tu voz tiene una calidez única que desarma cualquier mal día; escuchar tus notas de voz es recordar que el mundo tiene espacios maravillosos.",
+  "Nunca dudes del impacto que provocas en mí. Lograr hacerme tan feliz a la distancia es un reflejo directo de la belleza, la agudeza y la fuerza de tu calidad humana.",
+  "Aprecio profundamente cada una de tus palabras, tus llamadas y tus risas compartidas; en un entorno que a veces se siente monótono, tu existencia es un sol constante.",
+  "Haber coincidido contigo y aprender juntas nuevas formas de ver la vida es uno de los recordatorios más hermosos de que las almas afines siempre encuentran su camino.",
+  "Aunque hoy no pueda estar ahí físicamente para darte un abrazo o compartir un té por la tarde, quiero que recuerdes que mi afecto y mi respaldo te acompañan en cada paso.",
+  "Eres una persona sumamente valiosa, inteligente y capaz. Nunca dejes que las dudas del día a día te hagan olvidar la luz tan inmensa que proyectas en todo lo que haces.",
+  "Ver tu rostro en una videollamada o escuchar tu tono de voz al terminar el día es la mejor forma de recordar que las conexiones genuinas son el verdadero valor de la vida.",
+  "Admiro profundamente tu sensibilidad, la madurez con la que asumes tus retos y la inmensa ternura con la que sabes cuidar a las personas que te importan.",
+  "Tu corazón tiene una nobleza que se siente en cada mensaje. Gracias por demostrarme que el cariño real no conoce de fronteras, husos horarios ni límites virtuales.",
+  "En los días en que el cansancio de tus múltiples actividades parezca abrumarte, respira profundo y recuerda que aquí hay alguien que celebra cada uno de tus logros.",
+  "Me hace muy feliz saber que mi pensamiento te acompaña y que logro provocar una sonrisa en ti, tal como tú lo haces conmigo todos los días.",
+  "Eres mi aliada intelectual y mi compañera favorita en este plano digital; no cambiaría por nada nuestras charlas largas y la certeza de saberme tan querida por ti.",
+  "Nuestra complicidad es un testimonio de que los lazos más fuertes se construyen con paciencia, empatía, respeto profundo por el espacio del otro y un cariño genuino.",
+  "Me encanta la forma en que procesas las ideas, la agudeza de tu mente y esa capacidad tan tuya de hacer que una simple charla de trabajo se vuelva un momento especial.",
+  "Si el síndrome del impostor o la duda intentan nublar tu jornada, regresa a este botón y recuerda que yo veo con total claridad la grandeza de tu talento.",
+  "No necesitas ser perfecta ni fuerte las veinticuatro horas; en tus momentos de cansancio o silencio, mi aprecio y mi escucha atenta siguen estando aquí, intactos.",
+  "Qué fortuna tan inmensa haber cruzado caminos contigo. Eres una constante hermosa que le da un brillo completamente diferente y alegre a mi cotidianidad.",
+  "Tu forma de quererme y de estar presente a pesar de los kilómetros me ha aprendido que el afecto verdadero es un espacio de libertad, evolución y mutuo aprendizaje.",
+  "Nunca olvides la fuerza que habita en ti; eres una mujer brillante, disciplinada y tienes la capacidad necesaria para conquistar cualquier meta profesional o personal.",
+  "Tu presencia es como esa primera taza de café por la mañana: trae claridad, reconforta el espíritu y te deja listo para iniciar el día con una buena energía.",
+  "Amo la complicidad que tenemos, los chistes internos que solo nosotras entendemos y esas conversaciones que se extienden recordándonos que la distancia es solo un número.",
+  "Cada detalle tuyo, desde un saludo temprano hasta un mensaje de buenas noches, se convierte en un tesoro que guardo con el mayor de los respetos y el más grande cariño.",
+  "Tu valor no se define por tu productividad ni por cuántos pendientes cierres hoy; vales por la inmensidad de tu ser, por tu autenticidad y por la luz que irradias.",
+  "Eres ese pensamiento bonito que me saca una sonrisa espontánea en mitad de una reunión pesada. Gracias por existir de una manera tan bella en mi mundo.",
+  "Admiro la dedicación con la que manejas tus proyectos, pero admiro aún más cómo cuidas tu esencia y mantienes intacta esa calidez que te caracteriza.",
+  "La distancia solo resalta lo real de lo que compartimos. Si podemos hacernos tan felices estando lejos, el día que compartamos un espacio físico va a ser legendario.",
+  "Tu sensibilidad humana es un regalo para quienes te rodean; nunca permitas que las prisas del entorno apaguen la magia que llevas dentro.",
+  "Qué hermoso es saber que en algún lugar del mapa hay alguien que desea mi bienestar con la misma fuerza con la que yo deseo el suyo y el de su familia.",
+  "Eres una mujer excepcional, con una mente brillante y un corazón enorme. Confía plenamente en tus capacidades, porque yo sé de lo que eres capaz.",
+  "Incluso en los días donde el silencio sea necesario para descansar, saber que estás al otro lado de la pantalla me da una tranquilidad y una alegría inmensas.",
+  "Tu risa es mi recordatorio favorito de que, sin importar las complejidades del entorno, la felicidad real siempre se encuentra en la pureza de compartir con alguien más.",
+  "Gracias por tu paciencia, por tus palabras de aliento y por ser esa persona que me recuerda lo bonito que es aprender y evolucionar constantemente.",
+  "Tienes una capacidad hermosa para acortar las distancias con un solo mensaje; tu elocuencia y tu forma de expresarte son un verdadero deleite intelectual.",
+  "Este calendario de adviento virtual es solo una pequeña ventana al aprecio inmenso que te tengo. Elegir compartir mis días contigo me hace infinitamente más feliz.",
+  "Gracias por enseñarme otra forma de querer, una donde el espacio del otro se respeta y el cariño crece de la forma más natural y honestidad posible.",
+  "Me encanta tu voz, es un sonido que me transmite una paz increíble y que tiene la magia de disipar cualquier momento de estrés en mi rutina.",
+  "Mi corazón se agita bonito cada vez que coincidimos en una charla espontánea; adoro la forma tan fluida en la que fluyen nuestras conversaciones.",
+  "Me dijiste que puedo soñar siempre contigo... y hoy te recuerdo que tenerte presente en mis pensamientos es una de las cosas que hacen mi vida muchísimo más hermosa.",
+  "Aprecio inmensamente que, aun con todas tus actividades diarias, siempre busques un espacio para mí; valorar nuestro tiempo de esa forma me llena el alma.",
+  "Tu risa tiene un eco hermoso que se queda guardado en mi mente durante todo el día; es mi recordatorio favorito de que vale la pena sonreír.",
+  "No cambiaría por nada del mundo las horas que pasamos compartiendo ideas; aprender a tu lado es una de las experiencias más enriquedoras que tengo.",
+  "Tu calidez atraviesa cualquier pantalla; eres capaz de hacerme sentir plenamente acompañada y querida a pesar de toda la distancia que nos separa.",
+  "Tienes una mente brillante y una lógica admirable. Nunca dejes que un día complicado de oficina empañe la certeza de lo tesa que eres.",
+  "Haces que mi mundo sea un lugar muchísimo más bonito desde el momento en que entraste en él; tu amistad es un regalo inestimable.",
+  "Adoro la tranquilidad que me da saber que cuento contigo; tu lealtad y tu compañerismo son pilares hermosos en mi día a día.",
+  "Me fascina ver cómo te apasionas por tus metas y la dedicación que le pones a cada aprendizaje; eres una fuente constante de inspiración para mí.",
+  "No necesitas demostrarle nada a nadie; tu trabajo, tu ética y tu calidad como persona hablan por sí solos con una elocuencia absoluta.",
+  "En las tardes largas donde la jornada se vuelve monótona, recordar tu última nota de voz es el impulso perfecto para continuar con una sonrisa.",
+  "Gracias por ser mi confidente, mi aliada intelectual y mi refugio seguro en este espacio digital; tu existencia es una bendición en mi vida.",
+  "Tu presencia es sutil pero profundamente significativa; dejas una huella de paz y buena energía en cada mensaje y en cada videollamada.",
+  "Admiro profundamente tu resiliencia; tienes una templanza increíble para encarar las situaciones difíciles sin perder jamás tu esencia noble.",
+  "Cada vez que sientas que la rutina te exige demasiado, detente un segundo, respira y recuerda que estás haciendo un trabajo extraordinario.",
+  "Qué privilegio tan grande es conocerte a fondo, escuchar tus opiniones y darme cuenta de la inmensa belleza interior que posees.",
+  "Tu afecto es uno de los espacios más libres, sanos y transparentes que he tenido la fortuna de habitar; gracias por quererme tan bonito.",
+  "Eres el claro ejemplo de que se puede tener una mente estructurada y brillante sin perder ni un poquito de ternura, empatía y sensibilidad.",
+  "Nunca olvides que mi rincón digital está permanentemente abierto para ti, listo para escucharte, leerte o simplemente acompañarte en silencio.",
+  "Me haces feliz por el simple hecho de existir y elegir compartir una parte de tu tiempo y de tu vida conmigo; eso vale más que cualquier distancia.",
+  "Tu criterio y tus consejos son invaluables para mí; confío plenamente en tu sabiduría y en la maravillosa intuición que te guía.",
+  "Que hoy sea un día para consentirte, para reconocer tus propios logros y para recordar que te mereces toda la felicidad y la paz del mundo.",
+  "Nuestras llamadas son el momento donde el ruido exterior se apaga por completo y el día cobra un significado mucho más bonito y tranquilo.",
+  "Adoro la forma en que nos cuidamos mutuamente a la distancia; este lazo es la prueba de que el cariño real no entiende de barreras físicas.",
+  "Tu autenticidad es refrescante en un mundo tan automatizado; eres genuina, transparente y de una honestidad que vale oro.",
+  "Si hoy necesitas un recordatorio de tu valor, aquí lo tienes: eres una mujer maravillosa, inteligente, sumamente querida y capaz de todo.",
+  "Amo la complicidad que construimos día con día; cada chiste interno es un bloque más en esta amistad tan bonita que me alegra la vida.",
+  "Nunca dejes de brillar con esa luz propia tan hermosa que tienes; el mundo es un lugar mucho mejor y más feliz porque tú estás en él.",
+  "Este espacio fue diseñado con el único propósito de recordarte, cuantas veces lo requieras, lo inmensamente valiosa y querida que eres para mí."
+];
+
+let bolsaDeFrases = [];
+
+function barajarFrases() {
+  bolsaDeFrases = [...afirmacionesOriginales];
+  for (let i = bolsaDeFrases.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [bolsaDeFrases[i], bolsaDeFrases[j]] = [bolsaDeFrases[j], bolsaDeFrases[i]];
+  }
+}
+
+barajarFrases();
+
+const quoteEl = document.getElementById('quote');
+const btnEl = document.getElementById('generate-btn');
+
+btnEl.addEventListener('click', () => {
+  quoteEl.classList.remove('fade-in');
+  void quoteEl.offsetWidth; 
+  
+  if (bolsaDeFrases.length === 0) {
+    barajarFrases();
+  }
+  
+  const fraseSeleccionada = bolsaDeFrases.pop();
+  quoteEl.textContent = fraseSeleccionada;
+  quoteEl.classList.add('fade-in');
+});
+</script>
+
+</body>
+</html>
