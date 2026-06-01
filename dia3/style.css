@@ -40,7 +40,6 @@ body {
 
 .highlight { color: #fff; font-weight: bold; }
 
-/* Resaltado verde para EXITOSO y Ame */
 .success-highlight {
     color: #27c93f !important;
     font-weight: bold;
@@ -74,16 +73,30 @@ body {
     animation: blink 1s infinite;
 }
 
-/* Espaciado perfecto y compacto para evitar que las palabras se separen */
+.welcome-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.main-system-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 0 12px #a855f7;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
 #typed-output {
     line-height: 1.4;
     font-size: 15px;
     color: #c084fc;
-    text-align: justify;
+    text-align: left;
     white-space: pre-wrap;
 }
 
-/* ESTILO DEFINITIVO PARA LOS MENSAJES OCULTOS EN NEGRITA */
 #typed-output b {
     color: #ffffff !important;
     font-weight: 900 !important;
@@ -91,7 +104,6 @@ body {
     display: inline !important;
 }
 
-/* Títulos con diseño de caja dentro de la terminal */
 .msg-header {
     color: #a855f7;
     font-weight: bold;
@@ -101,3 +113,4 @@ body {
 }
 
 @keyframes blink { 50% { opacity: 0; } }
+#login-ascii, #ascii-art { color: #a855f7; font-size: 11px; line-height: 1.2; margin: 0; }
