@@ -67,4 +67,19 @@ body {
     animation: blink 1s infinite;
 }
 
+/* Diseño para las palabras secretas resaltadas */
+.hidden-msg {
+    color: #ffffff;
+    font-weight: bold;
+    text-shadow: 0 0 8px #c084fc;
+}
+
+/* Títulos con diseño de caja dentro de la terminal */
+.msg-header {
+    color: #a855f7;
+    font-weight: bold;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
 @keyframes blink { 50% { opacity: 0; } }
