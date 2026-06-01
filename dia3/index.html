@@ -16,15 +16,20 @@
         </div>
         <div class="terminal-body" id="terminal-body">
             <div id="output">
-                <p>> Initializing connection... <span class="highlight">SUCCESS</span></p>
-                <p>> User authenticated: <span class="highlight">Ame</span></p>
-                <p>> Status: Bienvenida a tu lugar seguro preciosa ♥.</p>
-                <br>
-                <p>Execute a command to initialize:</p>
-                <p class="command" onclick="runCommand('pesado')">[1] ./dia_pesado.sh</p>
-                <p class="command" onclick="runCommand('sonreir')">[2] ./sacar_sonrisa.sh</p>
-                <p class="command" onclick="runCommand('extrañar')">[3] ./abrazo_virtual.sh</p>
-            </div>
+    <pre style="color: #a855f7; font-family: monospace; font-size: 11px; line-height: 1.2;">
+   /\_/\  
+  ( o.o )  ~ Bienvenida al sistema, Ame
+   > ^ <   
+    </pre>
+    <p>> Inicializando conexión... <span class="highlight">EXITOSO</span></p>
+    <p>> Usuario autenticado: <span class="highlight">Ame</span></p>
+    <p>> Estado: Tu espacio seguro está listo y activo.</p>
+    <br>
+    <p>Selecciona una opción para ejecutar el mensaje:</p>
+    <p class="command" onclick="runCommand('pesado')">[1] ./dia_pesado.sh  --> Si el día en la oficina estuvo denso</p>
+    <p class="command" onclick="runCommand('sonreir')">[2] ./sacar_sonrisa.sh --> Si te hace falta una alegría</p>
+    <p class="command" onclick="runCommand('extrañar')">[3] ./abrazo_virtual.sh --> Si quieres un abrazo sincero</p>
+</div>
             <div id="typed-output"></div>
             <div id="cursor">_</div>
         </div>
