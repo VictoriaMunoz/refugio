@@ -34,11 +34,18 @@ body {
 
 .terminal-body {
     padding: 25px;
-    height: 420px;
+    height: 440px;
     overflow-y: auto;
 }
 
 .highlight { color: #fff; font-weight: bold; }
+
+/* Resaltado verde para EXITOSO y Ame */
+.success-highlight {
+    color: #27c93f !important;
+    font-weight: bold;
+    text-shadow: 0 0 8px #27c93f;
+}
 
 .command {
     color: #a855f7;
@@ -67,25 +74,18 @@ body {
     animation: blink 1s infinite;
 }
 
-/* Diseño para las palabras secretas resaltadas */
-.hidden-msg {
-    color: #ffffff !important;
-    font-weight: bold !important;
-    text-shadow: 0 0 10px #c084fc, 0 0 5px #ffffff;
-}
-
-/* Espaciado extra para que el bloque de texto respire */
 #typed-output {
-    line-height: 1.6;
+    line-height: 1.4;
     font-size: 15px;
     color: #c084fc;
+    text-align: justify;
 }
 
-/* Títulos con diseño de caja dentro de la terminal */
 .msg-header {
     color: #a855f7;
     font-weight: bold;
-    line-height: 1.4;
+    line-height: 1.2;
+    margin-bottom: 5px;
     display: inline-block;
 }
 
