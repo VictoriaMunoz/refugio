@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal de Acceso - Día 03</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="terminal-title">bash — /home/ame/refugio</span>
+        </div>
+        <div class="terminal-body" id="terminal-body">
+            <div id="output">
+                <p>> Initializing connection... <span class="highlight">SUCCESS</span></p>
+                <p>> User authenticated: <span class="highlight">Ame</span></p>
+                <p>> Status: Welcome to your safe space.</p>
+                <br>
+                <p>Execute a command to initialize:</p>
+                <p class="command" onclick="runCommand('pesado')">[1] ./dia_pesado.sh</p>
+                <p class="command" onclick="runCommand('sonreir')">[2] ./sacar_sonrisa.sh</p>
+                <p class="command" onclick="runCommand('extrañar')">[3] ./abrazo_virtual.sh</p>
+            </div>
+            <div id="typed-output"></div>
+            <div id="cursor">_</div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
