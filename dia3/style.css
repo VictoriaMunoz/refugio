@@ -96,11 +96,11 @@ body {
     white-space: pre-wrap;
 }
 
-/* Palabras clave resaltadas — forman el mensaje secreto */
+/* Palabras clave integradas en el texto largo — Estilo Dorado */
 #typed-output b {
     color: #fbbf24 !important;
     font-weight: 900 !important;
-    text-shadow: 0 0 12px #fbbf24, 0 0 4px #fff8;
+    text-shadow: 0 0 12px #fbbf24, 0 0 4px rgba(255,248,224,0.5);
     display: inline !important;
     letter-spacing: 0.5px;
 }
@@ -113,33 +113,33 @@ body {
     display: inline-block;
 }
 
-/* Contenedor del efecto de escaneo + revelación */
+/* Sección de Escaneo */
 #secret-scan {
     margin-top: 20px;
-    font-size: 12px;
+    font-size: 13px;
     color: #666;
     border-top: 1px solid #2a2a2a;
     padding-top: 12px;
     line-height: 1.8;
 }
 
-/* Líneas del "escáner" mientras analiza */
 .scan-line {
     color: #555;
-    font-size: 12px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .scan-line.ok {
     color: #27c93f;
+    font-weight: bold;
 }
 
-/* Mensaje secreto revelado */
+/* Cuadro de revelación final */
 .secret-reveal {
-    margin-top: 10px;
-    padding: 10px 14px;
-    border: 1px solid #fbbf2440;
+    margin-top: 15px;
+    padding: 12px 16px;
+    border: 1px solid rgba(251, 191, 36, 0.25);
     border-radius: 4px;
-    background: #fbbf2408;
+    background: rgba(251, 191, 36, 0.03);
 }
 
 .secret-reveal .secret-label {
@@ -147,22 +147,23 @@ body {
     font-size: 11px;
     letter-spacing: 1px;
     text-transform: uppercase;
+    display: block;
 }
 
 .secret-reveal .secret-words {
     color: #fbbf24;
     font-weight: bold;
-    font-size: 15px;
-    text-shadow: 0 0 14px #fbbf24, 0 0 6px #fff6;
-    letter-spacing: 3px;
+    font-size: 16px;
+    text-shadow: 0 0 14px #fbbf24;
+    letter-spacing: 2px;
     display: block;
     margin-top: 6px;
     animation: pulseGold 2s ease-in-out infinite;
 }
 
 @keyframes pulseGold {
-    0%, 100% { text-shadow: 0 0 14px #fbbf24, 0 0 6px #fff6; }
-    50%       { text-shadow: 0 0 24px #fbbf24, 0 0 12px #ffd97088; }
+    0%, 100% { text-shadow: 0 0 14px #fbbf24, 0 0 6px rgba(255,255,255,0.4); }
+    50%       { text-shadow: 0 0 24px #fbbf24, 0 0 12px rgba(255,217,112,0.5); }
 }
 
 .footer-msg {
@@ -172,5 +173,4 @@ body {
 }
 
 @keyframes blink { 50% { opacity: 0; } }
-
 #login-ascii, #ascii-art { color: #a855f7; font-size: 11px; line-height: 1.2; margin: 0; }
