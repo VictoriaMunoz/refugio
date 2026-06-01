@@ -8,7 +8,7 @@ const mensajes = {
     
     sonreir: "<div class='msg-header'>=========================================<br>  PROTOCOLO: SINCRONÍA Y COMPLICIDAD <br>=========================================</div><br><br>Si terminaste en este comando es porque seguramente al día le está haciendo falta un poquito de luz, y tienes que saber que mi misión favorita siempre va a ser recordarte lo bonito que es compartir la vida. <b>Tu</b> forma de ser es increíble, tienes una chispa única y una <b>felicidad</b> que contagia a cualquiera. Me pasa seguido que me quedo pensando en nuestras charlas, en las bobadas que solo nosotras entendemos, en los chistes internos y en cómo un día cualquiera <b>me</b> parece el mejor momento de la semana con solo ponernos a conversar un rato. Me <b>hace</b> inmensamente feliz saber que, aunque los kilómetros nos separen físicamente en el mapa, compartimos una sintonía tan linda y real. Hemos construido un espacio muy sano en donde nos sentimos <b>bien</b> y podemos hablar de todo con total transparencia, y eso es algo que valoro más de lo que te imaginas. Espero de todo corazón que leer esto te robe esa sonrisa gigante que tanto me gusta ver y que te recuerde que tu bienestar le da un color hermoso a mi realidad. ¡Te adoro un montón, Ame!",
     
-    extrañar: "<div class='msg-header'>=========================================<br>  PROTOCOLO: ABRAZO A LA DISTANCIA <br>=========================================</div><br><br>Si te dio por presionar este protocolo, quiero pedirte que cierres los ojos un segundo y sientas este lazo tan fuerte que nos une. <b>Eres</b> una persona hermosa en todos los sentidos posibles, tanto por dentro como por fuera, de esas que esparcen <b>magia</b> por donde caminan por la forma tan bonita en que transformas todo a tu alrededor. La distancia puede parecer un obstáculo muy grande, pero se vuelve un número completamente tonto cuando alguien influye <b>en</b> tu día de la manera tan limpia, bonita and honesta en que lo hacemos nosotras. No pasa un solo día en el que no agradezca el haber coincido contigo en el camino; tu presencia le da un toque hermoso a <b>mi</b> realidad y me encanta escucharte, conocer cada día más de ti, compartir nuestros gustos y saber que estás al otro lado de la pantalla siendo un refugio seguro. No dudes jamás de lo mucho que te llevo conmigo en mis pensamientos. Este rinconcito que acompaña tu <b>vida</b> lo creé con mis propias manos para que nunca tengas espacio a dudar de lo importante que eres para mí, preciosa. Estoy aquí para ti hoy, mañana y siempre."
+    extrañar: "<div class='msg-header'>=========================================<br>  PROTOCOLO: ABRAZO A LA DISTANCIA <br>=========================================</div><br><br>Si te dio por presionar este protocolo, quiero pedirte que cierres los ojos un segundo y sientas este lazo tan fuerte que nos une. <b>Eres</b> una persona hermosa en todos los sentidos posibles, tanto por dentro como por fuera, de esas que esparcen <b>magia</b> por donde caminan por la forma tan bonita en que transformas todo a tu alrededor. La distancia puede parecer un obstáculo muy grande, pero se vuelve un número completamente tonto cuando alguien influye <b>en</b> tu día de la manera tan limpia, bonita y honesta en que lo hacemos nosotras. No pasa un solo día en el que no agradezca el haber coincido contigo en el camino; tu presencia le da un toque hermoso a <b>mi</b> realidad y me encanta escucharte, conocer cada día más de ti, compartir nuestros gustos y saber que estás al otro lado de la pantalla siendo un refugio seguro. No dudes jamás de lo mucho que te llevo conmigo en mis pensamientos. Este rinconcito que acompaña tu <b>vida</b> lo creé con mis propias manos para que nunca tengas espacio a dudar de lo importante que eres para mí, preciosa. Estoy aquí para ti hoy, mañana y siempre."
 };
 
 const mensajesSecretos = {
@@ -93,7 +93,7 @@ function runCommand(tipo) {
     const typedDiv         = document.getElementById('typed-output');
     const secretScanDiv    = document.getElementById('secret-scan');
     const welcomeContainer = document.querySelector('.welcome-container');
-    const text             = mensajes[tipo];
+    const rawText          = mensajes[tipo];
     
     mainOutput.style.display    = 'none';
     secretScanDiv.style.display = 'none';
@@ -102,28 +102,38 @@ function runCommand(tipo) {
     typedDiv.innerHTML = "";
     isTyping = true;
 
-    let i = 0;
-    function typeWriter() {
-        if (i < text.length) {
-            if (text.charAt(i) === '<') {
-                let closureTag = text.indexOf('>', i);
-                if (closureTag !== -1) {
-                    typedDiv.innerHTML += text.slice(i, closureTag + 1);
-                    i = closureTag + 1;
-                    typeWriter(); 
-                    return;
-                }
-            }
-            
-            typedDiv.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 55);
+    // Convertir el texto HTML en una estructura de nodos con letras envueltas en spans
+    let parsedHTML = "";
+    let j = 0;
+    while (j < rawText.length) {
+        if (rawText.charAt(j) === '<') {
+            let close = rawText.indexOf('>', j);
+            parsedHTML += rawText.slice(j, close + 1);
+            j = close + 1;
+        } else {
+            parsedHTML += `<span class="char">${rawText.charAt(j)}</span>`;
+            j++;
+        }
+    }
+    
+    // Insertar de golpe todo el esqueleto HTML estructurado
+    typedDiv.innerHTML = parsedHTML;
+    
+    // Seleccionar secuencialmente cada uno de los caracteres ocultos
+    const chars = typedDiv.querySelectorAll('.char');
+    let charIndex = 0;
+    
+    function revealChar() {
+        if (charIndex < chars.length) {
+            chars[charIndex].classList.add('visible');
+            charIndex++;
+            setTimeout(revealChar, 35); // Velocidad perfecta para leer cómodamente
         } else {
             isTyping = false;
             mostrarEscaneo(tipo);
         }
     }
-    typeWriter();
+    revealChar();
 }
 
 function mostrarEscaneo(tipo) {
