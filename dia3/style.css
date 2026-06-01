@@ -14,35 +14,90 @@ body {
     max-width: 700px;
     background-color: #1a1a1a;
     border-radius: 8px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
 }
 
-.terminal-header { background-color: #333; padding: 10px; display: flex; align-items: center; }
+.terminal-header {
+    background-color: #333;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
 .dot { height: 12px; width: 12px; border-radius: 50%; margin-right: 6px; }
 .red { background-color: #ff5f56; }
 .yellow { background-color: #ffbd2e; }
 .green { background-color: #27c93f; }
+
 .terminal-title { color: #aaa; font-size: 12px; margin-left: 10px; }
 
-.terminal-body { padding: 25px; height: 440px; overflow-y: auto; }
-
-.highlight { color: #fff; font-weight: bold; }
-.success-highlight { color: #27c93f !important; text-shadow: 0 0 5px #27c93f; }
-
-.command { color: #a855f7; cursor: pointer; margin: 10px 0; }
-.command:hover { color: #fff; }
-
-#access-key { background: transparent; border: none; color: #fff; outline: none; font-family: inherit; font-size: 16px; }
-
-#typed-output b {
-    color: #ffffff !important;
-    font-weight: 900;
-    text-shadow: 0 0 5px #fff;
+.terminal-body {
+    padding: 25px;
+    height: 440px;
+    overflow-y: auto;
 }
 
-#typed-output { line-height: 1.4; font-size: 15px; text-align: justify; }
+.highlight { color: #fff; font-weight: bold; }
 
-.msg-header { color: #a855f7; font-weight: bold; }
-#cursor { animation: blink 1s infinite; }
+/* Resaltado verde para EXITOSO y Ame */
+.success-highlight {
+    color: #27c93f !important;
+    font-weight: bold;
+    text-shadow: 0 0 8px #27c93f;
+}
+
+.command {
+    color: #a855f7;
+    cursor: pointer;
+    margin: 12px 0;
+    transition: 0.3s;
+}
+
+.command:hover {
+    color: #fff;
+    text-shadow: 0 0 10px #a855f7;
+}
+
+#access-key {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    outline: none;
+    width: 200px;
+}
+
+#cursor {
+    display: inline-block;
+    animation: blink 1s infinite;
+}
+
+/* Espaciado perfecto y compacto para evitar que las palabras se separen */
+#typed-output {
+    line-height: 1.4;
+    font-size: 15px;
+    color: #c084fc;
+    text-align: justify;
+    white-space: pre-wrap;
+}
+
+/* ESTILO DEFINITIVO PARA LOS MENSAJES OCULTOS EN NEGRITA */
+#typed-output b {
+    color: #ffffff !important;
+    font-weight: 900 !important;
+    text-shadow: 0 0 8px #c084fc, 0 0 3px #ffffff;
+    display: inline !important;
+}
+
+/* Títulos con diseño de caja dentro de la terminal */
+.msg-header {
+    color: #a855f7;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
 @keyframes blink { 50% { opacity: 0; } }
-#login-ascii, #ascii-art { color: #a855f7; font-size: 10px; }
