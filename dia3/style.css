@@ -74,13 +74,21 @@ body {
     animation: blink 1s infinite;
 }
 
+/* Espaciado perfecto y compacto para evitar que las palabras se separen */
 #typed-output {
     line-height: 1.4;
     font-size: 15px;
     color: #c084fc;
     text-align: justify;
+    white-space: pre-wrap;
 }
 
+/* Forzar visualización correcta de los spans internos */
+#typed-output span {
+    display: inline !important;
+}
+
+/* Títulos con diseño de caja dentro de la terminal */
 .msg-header {
     color: #a855f7;
     font-weight: bold;
