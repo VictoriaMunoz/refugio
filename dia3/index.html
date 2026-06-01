@@ -14,9 +14,11 @@
             <span class="dot green"></span>
             <span class="terminal-title">bash — /home/ame/refugio</span>
         </div>
-        <div class="terminal-body">
+        <div class="terminal-body" id="terminal-body">
+            
+            <!-- Pantalla de Login -->
             <div id="login-screen">
-                <pre id="login-ascii"></pre>
+                <pre id="login-ascii" style="color: #a855f7; font-family: monospace; font-size: 10px; line-height: 1.1; margin-bottom: 15px;"></pre>
                 <div id="login-output"></div>
                 <div id="input-line" style="display: none;">
                     <span class="highlight">guest@refugio:~$</span> 
@@ -24,10 +26,11 @@
                 </div>
             </div>
 
+            <!-- Interfaz Principal -->
             <div id="main-interface" style="display: none;">
-                <pre id="ascii-art">
+                <pre id="ascii-art" style="color: #a855f7; font-family: monospace; font-size: 11px; line-height: 1.2;">
    /\_/\  
-  ( o.o )  ~ Sistema de Conquista Internacional <3
+  ( o.o )  ~ Sistema de conquista internacional <3
    > ^ <   
                 </pre>
                 <div id="output">
@@ -35,13 +38,14 @@
                     <p>> Usuario: <span class="success-highlight">Ame</span></p>
                     <br>
                     <p>Selecciona un protocolo para ejecutar:</p>
-                    <p class="command" onclick="runCommand('pesado')">[1] ./dia_pesado.sh</p>
-                    <p class="command" onclick="runCommand('sonreir')">[2] ./sacar_sonrisa.sh</p>
-                    <p class="command" onclick="runCommand('extrañar')">[3] ./abrazo_virtual.sh</p>
+                    <p class="command" onclick="runCommand('pesado')">[1] ./dia_pesado.sh  --> Si la oficina estuvo densa</p>
+                    <p class="command" onclick="runCommand('sonreir')">[2] ./sacar_sonrisa.sh --> Si te hace falta una alegría</p>
+                    <p class="command" onclick="runCommand('extrañar')">[3] ./abrazo_virtual.sh --> Si quieres sentirme cerca</p>
                 </div>
                 <div id="typed-output"></div>
                 <div id="cursor">_</div>
             </div>
+
         </div>
     </div>
     <script src="script.js"></script>
