@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cupones de Amistad Sin Fronteras 💌</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Reenie+Beanie&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --cream: #fdf6ec;
+  --warm-white: #fffdf9;
+  --dusty-rose: #e8c4b8;
+  --terracotta: #c07a45;
+  --deep-rose: #9a4e28;
+  --sage: #8aaa86;
+  --deep-sage: #4d7248;
+  --midnight: #1a1410;
+  --ink: #2a1e14;
+  --gold: #c4a04a;
+  --blush: #f0d5c8;
+  --lavender: #bdb8d0;
+  --sky-blue: #a8c8e0;
+  --mauve: #b89aac;
+  --olive: #8a9a6a;
+  --rust: #b06035;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--cream);
+  font-family:'Cormorant Garamond',serif;
+  color:var(--ink);
+  overflow-x:hidden;
+}
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;opacity:0.5;
+}
+
+/* PARTICLES */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.particle{
+  position:absolute;opacity:0;
+  animation:floatUp var(--dur) ease-in-out var(--delay) infinite;
+}
+@keyframes floatUp{
+  0%{transform:translateY(100vh) rotate(0deg);opacity:0;}
+  10%{opacity:0.35;}90%{opacity:0.15;}
+  100%{transform:translateY(-10vh) rotate(360deg);opacity:0;}
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  position:relative;padding:4rem 2rem;text-align:center;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 15% 85%, rgba(192,122,69,0.11) 0%,transparent 60%),
+    radial-gradient(ellipse 55% 70% at 85% 15%, rgba(138,170,134,0.09) 0%,transparent 60%),
+    radial-gradient(ellipse 45% 45% at 50% 50%, rgba(232,196,184,0.13) 0%,transparent 70%);
+}
+.map-svg{position:absolute;width:100%;height:100%;top:0;left:0;pointer-events:none;}
+.envelope-anim{font-size:3.2rem;animation:sway 3.5s ease-in-out infinite;margin-bottom:1.2rem;position:relative;z-index:1;}
+@keyframes sway{0%,100%{transform:rotate(-4deg);}50%{transform:rotate(4deg);}}
+.hero h1{
+  font-family:'Reenie Beanie',cursive;
+  font-size:clamp(3.2rem,7.5vw,6rem);
+  color:var(--terracotta);line-height:1.05;
+  position:relative;z-index:1;
+}
+.hero-sub{
+  font-size:clamp(1.05rem,1.8vw,1.35rem);
+  font-style:italic;font-weight:300;
+  color:var(--deep-rose);margin-top:1.4rem;
+  max-width:520px;line-height:1.8;
+  position:relative;z-index:1;
+}
+.cities{
+  display:flex;align-items:center;gap:1rem;
+  margin-top:2.2rem;
+  font-family:'DM Mono',monospace;font-size:0.8rem;
+  color:var(--deep-sage);letter-spacing:0.09em;
+  position:relative;z-index:1;
+}
+.city-dot{width:5px;height:5px;background:var(--terracotta);border-radius:50%;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.6);opacity:0.5;}}
+.scroll-hint{
+  position:absolute;bottom:2.2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:0.4rem;
+  font-size:0.7rem;font-family:'DM Mono',monospace;letter-spacing:0.12em;
+  color:var(--terracotta);opacity:0.65;animation:sbounce 2.2s ease-in-out infinite;z-index:1;
+}
+@keyframes sbounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(7px);}}
+
+/* INTRO */
+.intro{max-width:660px;margin:0 auto;padding:5rem 2rem;text-align:center;}
+.intro::before{content:'✦';display:block;font-size:1.4rem;color:var(--gold);margin-bottom:1.8rem;opacity:0.65;}
+.intro p{font-size:clamp(1.15rem,1.9vw,1.4rem);font-style:italic;font-weight:300;line-height:1.95;color:var(--ink);}
+.intro strong{font-weight:600;color:var(--terracotta);font-style:normal;}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:1.4rem;max-width:480px;margin:0 auto 4rem;padding:0 2rem;}
+.div-line{flex:1;height:1px;background:linear-gradient(to right,transparent,var(--dusty-rose),transparent);}
+
+/* SECTION LABEL */
+.sec-label{
+  font-family:'DM Mono',monospace;font-size:0.68rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--sage);text-align:center;margin-bottom:3.2rem;
+}
+
+/* COUPONS */
+.coupons{padding:2rem 1.5rem 6rem;max-width:920px;margin:0 auto;}
+
+.coupon{position:relative;margin-bottom:3.5rem;cursor:pointer;}
+.coupon-inner{
+  background:var(--warm-white);
+  border:1px solid rgba(192,122,69,0.13);
+  border-radius:2px;overflow:hidden;position:relative;
+  transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.4s ease;
+  box-shadow:0 2px 10px rgba(192,122,69,0.05),0 8px 28px rgba(26,20,16,0.05);
+}
+.coupon:hover .coupon-inner{
+  transform:translateY(-5px) rotate(0.25deg);
+  box-shadow:0 10px 28px rgba(192,122,69,0.11),0 22px 60px rgba(26,20,16,0.09);
+}
+.coupon-inner::after{
+  content:'';position:absolute;right:0;top:0;bottom:0;width:76px;
+  background:repeating-linear-gradient(to bottom,var(--cream) 0,var(--cream) 5px,transparent 5px,transparent 10px);
+  border-left:2px dashed rgba(192,122,69,0.22);
+}
+.coupon-body{display:grid;grid-template-columns:10px 1fr 76px;min-height:175px;}
+.coupon-tab{width:10px;flex-shrink:0;}
+.coupon-content{padding:2rem 1.8rem 3.8rem;}
+.coupon-num{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.18em;color:var(--sage);margin-bottom:0.6rem;text-transform:uppercase;}
+.coupon-emoji{font-size:2rem;margin-bottom:0.7rem;display:block;transition:transform 0.3s ease;}
+.coupon:hover .coupon-emoji{transform:scale(1.18) rotate(-6deg);}
+.coupon-title{font-family:'Reenie Beanie',cursive;font-size:clamp(1.7rem,3.5vw,2.3rem);color:var(--ink);line-height:1.1;margin-bottom:0.8rem;}
+.coupon-text{font-size:clamp(0.9rem,1.4vw,1.05rem);font-style:italic;font-weight:300;line-height:1.8;color:#5a4535;max-width:500px;}
+.coupon-stub{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;padding:1rem;flex-shrink:0;}
+.coupon-stub-text{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--sage);writing-mode:vertical-rl;transform:rotate(180deg);opacity:0.65;}
+.coupon-btn{
+  position:absolute;bottom:1.3rem;right:1.6rem;
+  background:transparent;border:1.5px solid currentColor;
+  font-family:'DM Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.1em;padding:0.45rem 0.9rem;
+  cursor:pointer;text-transform:uppercase;
+  transition:all 0.22s ease;border-radius:1px;z-index:2;
+}
+.coupon-btn:hover{color:white;}
+
+/* MODAL */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(26,20,16,0.6);backdrop-filter:blur(5px);
+  z-index:1000;display:flex;align-items:center;justify-content:center;
+  padding:2rem;opacity:0;pointer-events:none;
+  transition:opacity 0.3s ease;
+}
+.modal-overlay.active{opacity:1;pointer-events:all;}
+.modal{
+  background:var(--warm-white);max-width:580px;width:100%;
+  padding:2.8rem;position:relative;border-radius:2px;
+  transform:translateY(22px) scale(0.96);
+  transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow:0 30px 80px rgba(26,20,16,0.18);
+  max-height:90vh;overflow-y:auto;
+}
+.modal-overlay.active .modal{transform:translateY(0) scale(1);}
+.modal-close{
+  position:absolute;top:1rem;right:1.2rem;
+  background:none;border:none;font-size:1.4rem;cursor:pointer;
+  color:var(--sage);transition:transform 0.2s ease,color 0.2s ease;line-height:1;
+}
+.modal-close:hover{transform:rotate(90deg);color:var(--terracotta);}
+.modal-emoji{font-size:2.5rem;display:block;margin-bottom:0.8rem;}
+.modal-num{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.18em;color:var(--sage);text-transform:uppercase;margin-bottom:0.4rem;}
+.modal-title{font-family:'Reenie Beanie',cursive;font-size:2.2rem;color:var(--terracotta);margin-bottom:1.2rem;}
+.modal-body{
+  font-size:1rem;font-style:italic;font-weight:300;line-height:1.85;
+  color:var(--ink);border-top:1px solid rgba(192,122,69,0.13);
+  padding-top:1.3rem;margin-bottom:1.3rem;
+}
+.modal-box{
+  background:var(--blush);border-radius:2px;
+  padding:1.1rem 1.3rem;font-size:0.93rem;line-height:1.7;
+  color:var(--deep-rose);margin-bottom:1.2rem;
+}
+.modal-box strong{font-weight:600;display:block;margin-bottom:0.35rem;font-style:normal;}
+.modal-actions{display:flex;gap:0.7rem;flex-wrap:wrap;}
+.mbtn{
+  padding:0.7rem 1.1rem;font-family:'DM Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.09em;text-transform:uppercase;
+  cursor:pointer;border-radius:1px;transition:all 0.22s ease;
+  text-decoration:none;text-align:center;flex:1;min-width:120px;
+  border:1.5px solid var(--terracotta);
+}
+.mbtn-p{background:var(--terracotta);color:white;}
+.mbtn-p:hover{background:var(--deep-rose);border-color:var(--deep-rose);}
+.mbtn-s{background:transparent;color:var(--terracotta);}
+.mbtn-s:hover{background:var(--blush);}
+
+/* PUZZLE SPECIAL PANEL */
+.puzzle-steps{list-style:none;counter-reset:steps;margin:0.8rem 0 1rem;}
+.puzzle-steps li{
+  counter-increment:steps;display:flex;align-items:flex-start;
+  gap:0.7rem;margin-bottom:0.7rem;font-size:0.9rem;line-height:1.6;color:var(--ink);
+}
+.puzzle-steps li::before{
+  content:counter(steps);
+  min-width:22px;height:22px;background:var(--terracotta);color:white;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:0.6rem;flex-shrink:0;margin-top:2px;
+}
+.link-field{
+  display:flex;gap:0.5rem;margin-top:0.8rem;
+}
+.link-field input{
+  flex:1;padding:0.6rem 0.9rem;border:1.5px solid var(--dusty-rose);
+  border-radius:2px;font-family:'DM Mono',monospace;font-size:0.75rem;
+  background:var(--warm-white);color:var(--ink);outline:none;
+  transition:border-color 0.2s;
+}
+.link-field input:focus{border-color:var(--terracotta);}
+.link-field button{
+  padding:0.6rem 0.9rem;background:var(--sage);color:white;border:none;
+  border-radius:2px;font-family:'DM Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.08em;cursor:pointer;text-transform:uppercase;white-space:nowrap;
+  transition:background 0.2s;
+}
+.link-field button:hover{background:var(--deep-sage);}
+
+/* QUESTION DISPLAY */
+.q-display{
+  background:var(--warm-white);border:1.5px solid var(--dusty-rose);
+  border-radius:2px;padding:1.4rem 1.6rem;margin:1rem 0;
+  font-size:1.1rem;font-style:italic;font-weight:300;
+  color:var(--ink);line-height:1.8;min-height:80px;
+  transition:opacity 0.3s ease;
+}
+.q-counter{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;color:var(--sage);margin-bottom:0.5rem;text-align:right;}
+
+/* FOOTER */
+.footer{text-align:center;padding:4rem 2rem 6rem;position:relative;}
+.footer-heart{font-size:2rem;animation:heartbeat 1.6s ease-in-out infinite;display:block;margin-bottom:1.4rem;}
+@keyframes heartbeat{0%,100%{transform:scale(1);}15%{transform:scale(1.22);}30%{transform:scale(1);}45%{transform:scale(1.12);}}
+.footer-text{font-style:italic;font-size:1.25rem;color:var(--deep-rose);font-weight:300;line-height:1.85;}
+.footer-sig{font-family:'Reenie Beanie',cursive;font-size:2rem;color:var(--terracotta);margin-top:1.4rem;display:block;}
+.footer-mono{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.2em;color:var(--sage);margin-top:1.8rem;opacity:0.65;}
+
+/* CONFETTI */
+.confetti-p{position:fixed;width:7px;height:7px;pointer-events:none;z-index:9998;animation:cfFall 2.8s ease-in forwards;}
+@keyframes cfFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1;}100%{transform:translateY(100vh) rotate(800deg);opacity:0;}}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:580px){
+  .coupon-body{grid-template-columns:8px 1fr 0;}
+  .coupon-stub{display:none;}
+  .coupon-inner::after{display:none;}
+  .coupon-content{padding:1.4rem 1.2rem 3.2rem;}
+  .modal{padding:2rem 1.4rem;}
+  .modal-actions{flex-direction:column;}
+  .mbtn{min-width:unset;}
+}
+</style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <svg class="map-svg" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M155 440 C 260 340 420 280 640 175" stroke="rgba(192,122,69,0.13)" stroke-width="1.5" stroke-dasharray="6 5"/>
+    <circle cx="155" cy="440" r="4.5" fill="rgba(192,122,69,0.28)"/>
+    <circle cx="640" cy="175" r="4.5" fill="rgba(138,170,134,0.38)"/>
+    <text x="110" y="462" font-family="DM Mono" font-size="8.5" fill="rgba(192,122,69,0.4)" letter-spacing="1.5">BOGOTÁ</text>
+    <text x="645" y="170" font-family="DM Mono" font-size="8.5" fill="rgba(138,170,134,0.5)" letter-spacing="1.5">MÉXICO</text>
+    <path d="M 300 500 Q 400 480 500 460" stroke="rgba(196,160,74,0.08)" stroke-width="1" stroke-dasharray="3 4"/>
+  </svg>
+
+  <div class="envelope-anim">💌</div>
+  <h1>Un libro de<br/>cupones para ti</h1>
+  <p class="hero-sub">Porque la distancia no existe cuando el cariño es real.<br/>Siete promesas para seguir conociéndonos, a nuestro ritmo.</p>
+  <div class="cities">
+    <span>Bogotá 🇨🇴</span>
+    <div class="city-dot"></div>
+    <span>México 🇲🇽</span>
+  </div>
+  <div class="scroll-hint">↓ abre tus regalos ↓</div>
+</section>
+
+<!-- INTRO -->
+<div class="intro reveal">
+  <p>Vivimos en <strong>tiempos distintos</strong>, en zonas horarias que no siempre coinciden, con rutinas que a veces no dejan ni respirar... pero eso no hace que nuestra amistad sea menos real. Al contrario — la hace más <strong>intencional</strong>, más bonita.</p>
+  <p style="margin-top:1.4rem;">Estos cupones son para usarlos <strong>sin prisa</strong>, sin necesidad de coincidir en el mismo momento. Son una promesa de que <em>siempre voy a estar aquí</em>, aunque esté lejos.</p>
+</div>
+
+<div class="divider"><div class="div-line"></div><span>✦</span><div class="div-line"></div></div>
+
+<!-- COUPONS -->
+<div class="coupons">
+  <p class="sec-label">— colección especial · siete cupones · sin fecha de expiración —</p>
+
+  <!-- 001 PUZZLE -->
+  <div class="coupon reveal" onclick="openModal('m1')">
+    <div class="coupon-inner">
+      <div class="coupon-body">
+        <div class="coupon-tab" style="background:#c07a45;"></div>
+        <div class="coupon-content">
+          <div class="coupon-num">CUPÓN · 001</div>
+          <span class="coupon-emoji">🧩</span>
+          <h2 class="coupon-title">El Rompecabezas Asincrónico</h2>
+          <p class="coupon-text">Una sala privada en JigsawPuzzles.io que estará abierta siempre. Una entra, acomoda piezas en su tiempo libre, la otra entra más tarde a continuar. Lo armamos juntas, sin coincidir, sin presiones. 🧠✨</p>
+        </div>
+        <div class="coupon-stub"><div class="coupon-stub-text">siempre · abierto</div></div>
+      </div>
+      <button class="coupon-btn" style="color:#c07a45;" onclick="openModal('m1');event.stopPropagation()">Abrir cupón →</button>
+    </div>
+  </div>
+
+  <!-- 002 PREGUNTAS -->
+  <div class="coupon reveal" onclick="openModal('m2')">
+    <div class="coupon-inner">
+      <div class="coupon-body">
+        <div class="coupon-tab" style="background:#7a5a8a;"></div>
+        <div class="coupon-content">
+          <div class="coupon-num">CUPÓN · 002</div>
+          <span class="coupon-emoji">💬</span>
+          <h2 class="coupon-title">El Buzón de Preguntas Express</h2>
+          <p class="coupon-text">Nos dejamos una pregunta inesperada o profunda en el chat. La respondemos con calma, en audio o texto, cuando tengamos un respiro. 50+ preguntas para seguir descubriéndonos. ✉️✨</p>
+        </div>
+        <div class="coupon-stub"><div class="coupon-stub-text">sin prisa · con amor</div></div>
+      </div>
+      <button class="coupon-btn" style="color:#7a5a8a;" onclick="openModal('m2');event.stopPropagation()">Abrir cupón →</button>
+    </div>
+  </div>
+
+  <!-- 003 COCINAR -->
+  <div class="coupon reveal" onclick="openModal('m3')">
+    <div class="coupon-inner">
+      <div class="coupon-body">
+        <div class="coupon-tab" style="background:#8a9a6a;"></div>
+        <div class="coupon-content">
+          <div class="coupon-num">CUPÓN · 003</div>
+          <span class="coupon-emoji">🍳</span>
+          <h2 class="coupon-title">La Misma Mesa, Dos Cocinas</h2>
+          <p class="coupon-text">Elegimos juntas una receta. Cada una la prepara en su propio tiempo libre y nos mandamos fotos del proceso y del resultado. Compartimos el mismo sabor desde distintos rincones del mundo. 🌶️📸</p>
+        </div>
+        <div class="coupon-stub"><div class="coupon-stub-text">mismo plato · dos cocinas</div></div>
+      </div>
+      <button class="coupon-btn" style="color:#8a9a6a;" onclick="openModal('m3');event.stopPropagation()">Abrir cupón →</button>
+    </div>
+  </div>
+
+  <!-- 004 RETO CREATIVO -->
+  <div class="coupon reveal" onclick="openModal('m4')">
+    <div class="coupon-inner">
+      <div class="coupon-body">
+        <div class="coupon-tab" style="background:#b06035;"></div>
+        <div class="coupon-content">
+          <div class="coupon-num">CUPÓN · 004</div>
+          <span class="coupon-emoji">🎨</span>
+          <h2 class="coupon-title">Reto Creativo del Día</h2>
+          <p class="coupon-text">Una de las dos propone un tema. La otra crea algo: un dibujo, una foto desde su ventana, un collage, incluso una nota de voz poética. Sin juicios, con toda la libertad. El arte nos conecta. 🖌️🌸</p>
+        </div>
+        <div class="coupon-stub"><div class="coupon-stub-text">crear · compartir</div></div>
+      </div>
+      <button class="coupon-btn" style="color:#b06035;" onclick="openModal('m4');event.stopPropagation()">Abrir cupón →</button>
+    </div>
+  </div>
+
+  <!-- 005 CARTA SORPRESA -->
+  <div class="coupon reveal" onclick="openModal('m5')">
+    <div class="coupon-inner">
+      <div class="coupon-body">
+        <div class="coupon-tab" style="background:#a07898;"></div>
+        <div class="coupon-content">
+          <div class="coupon-num">CUPÓN · 005</div>
+          <span class="coupon-emoji">✍️</span>
+          <h2 class="coupon-title">La Carta Sin Razón</h2>
+          <p class="coupon-text">Una carta escrita sin motivo especial, sin que haya un cumpleaños ni una ocasión. Solo porque sí. Solo porque me acordé de ti. Es el tipo de mensaje que se guarda para siempre. 💌🌿</p>
+        </div>
+        <div class="coupon-stub"><div class="coupon-stub-text">porque sí · siempre</div></div>
+      </div>
+      <button class="coupon-btn" style="color:#a07898;" onclick="openModal('m5');event.stopPropagation()">Abrir cupón →</button>
+    </div>
+  </div>
+
+  <!-- 006 AUTOCUIDADO -->
+  <div class="coupon reveal" onclick="openModal('m6')">
+    <div class="coupon-inner">
+      <div class="coupon-body">
+        <div class="coupon-tab" style="background:#7a9898;"></div>
+        <div class="coupon-content">
+          <div class="coupon-num">CUPÓN · 006</div>
+          <span class="coupon-emoji">💆</span>
+          <h2 class="coupon-title">Ritual de Autocuidado Paralelo</h2>
+          <p class="coupon-text">Misma mascarilla, mismo té o mismo baño de burbujas. Cada una en su casa, en su noche, haciendo lo mismo. Nos mandamos fotos, nos contamos cómo nos sentimos, y por un momento la distancia no existe. 🛁🍵🌙</p>
+        </div>
+        <div class="coupon-stub"><div class="coupon-stub-text">mismo ritual · dos mundos</div></div>
+      </div>
+      <button class="coupon-btn" style="color:#7a9898;" onclick="openModal('m6');event.stopPropagation()">Abrir cupón →</button>
+    </div>
+  </div>
+
+  <!-- 007 PELI/SERIE -->
+  <div class="coupon reveal" onclick="openModal('m7')">
+    <div class="coupon-inner">
+      <div class="coupon-body">
+        <div class="coupon-tab" style="background:#c4a04a;"></div>
+        <div class="coupon-content">
+          <div class="coupon-num">CUPÓN · 007</div>
+          <span class="coupon-emoji">🎬</span>
+          <h2 class="coupon-title">Cine Club Asincrónico</h2>
+          <p class="coupon-text">Elegimos la misma película o capítulo de serie. Cada una la ve cuando pueda, y luego nos mandamos una reseña por voz o texto — reacciones, teorías, lo que nos gustó, lo que no. Nuestro propio club de cine. 🍿✨</p>
+        </div>
+        <div class="coupon-stub"><div class="coupon-stub-text">misma pantalla · dos sofás</div></div>
+      </div>
+      <button class="coupon-btn" style="color:#c4a04a;" onclick="openModal('m7');event.stopPropagation()">Abrir cupón →</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span class="footer-heart">💛</span>
+  <p class="footer-text">La distancia es solo geografía.<br/>Lo que sentimos no tiene fronteras.</p>
+  <span class="footer-sig">Con todo mi cariño 🌸</span>
+  <p class="footer-mono">— BOGOTÁ → MÉXICO · SIN FECHA DE CADUCIDAD —</p>
+</footer>
+
+<!-- ═══════════ MODALS ═══════════ -->
+
+<!-- MODAL 1 – PUZZLE -->
+<div class="modal-overlay" id="m1" onclick="closeIfOverlay(event,'m1')">
+<div class="modal">
+  <button class="modal-close" onclick="closeModal('m1')">✕</button>
+  <span class="modal-emoji">🧩</span>
+  <div class="modal-num">CUPÓN · 001 · AMISTAD SIN FRONTERAS</div>
+  <h3 class="modal-title">El Rompecabezas Asincrónico</h3>
+  <p class="modal-body">Una sala privada en <strong>JigsawPuzzles.io</strong> que estará abierta siempre. Una de las dos entra en su descanso, acomoda unas piezas, y la otra entra después a continuar el avance. Lo armamos juntas, pieza a pieza, sin necesitar coincidir. 🧠✨</p>
+  <div class="modal-box">
+    <strong>🎮 Cómo crear la sala:</strong>
+    <ol class="puzzle-steps">
+      <li>Entra a <strong>jigsawpuzzles.io</strong> y crea una cuenta gratuita (solo la primera vez).</li>
+      <li>Haz clic en <em>"New Puzzle"</em> y elige la imagen que quieras (o sube una foto nuestra 🥹).</li>
+      <li>Selecciona <em>"Private"</em> y el número de piezas (recomiendo 150–300 para empezar).</li>
+      <li>Haz clic en el botón <em>"Invite"</em> que aparece en la sala y copia el link.</li>
+      <li>Pégalo aquí abajo para guardarlo y compartirlo conmigo por el chat 💌</li>
+    </ol>
+    <div class="link-field">
+      <input type="url" id="puzzle-link-input" placeholder="Pega aquí el link de la sala..." />
+      <button onclick="savePuzzleLink()">Guardar ✓</button>
+    </div>
+    <div id="puzzle-link-display" style="display:none;margin-top:0.8rem;font-size:0.85rem;color:var(--deep-rose);">
+      💌 Link guardado: <a id="puzzle-link-anchor" href="#" target="_blank" style="color:var(--terracotta);word-break:break-all;"></a>
+    </div>
+  </div>
+  <div class="modal-actions">
+    <a href="https://jigsawpuzzles.io/" target="_blank" class="mbtn mbtn-p">Ir a JigsawPuzzles.io ↗</a>
+    <button class="mbtn mbtn-s" onclick="copyPuzzleLink()">Copiar link guardado</button>
+  </div>
+</div>
+</div>
+
+<!-- MODAL 2 – PREGUNTAS -->
+<div class="modal-overlay" id="m2" onclick="closeIfOverlay(event,'m2')">
+<div class="modal">
+  <button class="modal-close" onclick="closeModal('m2')">✕</button>
+  <span class="modal-emoji">💬</span>
+  <div class="modal-num">CUPÓN · 002 · AMISTAD SIN FRONTERAS</div>
+  <h3 class="modal-title">El Buzón de Preguntas Express</h3>
+  <p class="modal-body">Nos dejamos una pregunta inesperada en el chat y la respondemos cuando tengamos un respiro, en audio o texto. Una forma bonita de seguir descubriéndonos a pesar de las rutinas. ✉️✨</p>
+  <div class="modal-box" style="background:var(--warm-white);border:1.5px solid var(--dusty-rose);">
+    <strong style="color:var(--terracotta);">🎲 Pregunta de hoy:</strong>
+    <div class="q-counter" id="q-counter">Pregunta 1 de 55</div>
+    <div class="q-display" id="q-display">Cargando pregunta...</div>
+  </div>
+  <div class="modal-actions">
+    <button class="mbtn mbtn-p" onclick="copyQuestion()">Copiar para el chat 📋</button>
+    <button class="mbtn mbtn-s" onclick="nextQuestion()">Otra pregunta 🎲</button>
+  </div>
+</div>
+</div>
+
+<!-- MODAL 3 – COCINAR -->
+<div class="modal-overlay" id="m3" onclick="closeIfOverlay(event,'m3')">
+<div class="modal">
+  <button class="modal-close" onclick="closeModal('m3')">✕</button>
+  <span class="modal-emoji">🍳</span>
+  <div class="modal-num">CUPÓN · 003 · AMISTAD SIN FRONTERAS</div>
+  <h3 class="modal-title">La Misma Mesa, Dos Cocinas</h3>
+  <p class="modal-body">Elegimos una receta juntas (algo que las dos podamos hacer en casa), cada una la prepara en su tiempo libre, y nos mandamos fotos: del proceso, de la cocina hecha un caos, y del resultado. 🌶️📸</p>
+  <div class="modal-box">
+    <strong>🍽️ Ideas de recetas para estrenar:</strong>
+    Brownies de chocolate · Guacamole casero · Pasta al pomodoro · Pancakes de domingo · Smoothie bowl colorido · Arroz con leche · Galletas de jengibre · O la receta favorita de cada una 🥰
+  </div>
+  <div class="modal-box" style="background:var(--warm-white);border:1.5px solid var(--dusty-rose);">
+    <strong style="color:var(--terracotta);">📸 Cómo activarlo:</strong>
+    Escríbeme: <em>"activo La Misma Mesa"</em> y elegimos juntas la receta por el chat. Cocinamos cada una en nuestro momento y nos mandamos el resultado. Sin presión de que quede perfecto — el caos también es parte del plan.
+  </div>
+  <div class="modal-actions">
+    <button class="mbtn mbtn-p" onclick="copyMsg('🍳 ¡Activo el cupón: La Misma Mesa, Dos Cocinas! ¿Qué cocinamos? 👩‍🍳')">Copiar mensaje de activación 📋</button>
+  </div>
+</div>
+</div>
+
+<!-- MODAL 4 – RETO CREATIVO -->
+<div class="modal-overlay" id="m4" onclick="closeIfOverlay(event,'m4')">
+<div class="modal">
+  <button class="modal-close" onclick="closeModal('m4')">✕</button>
+  <span class="modal-emoji">🎨</span>
+  <div class="modal-num">CUPÓN · 004 · AMISTAD SIN FRONTERAS</div>
+  <h3 class="modal-title">Reto Creativo del Día</h3>
+  <p class="modal-body">Una de las dos propone un tema. La otra crea algo con él: un dibujo rápido, una foto desde donde está, un collage, una nota de voz poética, cualquier cosa que salga. Sin juicios, sin estándares. El proceso es el regalo. 🖌️🌸</p>
+  <div class="modal-box">
+    <strong>🎲 Tema del día (genera uno al azar):</strong>
+    <div class="q-display" id="tema-display" style="min-height:50px;font-size:1rem;">haz clic en el botón para revelar ✨</div>
+  </div>
+  <div class="modal-actions">
+    <button class="mbtn mbtn-p" onclick="newTema()">Nuevo tema 🎲</button>
+    <button class="mbtn mbtn-s" onclick="copyTema()">Copiar tema 📋</button>
+  </div>
+</div>
+</div>
+
+<!-- MODAL 5 – CARTA -->
+<div class="modal-overlay" id="m5" onclick="closeIfOverlay(event,'m5')">
+<div class="modal">
+  <button class="modal-close" onclick="closeModal('m5')">✕</button>
+  <span class="modal-emoji">✍️</span>
+  <div class="modal-num">CUPÓN · 005 · AMISTAD SIN FRONTERAS</div>
+  <h3 class="modal-title">La Carta Sin Razón</h3>
+  <p class="modal-body">No necesita ser un cumpleaños. No necesita ser nada especial. Solo necesita ser un momento en que una de las dos quiera decirle algo a la otra. Una carta larga, una nota corta — lo que salga del corazón. Es el tipo de mensaje que se guarda para siempre. 💌🌿</p>
+  <div class="modal-box" style="background:var(--warm-white);border:1.5px solid var(--dusty-rose);">
+    <strong style="color:var(--terracotta);">✍️ Frases para romper el hielo:</strong>
+    <em>"Hoy pensé en ti porque..."</em><br/>
+    <em>"Hay algo que quería decirte hace tiempo..."</em><br/>
+    <em>"Si tuviéramos una tarde libre ahora mismo, yo..."</em><br/>
+    <em>"Lo que más admiro de ti es..."</em>
+  </div>
+  <div class="modal-actions">
+    <button class="mbtn mbtn-p" onclick="copyMsg('✍️ Activo el cupón: La Carta Sin Razón. Prepárate para recibir algo con mucho amor 💌🌿')">Anunciar la carta 📋</button>
+  </div>
+</div>
+</div>
+
+<!-- MODAL 6 – AUTOCUIDADO -->
+<div class="modal-overlay" id="m6" onclick="closeIfOverlay(event,'m6')">
+<div class="modal">
+  <button class="modal-close" onclick="closeModal('m6')">✕</button>
+  <span class="modal-emoji">💆</span>
+  <div class="modal-num">CUPÓN · 006 · AMISTAD SIN FRONTERAS</div>
+  <h3 class="modal-title">Ritual de Autocuidado Paralelo</h3>
+  <p class="modal-body">Misma mascarilla, mismo té o mismo baño de burbujas — cada una en su noche, haciendo lo mismo. Nos mandamos fotos, nos contamos cómo nos sentimos, y por un momento la distancia desaparece. 🛁🍵🌙</p>
+  <div class="modal-box">
+    <strong>🧴 Ideas de rituales para sincronizar:</strong>
+    Mascarilla de arcilla o lámina 🧖 · Té de menta o manzanilla 🍵 · Baño largo con música 🛁 · Sesión de estiramiento/yoga 🧘 · Skincare nocturno completo ✨ · Noche sin pantallas con libro y vela 🕯️ · La que cada una prefiera 💛
+  </div>
+  <div class="modal-box" style="background:var(--warm-white);border:1.5px solid var(--dusty-rose);">
+    <strong style="color:var(--terracotta);">🌙 Cómo activarlo:</strong>
+    Escríbeme: <em>"activo el Ritual"</em> y acordamos qué haremos. No tiene que ser el mismo día ni la misma hora — lo hacemos cada una en su noche y nos contamos cómo estuvo.
+  </div>
+  <div class="modal-actions">
+    <button class="mbtn mbtn-p" onclick="copyMsg('💆 ¡Activo el cupón: Ritual de Autocuidado Paralelo! ¿Qué hacemos esta semana? 🛁🍵')">Copiar mensaje de activación 📋</button>
+  </div>
+</div>
+</div>
+
+<!-- MODAL 7 – CINE CLUB -->
+<div class="modal-overlay" id="m7" onclick="closeIfOverlay(event,'m7')">
+<div class="modal">
+  <button class="modal-close" onclick="closeModal('m7')">✕</button>
+  <span class="modal-emoji">🎬</span>
+  <div class="modal-num">CUPÓN · 007 · AMISTAD SIN FRONTERAS</div>
+  <h3 class="modal-title">Cine Club Asincrónico</h3>
+  <p class="modal-body">Elegimos la misma película o episodio de serie. Cada una lo ve cuando pueda, y después nos mandamos una reseña por voz o texto — reacciones, teorías, lo que nos emocionó, lo que no nos gustó. Nuestro propio club de cine sin horario. 🍿✨</p>
+  <div class="modal-box">
+    <strong>🎬 Dinámica sugerida:</strong>
+    1. Acordamos título por el chat. 2. Cada una lo ve en su propio tiempo (mismo día, misma semana, sin presión). 3. Mandamos reseña de voz o texto antes de ver la reseña de la otra — para no influenciarnos. 4. Leemos/escuchamos la del otro y respondemos. ¡Debate libre!
+  </div>
+  <div class="modal-actions">
+    <button class="mbtn mbtn-p" onclick="copyMsg('🎬 ¡Activo el cupón: Cine Club Asincrónico! ¿Qué vemos? Te propongo algo... 🍿')">Copiar mensaje de activación 📋</button>
+    <a href="https://letterboxd.com/" target="_blank" class="mbtn mbtn-s">Ver ideas en Letterboxd ↗</a>
+  </div>
+</div>
+</div>
+
+<script>
+// ── PARTICLES ──
+const emojis=['✦','✿','♡','·','°','✶','◦','~'];
+const pc=document.getElementById('particles');
+for(let i=0;i<28;i++){
+  const p=document.createElement('div');p.className='particle';
+  p.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+  p.style.setProperty('--dur',`${8+Math.random()*12}s`);
+  p.style.setProperty('--delay',`${Math.random()*10}s`);
+  p.style.left=`${Math.random()*100}%`;
+  p.style.fontSize=`${0.7+Math.random()*0.8}rem`;
+  p.style.color=['#c07a45','#8aaa86','#c4a04a','#e8c4b8','#bdb8d0','#a8c8e0'][Math.floor(Math.random()*6)];
+  pc.appendChild(p);
+}
+
+// ── SCROLL REVEAL ──
+const revEls=document.querySelectorAll('.reveal');
+const ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+revEls.forEach(r=>ro.observe(r));
+
+// ── MODAL ──
+function openModal(id){document.getElementById(id).classList.add('active');document.body.style.overflow='hidden';launchConfetti();}
+function closeModal(id){document.getElementById(id).classList.remove('active');document.body.style.overflow='';}
+function closeIfOverlay(e,id){if(e.target.classList.contains('modal-overlay'))closeModal(id);}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.modal-overlay.active').forEach(m=>{m.classList.remove('active');document.body.style.overflow='';});}});
+
+// ── CONFETTI ──
+function launchConfetti(){
+  const cols=['#c07a45','#8aaa86','#c4a04a','#e8c4b8','#bdb8d0','#7a5a8a','#a8c8e0'];
+  for(let i=0;i<28;i++){
+    setTimeout(()=>{
+      const c=document.createElement('div');c.className='confetti-p';
+      c.style.left=`${15+Math.random()*70}%`;c.style.top='0';
+      c.style.background=cols[Math.floor(Math.random()*cols.length)];
+      c.style.animationDelay=`${Math.random()*0.4}s`;
+      c.style.borderRadius=Math.random()>0.5?'50%':'1px';
+      document.body.appendChild(c);setTimeout(()=>c.remove(),3200);
+    },i*28);
+  }
+}
+
+// ── COPY ──
+function copyMsg(text){
+  navigator.clipboard.writeText(text).catch(()=>{const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);});
+  showToast('¡Copiado al portapapeles! 📋');
+}
+function showToast(msg){
+  const t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#2a1e14;color:#fdf6ec;padding:0.7rem 1.4rem;border-radius:2px;font-family:DM Mono,monospace;font-size:0.7rem;letter-spacing:0.08em;z-index:9999;opacity:0;transition:opacity 0.3s;white-space:nowrap;';
+  t.textContent=msg;document.body.appendChild(t);
+  requestAnimationFrame(()=>{t.style.opacity='1';});
+  setTimeout(()=>{t.style.opacity='0';setTimeout(()=>t.remove(),300);},2200);
+}
+
+// ── PUZZLE LINK ──
+let savedPuzzleLink='';
+function savePuzzleLink(){
+  const v=document.getElementById('puzzle-link-input').value.trim();
+  if(!v){showToast('Pega primero el link de la sala 🧩');return;}
+  savedPuzzleLink=v;
+  const disp=document.getElementById('puzzle-link-display');
+  const anch=document.getElementById('puzzle-link-anchor');
+  anch.href=v;anch.textContent=v;disp.style.display='block';
+  showToast('¡Link guardado! Ahora compártelo con ella 💌');
+}
+function copyPuzzleLink(){
+  if(!savedPuzzleLink){showToast('Aún no has guardado un link 🧩');return;}
+  copyMsg(savedPuzzleLink);
+}
+
+// ── 55 PREGUNTAS ──
+const questions=[
+  "¿Cuál es ese pequeño ritual que tienes en tu día a día que nadie más sabe, pero que te hace sentir que todo va a estar bien? 🌿",
+  "Si pudieras enviarte un mensaje a ti misma de hace 5 años, ¿cuáles serían las primeras tres palabras? 💌",
+  "¿Qué cosa te da vergüenza admitir que te encanta? (sin juicios, juro) 😂✨",
+  "¿Cuándo fue la última vez que te sorprendiste siendo más valiente de lo que creías? 🦋",
+  "¿Qué sabor, olor o sonido te transporta instantáneamente a un recuerdo feliz? 🌸",
+  "¿Qué película, libro o canción sientes que te describe perfectamente en este momento de tu vida? 🎬",
+  "Si tuviéramos una tarde libre y sin compromisos, ¿qué harías que normalmente nunca tienes tiempo de hacer? ☕",
+  "¿Cuál es tu mayor ilusión secreta para este año? La que no le has dicho a nadie todavía. 🌟",
+  "¿Qué cosa te hace reír sola cuando la recuerdas, aunque haya pasado mucho tiempo? 😂",
+  "¿En qué momento del día te sientes más tú misma? ✨",
+  "¿Cuál fue el consejo más extraño que alguien te dio y que terminó siendo el más útil? 🤔",
+  "Si pudieras despertar mañana siendo experta en algo que no sabes hacer hoy, ¿qué sería? 🎯",
+  "¿Cuál es tu mayor miedo irracional? Ese del que casi nunca hablas. 🙈",
+  "¿Qué canción escuchas cuando necesitas darte ánimo y nadie te ve? 🎵",
+  "¿Cuál es la versión de ti misma a la que más te cuesta querer? 💙",
+  "¿Tienes alguna superstición o manía que sabes que no tiene lógica pero igual la sigues? 🍀",
+  "¿Qué decisión tomaste que en ese momento sentiste que era un error y ahora te alegra haber tomado? 🌱",
+  "Si pudieras vivir en otra época de la historia por un mes, ¿cuál elegirías y por qué? ⏳",
+  "¿Cuál es el lugar en el mundo donde te has sentido más en paz? 🗺️",
+  "¿Hay algo que hayas dejado de hacer por miedo al qué dirán y que a veces extrañas? 🌻",
+  "¿Cuál es tu frase o mantra mental cuando algo se pone difícil? 💪",
+  "¿A qué persona de tu pasado le quedarías debiendo una disculpa? No tienes que decir el nombre. 🤍",
+  "¿Cuál fue la última vez que lloraste de alegría, o de algo que te conmovió profundamente? 🥹",
+  "¿Qué habilidad tuya crees que la gente subestima? 🌟",
+  "¿Cuál es tu tipo de día perfecto, hora por hora? 🌤️",
+  "¿Tienes algún talento oculto que casi nadie sabe? 🎪",
+  "¿Cuál es la cosa más espontánea que has hecho en tu vida? ⚡",
+  "¿Qué libro, película o serie sientes que cambió algo en ti? Y ¿cómo? 📚",
+  "¿En qué crees firmemente que la mayoría de la gente está equivocada? 🔥",
+  "¿Qué te gustaría que la gente supiera de ti sin que tuvieras que explicarlo? 💫",
+  "¿Cuál fue el cumpleaños más memorable de tu vida y por qué? 🎂",
+  "¿Hay algo que siempre quisiste aprender a hacer pero nunca has empezado? ¿Por qué no? 🎨",
+  "¿Con qué personaje de ficción sientes que tienes más cosas en común? 📖",
+  "¿Cuál es la mayor aventura que te has dado sola? 🌍",
+  "¿Qué es lo que más te cuesta pedir ayuda? 🤲",
+  "Si tu vida fuera una película, ¿en qué escena estarías ahora mismo? 🎞️",
+  "¿Cuál es la conversación más larga que has tenido con una persona desconocida? ¿De qué hablaron? 🗣️",
+  "¿Qué es lo que más extrañas de tu infancia? 🌈",
+  "¿Tienes alguna opinión sobre algo completamente trivial que defiendes con pasión? 😄",
+  "¿Cuál es la cosa más pequeña que alguien ha hecho por ti y que no se te ha olvidado? 🌷",
+  "¿Qué te pondrías si pudieras vestirte exactamente como quisieras sin importar las opiniones? 👗",
+  "¿Cuál es tu recuerdo más antiguo? ¿Qué tan vívido es? 🧠",
+  "¿Qué tres cosas llevarías a una isla desierta si no fueran de supervivencia, sino de placer? 🏝️",
+  "¿Cuál es algo que haces muy bien pero que crees que la gente no valora? ✨",
+  "Si pudieras tener una conversación con cualquier persona de la historia, ¿con quién sería y qué le preguntarías? 🏛️",
+  "¿Cuál es la mentira piadosa que más repites? 😂",
+  "¿Qué es lo primero que piensas al despertar en la mañana, normalmente? ☀️",
+  "¿Cuál es tu tradición favorita, propia o familiar? 🎄",
+  "¿Hay algo que siempre quisiste decirme y nunca has encontrado el momento? 💛",
+  "¿Qué es lo que más agradeces de tu vida en este momento, aunque sea algo pequeño? 🙏",
+  "¿Qué palabras usarías para describir la amistad que tenemos tú y yo? 🌸",
+  "¿Cuándo fue la última vez que hiciste algo por primera vez? ¿Qué fue? 🌟",
+  "¿Qué significa para ti la palabra «hogar»? ¿Es un lugar, una persona, una sensación? 🏡",
+  "¿Qué es lo más loco o absurdo que te ha pasado y que si lo cuentas nadie te cree? 😂",
+  "¿Cuál es la cosa que más te gustaría que yo supiera de ti que quizás nunca te he preguntado? 💌"
+];
+
+const temas=[
+  "Lo que veo desde mi ventana ahora mismo 🪟",
+  "Mi color favorito, pero interpretado de otra forma 🎨",
+  "Una textura que me calma 🤍",
+  "Lo que representa 'casa' para mí 🏡",
+  "Mi estado de ánimo hoy, sin palabras 🌤️",
+  "Algo que me parece bello pero que nadie más nota ✨",
+  "Mi bebida favorita convertida en arte ☕",
+  "Un recuerdo de infancia que me sigue acompañando 🌈",
+  "El momento del día que más disfruto 🌙",
+  "Algo que me da miedo y algo que me da esperanza 🕊️",
+  "Mi lugar seguro, imaginario o real 🌿",
+  "La última cosa que me hizo reír sola 😂",
+  "Cómo se ve mi ciudad hoy 🌆",
+  "Un objeto de mi cuarto que tiene historia 📦",
+  "Lo que quiero dejar ir y lo que quiero guardar 🍂",
+  "Mi outfit favorito aunque no me lo ponga 👗",
+  "Una planta o flor que me recuerde a algo 🌸",
+  "El cielo en este momento, o como me lo imagino 🌌",
+  "Mi versión de la perfección en un momento pequeño ✨",
+  "Algo que me inspira esta semana 🌟"
+];
+
+let qIdx=Math.floor(Math.random()*questions.length);
+let temaIdx=Math.floor(Math.random()*temas.length);
+
+function initQuestion(){
+  document.getElementById('q-display').textContent=`"${questions[qIdx]}"`;
+  document.getElementById('q-counter').textContent=`Pregunta ${qIdx+1} de ${questions.length}`;
+}
+function nextQuestion(){
+  const el=document.getElementById('q-display');
+  el.style.opacity='0';
+  setTimeout(()=>{
+    qIdx=(qIdx+1)%questions.length;
+    el.textContent=`"${questions[qIdx]}"`;
+    document.getElementById('q-counter').textContent=`Pregunta ${qIdx+1} de ${questions.length}`;
+    el.style.opacity='1';
+    el.style.transition='opacity 0.3s ease';
+  },200);
+}
+function copyQuestion(){
+  copyMsg(`✉️ PREGUNTA EXPRESS: ${questions[qIdx]}`);
+}
+function newTema(){
+  const el=document.getElementById('tema-display');
+  el.style.opacity='0';
+  setTimeout(()=>{
+    temaIdx=(temaIdx+1)%temas.length;
+    el.textContent=temas[temaIdx];
+    el.style.opacity='1';el.style.transition='opacity 0.3s ease';
+  },200);
+}
+function copyTema(){
+  const t=document.getElementById('tema-display').textContent;
+  if(t==='haz clic en el botón para revelar ✨'){showToast('Primero genera un tema 🎲');return;}
+  copyMsg(`🎨 RETO CREATIVO: ${t}`);
+}
+
+// Init on load
+initQuestion();
+</script>
+</body>
+</html>
