@@ -126,10 +126,10 @@ body::before {
   border-radius:20px;
 }
 
-/* ── ESCENA FLIP (ALTO AMPLIADO Y FIJADO A 740PX PARA EVITAR COMPRESIÓN) ── */
+/* ── ESCENA FLIP (ALTO DE LA ESTRUCTURA FIJADO EN 740X) ── */
 .scene{
   width:min(440px,96vw);
-  height: 740px; /* Alargada proporcionalmente para un balance visual perfecto por ambos lados */
+  height: 740px; 
   perspective:1400px;
   position:relative;z-index:2;
   animation:splashIn .9s .2s cubic-bezier(.34,1.56,.64,1) both;
@@ -170,7 +170,7 @@ body::before {
   align-items:center;
   justify-content:space-between;
   text-align:center;
-  padding:2.5rem 2rem 2rem; /* Más aire para que los elementos respiren elegantemente */
+  padding:2.2rem 2rem 1.8rem; 
 }
 
 /* ── CABECERA CARD ── */
@@ -219,7 +219,7 @@ body::before {
 
 /* ── SECCIÓN STATS ── */
 .ss{
-  padding:1.5rem 1.6rem; /* Más balance y espacio vertical entre filas */
+  padding:1.5rem 1.6rem; 
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -234,7 +234,7 @@ body::before {
 }
 
 /* ── FILA STAT ── */
-.sr{position:relative;margin-bottom:0px} /* Espaciado controlado por flex distribution en .ss */
+.sr{position:relative;margin-bottom:0px} 
 .sr-top{display:flex;align-items:center;gap:.55rem;margin-bottom:.35rem}
 .sr-icon{
   width:36px;height:36px;border-radius:12px;
@@ -354,29 +354,33 @@ body::before {
 }
 
 /* ── REVERSO ELEMENTOS ── */
-.back-shell{font-size:3.5rem;animation:float 3s ease-in-out infinite;margin-bottom:.4rem;display:flex;justify-content:center;align-items:center;}
-.back-shell img { width:70px; height:70px; object-fit:contain; }
+.back-shell{font-size:3.2rem;animation:float 3s ease-in-out infinite;margin-bottom:.3rem;display:flex;justify-content:center;align-items:center;}
+.back-shell img { width:65px; height:65px; object-fit:contain; }
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
 .back-day{
   font-family:'Fredoka One',cursive;font-size:.85rem;
-  letter-spacing:2.5px;color:#2dc653;text-transform:uppercase;margin-bottom:.5rem;
+  letter-spacing:2.5px;color:#2dc653;text-transform:uppercase;margin-bottom:.4rem;
 }
 .back-title{
   font-family:'Fredoka One',cursive;font-size:1.75rem;
-  color:var(--ocean-dk);line-height:1.2;margin-bottom:1.2rem;
+  color:var(--ocean-dk);line-height:1.2;margin-bottom:0.8rem;
   text-shadow:1px 1px 0 #fff;
 }
 .back-msg{
-  font-size:.88rem;color:#1a1a2e;line-height:1.8;
-  max-width:360px;text-align:justify;margin-bottom:1.5rem;
+  font-size:.88rem;color:#1a1a2e;line-height:1.65;
+  max-width:360px;text-align:justify;
+}
+.back-p {
+  margin-bottom: 0.8rem;
+  text-indent: 0px;
 }
 .back-msg em{color:#2dc653;font-style:normal;font-weight:800}
 
-.back-sig{font-family:'Fredoka One',cursive;font-size:1.05rem;color:var(--ocean-d)}
-.back-hearts{margin-top:.3rem;font-size:1.4rem;letter-spacing:4px;animation:hb 1.8s ease-in-out infinite}
+.back-sig{font-family:'Fredoka One',cursive;font-size:1.05rem;color:var(--ocean-d);margin-top:0.4rem;}
+.back-hearts{margin-top:.1rem;font-size:1.4rem;letter-spacing:4px;animation:hb 1.8s ease-in-out infinite}
 @keyframes hb{0%,100%{transform:scale(1)}30%{transform:scale(1.12)}60%{transform:scale(.96)}}
-.back-return{margin-top:0.8rem;font-size:.72rem;color:var(--ocean-d);opacity:.65;font-weight:700}
+.back-return{margin-top:0.6rem;font-size:.72rem;color:var(--ocean-d);opacity:.65;font-weight:700}
 
 /* BURBUJAS POP en click ─────────────────────────────────── */
 .bpop{
@@ -424,6 +428,7 @@ body::before {
     <ellipse cx="38" cy="110" rx="12" ry="6" fill="#52b788" opacity=".5" transform="rotate(30 38 110)"/>
   </svg>
 </div>
+
 <div class="seaweed seaweed-r">
   <svg width="60" height="260" viewBox="0 0 60 260" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M30,260 Q50,225 35,195 Q20,165 38,135 Q55,105 40,75 Q25,45 35,10" stroke="#2dc653" stroke-width="7" stroke-linecap="round" fill="none"/>
@@ -452,18 +457,15 @@ body::before {
   </svg>
 </div>
 
-<!-- ── HEADER ───────────────────────────────────────────── -->
 <header class="hdr">
   <div class="hdr-label">✨ CARTA LEGENDARIA ✨</div>
   <h1 class="hdr-title">Ficha de Personaje</h1>
   <p class="hdr-sub">Edición Exclusiva · Día 05 🫧</p>
 </header>
 
-<!-- ── FLIP CARD ─────────────────────────────────────────── -->
 <div class="scene">
   <div class="flip" id="card">
 
-    <!-- FRENTE -->
     <div class="face face-front">
       <div class="ch">
         <div class="ch-badge">💖 ALMA PURA Y BRILLANTE 💖</div>
@@ -478,7 +480,6 @@ body::before {
       <div class="ss">
         <div class="ss-label">— atributos mágicos de su ser —</div>
 
-        <!-- 0: Dulzura de su Voz -->
         <div class="sr s0">
           <div class="sr-top">
             <div class="sr-icon">🎵</div>
@@ -492,7 +493,6 @@ body::before {
           </div>
         </div>
 
-        <!-- 1: Ternura Guardada -->
         <div class="sr s1">
           <div class="sr-top">
             <div class="sr-icon">🌼</div>
@@ -506,7 +506,6 @@ body::before {
           </div>
         </div>
 
-        <!-- 2: Pasión Surreal -->
         <div class="sr s2">
           <div class="sr-top">
             <div class="sr-icon">🔥</div>
@@ -520,7 +519,6 @@ body::before {
           </div>
         </div>
 
-        <!-- 3: Sabiduría y Comodidad -->
         <div class="sr s3">
           <div class="sr-top">
             <div class="sr-icon">🌊</div>
@@ -534,11 +532,10 @@ body::before {
           </div>
         </div>
 
-        <!-- 4: Valentía al Querer -->
         <div class="sr s4">
           <div class="sr-top">
             <div class="sr-icon">🛡️</div>
-            <div class="sr-name">Valentía Sincera al Querer</div>
+            <div class="sr-name">Campamento de Valentía (con Miedo)</div>
             <div class="sr-val">100 / 100</div>
           </div>
           <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
@@ -548,7 +545,6 @@ body::before {
           </div>
         </div>
 
-        <!-- 5: Empatía Brillante -->
         <div class="sr s5">
           <div class="sr-top">
             <div class="sr-icon">🌟</div>
@@ -569,18 +565,15 @@ body::before {
         <div class="flip-hint">🫧 voltear</div>
       </div>
     </div>
-    <!-- /frente -->
-
-    <!-- REVERSO -->
     <div class="face face-back">
       <div class="back-shell">🐚</div>
       <div class="back-day">✦ día 05 ✦</div>
       <h2 class="back-title">¡Feliz día cinco, mi vida!</h2>
-      <p class="back-msg">
-        Hoy me puse <em>muy creativa</em> y analicé con todo el cuidado del universo a mi personaje favorito de todo Bikini Bottom: <em>tú</em>. 🤭<br><br>
-        Quería plasmar lo que eres en una carta legendaria que tuviera tu esencia: la manera en que tus palabras me transmiten tanta paz, la ternura que me fuiste regalando poco a poco, y esa pasión tan surreal y bonita cuando hablas de lo que amas. Soy completamente consciente de la cantidad de cosas enormes que manejas en tu día a día, y me vuela la cabeza ver cómo logras hacer absolutamente todas a la perfección. Es admirable ver todo tu esfuerzo. Me hace muy feliz escucharte hablar de tu familia y de tu perrita. <em>Cuídate mucho, preciosa.</em><br><br>
-        Sé bien que a veces da nervios recibir tanto cariño o que da un poquito de miedo el pasado, pero me alegra inmensamente que estés aquí, queriéndome desde lejos de una forma tan limpia. Me emociona tanto que te vaya bonito en la vida, de verdad. Gracias por existir. 💖
-      </p>
+      <div class="back-msg">
+        <p class="back-p">Hoy me puse <em>muy creativa</em> y analicé con todo el cuidado del universo a mi personaje favorito de todo Bikini Bottom: <em>tú</em>. 🤭</p>
+        <p class="back-p">Quería plasmar lo que eres en una carta legendaria que tuviera tu esencia: la manera en que tus palabras me transmiten tanta paz, la ternura que me fuiste regalando poco a poco, y esa pasión tan surreal y bonita cuando hablas de lo que amas. Soy completamente consciente de la cantidad de cosas enormes que manejas en tu día a día, y me vuela la cabeza ver cómo logras hacer absolutamente todas a la perfección. Es admirable ver todo tu esfuerzo. Me hace muy feliz escucharte hablar de tu familia y de tu perrita. <em>Cuídate mucho, preciosa.</em></p>
+        <p class="back-p">Sé bien que a veces da nervios recibir tanto cariño o que da un poquito de miedo el pasado, pero me alegra inmensamente que estés aquí, queriéndome desde lejos de una forma tan limpia. Me emociona tanto que te vaya bonito en la vida, de verdad. Gracias por existir. 💖</p>
+      </div>
       <div class="back-sig">Con todo mi cariño</div>
       <div class="back-hearts">🫧 💜 🫧</div>
       <div class="back-return">← toca para volver a tus stats</div>
@@ -605,10 +598,20 @@ window.addEventListener('load',()=>{
   });
 });
 
-const card=document.getElementById('card');
-card.addEventListener('click',e=>{
-  card.classList.toggle('flipped');
-  pop(e.clientX,e.clientY);
+const card = document.getElementById('card');
+
+// Escucha clicks en toda la pantalla
+document.addEventListener('click', e => {
+  // Lanza el efecto visual de las burbujas en las coordenadas del click
+  pop(e.clientX, e.clientY);
+  
+  // Verifica si el click ocurrió dentro de la tarjeta
+  const clickedInsideCard = e.target.closest('.scene');
+  
+  if (clickedInsideCard) {
+    // Si fue dentro de la tarjeta, se activa el giro
+    card.classList.toggle('flipped');
+  }
 });
 
 function pop(cx,cy){
