@@ -6,7 +6,6 @@
 <title>✨ Bikini Bottom Stats · Ame ✨</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&family=Bubblegum+Sans&display=swap" rel="stylesheet"/>
 <style>
-/* ── VARIABLES GLOBALES DE CONFIGURACIÓN ── */
 :root {
   --ocean:    #00b4d8;
   --ocean-d:  #0077b6;
@@ -25,11 +24,9 @@
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-/* ── CONFIGURACIÓN DEL LIENZO PRINCIPAL (BODY) ── */
 body {
   min-height:100vh;
   background: #006994;
-  /* Capas de degradado para simular la profundidad del mar */
   background-image:
     radial-gradient(ellipse 80% 60% at 50% 0%,   #00b4d8 0%,  transparent 65%),
     radial-gradient(ellipse 60% 40% at 20% 80%,  #0096c7 0%,  transparent 50%),
@@ -43,7 +40,7 @@ body {
   position:relative;
 }
 
-/* Rayas de luz solar filtrándose en el agua */
+/* ── FONDO OCÉANO con rayas de luz ─────────────────────── */
 body::before {
   content:'';
   position:fixed;
@@ -59,7 +56,7 @@ body::before {
   z-index:0;
 }
 
-/* ── CONTENEDOR DE BURBUJAS DE FONDO ── */
+/* ── BURBUJAS DE FONDO ─────────────────────────────────── */
 #bubbles{position:fixed;inset:0;pointer-events:none;z-index:0}
 .bub{
   position:absolute;
@@ -77,7 +74,7 @@ body::before {
   100%{transform:translateY(-110vh) translateX(var(--tx)) scale(1.1);opacity:0}
 }
 
-/* ── ALGAS MARINAS (ANIMACIÓN DE BALANCEO) ── */
+/* ── PLANTAS / ALGAS decorativas ───────────────────────── */
 .seaweed{
   position:fixed;bottom:0;pointer-events:none;z-index:0;opacity:.55;
 }
@@ -89,10 +86,10 @@ body::before {
   100%{transform:skewX(8deg)  scaleY(1.05)}
 }
 
-/* ── ILUSTRACIÓN DE PIEDRAS EN LA BASE ── */
+/* ── PIEDRAS DEL FONDO ─────────────────────────────────── */
 .rocks{position:fixed;bottom:0;left:0;right:0;pointer-events:none;z-index:0;opacity:.45}
 
-/* ── HEADER SUPERIOR (TÍTULO DE LA WEB) ── */
+/* ── HEADER ─────────────────────────────────────────────── */
 .hdr{text-align:center;position:relative;z-index:2;margin-bottom:1.8rem;animation:splashIn .9s cubic-bezier(.34,1.56,.64,1) both}
 @keyframes splashIn{
   0%  {opacity:0;transform:scale(.7) translateY(-20px)}
@@ -105,7 +102,7 @@ body::before {
   color:var(--night);
   background:var(--sand);
   border:3px solid var(--night);
-  border-radius999px;
+  border-radius:999px;
   padding:.2rem 1.1rem;
   margin-bottom:.6rem;
   box-shadow:3px 3px 0 var(--night);
@@ -129,23 +126,22 @@ body::before {
   border-radius:20px;
 }
 
-/* ── CONFIGURACIÓN DEL EFECTO 3D (GIRO DE LA TARJETA) ── */
-.scene {
+/* ── ESCENA FLIP ─────────────────────────────────────────── */
+.scene{
   width:min(440px,96vw);
-  perspective:1400px; /* Profundidad del efecto de volteo */
+  perspective:1400px;
   position:relative;z-index:2;
   animation:splashIn .9s .2s cubic-bezier(.34,1.56,.64,1) both;
 }
-.flip {
+.flip{
   width:100%;position:relative;
   transform-style:preserve-3d;
   transition:transform 1s cubic-bezier(.4,.2,.2,1);
   cursor:pointer;
 }
-.flip.flipped{transform:rotateY(180deg)} /* Gatillo JS para rotar 180 grados */
-
-.face {
-  backface-visibility:hidden; /* Oculta la cara contraria durante el giro */
+.flip.flipped{transform:rotateY(180deg)}
+.face{
+  backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
   border-radius:28px;
   border:4px solid var(--night);
@@ -162,8 +158,8 @@ body::before {
   padding:2rem 1.8rem;
 }
 
-/* ── BLOQUE SUPERIOR DE LA TARJETA (NOMBRE Y NIVEL) ── */
-.ch {
+/* ── CABECERA CARD ───────────────────────────────────────── */
+.ch{
   background:var(--ocean);
   padding:1.6rem 1.6rem 1.1rem;
   text-align:center;
@@ -206,7 +202,7 @@ body::before {
 .ch-divs{display:flex;gap:.5rem;justify-content:center;margin-top:.5rem;position:relative}
 .ch-div{width:8px;height:8px;border-radius:50%;background:#fff;opacity:.6}
 
-/* ── CONTENEDOR DE ATRIBUTOS (STATS) ── */
+/* ── SECCIÓN STATS ───────────────────────────────────────── */
 .ss{padding:1.2rem 1.4rem 1.4rem}
 .ss-label{
   text-align:center;
@@ -216,30 +212,25 @@ body::before {
   margin-bottom:1.1rem;opacity:.85;
 }
 
-/* ── FILA INDIVIDUAL DE ESTADÍSTICA ── */
+/* ── FILA STAT ───────────────────────────────────────────── */
 .sr{position:relative;margin-bottom:1rem}
 .sr:last-child{margin-bottom:0}
 .sr-top{display:flex;align-items:center;gap:.55rem;margin-bottom:.32rem}
-
-/* CAJA DEL ICONO: Modificada para aceptar imágenes fluidas */
-.sr-icon {
+.sr-icon{
   width:36px;height:36px;border-radius:12px;
   display:flex;align-items:center;justify-content:center;
   font-size:1.1rem;flex-shrink:0;
   border:2.5px solid var(--night);
   box-shadow:2px 2px 0 var(--night);
   transition:transform .2s ease;
-  overflow: hidden; /* Evita que las imágenes se desborden de los bordes redondeados */
-  background: white; /* Da un fondo limpio por si el PNG tiene transparencia */
+  overflow: hidden;
+  background: white;
 }
-
-/* Ajuste para que las nuevas imágenes PNG ocupen el espacio de forma armoniosa */
 .sr-icon img {
   width: 80%;
   height: 80%;
   object-fit: contain;
 }
-
 .sr:hover .sr-icon{transform:scale(1.2) rotate(-8deg)}
 .sr-name{font-weight:800;font-size:.88rem;color:var(--night);flex:1;line-height:1.2}
 .sr-val{
@@ -247,7 +238,7 @@ body::before {
   white-space:nowrap;
 }
 
-/* Estructura de las Barras de Carga */
+/* Barra */
 .bar-track{
   height:13px;border-radius:999px;
   background:rgba(0,0,0,.1);
@@ -258,7 +249,7 @@ body::before {
   width:0;transition:width 1.5s cubic-bezier(.4,0,.2,1);
 }
 
-/* COLORES PERSONALIZADOS PARA CADA FILA DE ATRIBUTO */
+/* Colores por stat */
 .s0 .sr-icon{background:#ffb3c6}
 .s0 .sr-val {color:var(--coral)}
 .s0 .bar-fill{background:linear-gradient(90deg,#ff758f,#ef233c)}
@@ -283,7 +274,7 @@ body::before {
 .s5 .sr-val {color:#7f4f00}
 .s5 .bar-fill{background:linear-gradient(90deg,#ffb347,#7f4f00)}
 
-/* ── TOOLTIPS INTERACTIVOS (NUBES DE INFORMACIÓN) ── */
+/* Tooltip ────────────────────────────────────────────────── */
 .tip{
   position:absolute;bottom:calc(100% + 12px);left:50%;
   transform:translateX(-50%) translateY(8px);
@@ -315,7 +306,7 @@ body::before {
 }
 .sr:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* ── PIE DE LA TARJETA ── */
+/* ── PIE DE CARD ─────────────────────────────────────────── */
 .cf{
   padding:.85rem 1.4rem;
   border-top:4px dashed var(--night);
@@ -323,7 +314,7 @@ body::before {
   display:flex;align-items:center;justify-content:space-between;
 }
 .cf-tag{
-  font-family:'Fredoka One',cursive;font-size:.72rem;
+  font-family:'Fredoka One',cursive;font-size:0.75rem;
   letter-spacing:1px;color:var(--ocean-d);opacity:.8;
 }
 .flip-hint{
@@ -340,22 +331,9 @@ body::before {
   50%    {transform:scale(1.06)}
 }
 
-/* ── DISEÑO DE LA CARA TRASERA (REVERSO) ── */
-/* Modificado por si quieres cambiar la caracola 🐚 por una imagen o vector */
-.back-shell {
-  font-size:3.5rem;
-  animation:float 3s ease-in-out infinite;
-  margin-bottom:.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.back-shell img {
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
-}
-
+/* ── REVERSO ─────────────────────────────────────────────── */
+.back-shell{font-size:3.5rem;animation:float 3s ease-in-out infinite;margin-bottom:.5rem;display:flex;justify-content:center;align-items:center;}
+.back-shell img { width:70px; height:70px; object-fit:contain; }
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 .back-day{
   font-family:'Fredoka One',cursive;font-size:.85rem;
@@ -376,7 +354,7 @@ body::before {
 @keyframes hb{0%,100%{transform:scale(1)}30%{transform:scale(1.12)}60%{transform:scale(.96)}}
 .back-return{margin-top:1rem;font-size:.72rem;color:var(--ocean-d);opacity:.65;font-weight:700}
 
-/* ELEMENTOS EMITIDOS POR EL SCRIPT AL HACER CLICK */
+/* BURBUJAS POP en click ─────────────────────────────────── */
 .bpop{
   position:fixed;pointer-events:none;
   width:12px;height:12px;border-radius:50%;
@@ -389,23 +367,14 @@ body::before {
   100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.6)}
 }
 
-/* Ilustraciones de Fondo (Bob Esponja, Calardo, etc.) */
-/* Modificado para soportar imágenes e iconos fluidos si decides usarlos en vez de emojis */
-.deco-sponge {
+/* Bob esponja decol ──────────────────────────────────────── */
+.deco-sponge{
   position:fixed;pointer-events:none;z-index:1;
-  opacity:.18;
-  font-size:6rem;
+  opacity:.18;font-size:6rem;
   animation:wobble 8s ease-in-out infinite alternate;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display:flex;align-items:center;justify-content:center;
 }
-.deco-sponge img {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-}
-
+.deco-sponge img { width:120px; height:120px; object-fit:contain; }
 @keyframes wobble{
   0%   {transform:rotate(-8deg) scale(1)}
   100%{transform:rotate(6deg)  scale(1.05)}
@@ -414,19 +383,13 @@ body::before {
 </head>
 <body>
 
-<!-- ── ELEMENTOS DECORATIVOS DIFUMINADOS EN LAS ESQUINAS ── -->
-<!-- TIP: Para usar vectores PNG reales en lugar de los emojis de Bob Esponja (🧽, 🦀, etc.),
-     puedes borrar el emoji dentro del div e insertar una etiqueta img.
-     Ejemplo: <div class="deco-sponge" style="bottom:12%;left:-1%"><img src="bob_esponja.png" alt="Bob"></div> -->
 <div class="deco-sponge" style="bottom:12%;left:-1%">🧽</div>
 <div class="deco-sponge" style="top:10%;right:-1%;animation-delay:-4s;font-size:4rem">🦀</div>
 <div class="deco-sponge" style="bottom:20%;right:2%;animation-delay:-2s;font-size:3.5rem">🐙</div>
 <div class="deco-sponge" style="top:30%;left:1%;font-size:3rem;animation-delay:-6s">🐚</div>
 
-<!-- Elementos dinámicos inyectados por JavaScript -->
 <div id="bubbles"></div>
 
-<!-- Alga Izquierda SVG -->
 <div class="seaweed seaweed-l">
   <svg width="60" height="220" viewBox="0 0 60 220" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M30,220 Q10,190 25,165 Q40,140 20,115 Q5,90 22,65 Q38,40 28,10" stroke="#2dc653" stroke-width="7" stroke-linecap="round" fill="none"/>
@@ -437,8 +400,6 @@ body::before {
     <ellipse cx="38" cy="110" rx="12" ry="6" fill="#52b788" opacity=".5" transform="rotate(30 38 110)"/>
   </svg>
 </div>
-
-<!-- Alga Derecha SVG -->
 <div class="seaweed seaweed-r">
   <svg width="60" height="260" viewBox="0 0 60 260" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M30,260 Q50,225 35,195 Q20,165 38,135 Q55,105 40,75 Q25,45 35,10" stroke="#2dc653" stroke-width="7" stroke-linecap="round" fill="none"/>
@@ -450,7 +411,6 @@ body::before {
   </svg>
 </div>
 
-<!-- Rocas vectoriales de la base de Fondo de Bikini -->
 <div class="rocks">
   <svg width="100%" height="90" viewBox="0 0 800 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
     <ellipse cx="80"  cy="75" rx="70"  ry="22" fill="#5e503f"/>
@@ -468,23 +428,23 @@ body::before {
   </svg>
 </div>
 
-<!-- ── TEXTOS DEL ENCABEZADO ── -->
+<!-- ── HEADER ───────────────────────────────────────────── -->
 <header class="hdr">
-  <div class="hdr-label">🌊 BIKINI BOTTOM STATS 🌊</div>
+  <div class="hdr-label">✨ CARTA LEGENDARIA ✨</div>
   <h1 class="hdr-title">Ficha de Personaje</h1>
-  <p class="hdr-sub">Edición Especial · Día 05 🫧</p>
+  <p class="hdr-sub">Edición Exclusiva · Día 05 🫧</p>
 </header>
 
-<!-- ── NÚCLEO CENTRAL DE LA INTERFAZ (TARJETA) ── -->
+<!-- ── FLIP CARD ─────────────────────────────────────────── -->
 <div class="scene">
   <div class="flip" id="card">
 
-    <!-- FACE FRONT: ESTADÍSTICAS Y BARRA DE ATRIBUTOS -->
+    <!-- FRENTE -->
     <div class="face face-front">
       <div class="ch">
-        <div class="ch-badge">🐠 SER RARO Y EXTRAORDINARIO 🐠</div>
+        <div class="ch-badge">💖 ALMA PURA Y BRILLANTE 💖</div>
         <div class="ch-name">Ame</div>
-        <div class="ch-title">Criatura Única del Océano · Level ∞</div>
+        <div class="ch-title">Esencia Única del Océano · Level ∞</div>
         <div class="ch-divs">
           <div class="ch-div"></div><div class="ch-div"></div><div class="ch-div"></div>
           <div class="ch-div"></div><div class="ch-div"></div>
@@ -492,117 +452,110 @@ body::before {
       </div>
 
       <div class="ss">
-        <div class="ss-label">— atributos únicos e irrepetibles —</div>
+        <div class="ss-label">— atributos mágicos de su ser —</div>
 
-        <!-- TIP PARA REEMPLAZAR ICONOS POR PNG:
-             En lugar de poner el emoji crudo dentro de <div class="sr-icon">, 
-             inserta una etiqueta img con tu archivo local o URL. 
-             Ejemplo: <div class="sr-icon"><img src="iconos/musica.png" alt="Música"></div> -->
-
-        <!-- Fila Atributo 0: Voz Melodiosa -->
+        <!-- 0: Dulzura de su Voz -->
         <div class="sr s0">
           <div class="sr-top">
             <div class="sr-icon">🎵</div>
-            <div class="sr-name">Voz Melodiosa & Cantadita</div>
+            <div class="sr-name">Dulzura de su Voz & Palabras</div>
             <div class="sr-val">MAX ∞</div>
           </div>
           <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
           <div class="tip">
             <strong>✦ Habilidad Pasiva Permanente</strong>
-            Escuchar su voz es como tener puesta tu canción favorita en repeat eterno. El acento mexicano cantadito genera una calidez única que atraviesa cualquier pantalla. Incluye el uso frecuente de "preciosa", técnica catalogada como irresistible.
+            Escuchar sus notas de voz genera una calma infinita que abraza el alma. Su manera tan bonita y dulce de expresarse tiene un magnetismo tierno que alegra cualquier instante del día. Incluye el uso constante de "preciosa".
           </div>
         </div>
 
-        <!-- Fila Atributo 1: Ternura Guardada -->
+        <!-- 1: Ternura Guardada -->
         <div class="sr s1">
           <div class="sr-top">
             <div class="sr-icon">🌼</div>
-            <div class="sr-name">Ternura Pura y Guardada</div>
+            <div class="sr-name">Ternura Sincera y Protegida</div>
             <div class="sr-val">100 / 100</div>
           </div>
           <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
           <div class="tip">
-            <strong>✦ Tesoro de Acceso Restringido</strong>
-            El lado más genuino, limpio y sincero de su ser. No se expone fácilmente: hay que ganárselo con tiempo y presencia. Una vez que te lo muestra, es el regalo más bonito que puede darte alguien.
+            <strong>✦ Regalo de Acceso Exclusivo</strong>
+            El lado más dulce, limpio y transparente de todo su ser. Es un espacio íntimo y vulnerable que resguarda con timidez; una vez que te permite conocerlo, descubres el rincón más noble y honesto que pueda existir.
           </div>
         </div>
 
-        <!-- Fila Atributo 2: Pasión al Hablar -->
+        <!-- 2: Pasión Surreal -->
         <div class="sr s2">
           <div class="sr-top">
             <div class="sr-icon">🔥</div>
-            <div class="sr-name">Pasión al Hablar & su Trabajo</div>
+            <div class="sr-name">Pasión Surreal & Amor al Trabajo</div>
             <div class="sr-val">∞ / ∞</div>
           </div>
           <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
           <div class="tip">
-            <strong>✦ Aura de Contagio Inmediato</strong>
-            Cuando habla de lo que hace, su voz cambia. Se siente que ama su trabajo con el alma, aunque no sea bien remunerado. Esa pasión surreal e incontrolable es de las cosas más bonitas que se puede percibir en alguien.
+            <strong>✦ Aura de Inspiración Pura</strong>
+            La hermosa energía que transmite al platicar sobre lo que hace. Se percibe de inmediato un brillo único y un compromiso sincero con su labor, haciendo evidente que ama su profesión con el corazón. Inspira por completo.
           </div>
         </div>
 
-        <!-- Fila Atributo 3: Sabiduría y Espacio Seguro -->
+        <!-- 3: Sabiduría y Comodidad -->
         <div class="sr s3">
           <div class="sr-top">
             <div class="sr-icon">🌊</div>
-            <div class="sr-name">Sabiduría & Espacio Seguro</div>
+            <div class="sr-name">Sabiduría & Comodidad Total</div>
             <div class="sr-val">INVUL.</div>
           </div>
           <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
           <div class="tip">
-            <strong>✦ Efecto de Refugio Activo</strong>
-            Conocimiento inmenso y madurez genuina. Con ella se puede hablar absolutamente de todo con una comodidad increíble y sin filtros. Su familia, su perrita y los talleres que frecuenta son su pilar y su calma.
+            <strong>✦ Efecto de Entorno Confortable</strong>
+            Madurez y entendimiento profundo sobre la vida. Facilita un espacio seguro tan transparente donde es hermoso conversar de absolutamente todo con total fluidez. Su perrita, su familia y sus talleres son su pilar de paz.
           </div>
         </div>
 
-        <!-- Fila Atributo 4: Escudo del Corazón -->
+        <!-- 4: Valentía al Querer -->
         <div class="sr s4">
           <div class="sr-top">
             <div class="sr-icon">🛡️</div>
-            <div class="sr-name">Valentía al Querer (con Miedo)</div>
+            <div class="sr-name">Valentía Sincera al Querer</div>
             <div class="sr-val">95 / 100</div>
           </div>
           <div class="bar-track"><div class="bar-fill" data-w="95"></div></div>
           <div class="tip">
-            <strong>✦ Modificador de Vulnerabilidad</strong>
-            Le dan nervios recibir amor desbordado. Tiene miedo a querer demasiado y salir lastimada, como ya sucedió antes. Aun así, desde lejos, sigue queriendo de manera honesta y hermosa. Eso toma una valentía inmensa.
+            <strong>✦ Modificador de Afecto Noble</strong>
+            Aunque recibir muestras intensas de cariño le cause timidez y existan miedos lógicos a causa de heridas pasadas, posee una fuerza inmensa para mantenerse presente, queriendo de la forma más bonita desde la distancia.
           </div>
         </div>
 
-        <!-- Fila Atributo 5: Felicidad Compartida -->
+        <!-- 5: Empatía Brillante -->
         <div class="sr s5">
           <div class="sr-top">
             <div class="sr-icon">🌟</div>
-            <div class="sr-name">Le Emociona tu Felicidad</div>
+            <div class="sr-name">Felicidad por tus Logros</div>
             <div class="sr-val">ÚNICO</div>
           </div>
           <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
           <div class="tip">
-            <strong>✦ Buff Especial sin Cooldown</strong>
-            Le emociona genuinamente que te vaya bonito en la vida. No lo finge, no lo dice por decir: se siente en cada palabra. Es de las personas que celebran tus logros como si fueran propios.
+            <strong>✦ Bendición del Refugio Seguro</strong>
+            Le emociona con todo el corazón que te vaya bonito en la vida. Es un sentimiento real y libre de egoísmo; celebra tus alegrías con una ilusión tan sincera que se siente en la calidez de cada uno de sus mensajes.
           </div>
         </div>
 
       </div>
 
       <div class="cf">
-        <span class="cf-tag">SERIE: DÍA 05 · NÁUTICA</span>
+        <span class="cf-tag">CARTA LEGENDARIA · ED. EXCLUSIVA</span>
         <div class="flip-hint">🫧 voltear</div>
       </div>
     </div>
     <!-- /frente -->
 
-    <!-- FACE BACK: MENSAJE INTERNO EMOCIONAL -->
+    <!-- REVERSO -->
     <div class="face face-back">
-      <!-- TIP PARA LA CARACOLA TRASERA: puedes cambiar 🐚 por una imagen si lo prefieres:
-           <div class="back-shell"><img src="iconos/caracola.png" alt="Caracola"></div> -->
       <div class="back-shell">🐚</div>
       <div class="back-day">✦ día 05 ✦</div>
       <h2 class="back-title">¡Feliz día cinco,<br>mi vida preciosa!</h2>
       <p class="back-msg">
         Hoy me puse <em>muy creativa</em> y analicé con todo el cuidado del universo a mi personaje favorito de todo Bikini Bottom: <em>tú</em>. 🤭<br><br>
-        Quería plasmar lo que eres en algo que tuviera tu esencia: la manera en que tu voz suena como música, la ternura que me regalaste poco a poco, esa pasión tan surreal cuando hablas de lo que amas. Me hace feliz saber que pasas tiempo con tu familia, tu perrita y tus talleres. <em>Cuídate mucho, preciosa.</em><br><br>
-        Sé que a veces da miedo querer y a veces da nervios recibir tanto cariño. Pero me alegra que estés aquí, queriéndome desde lejos tan bonito. Me emociona que te vaya bien en la vida, de verdad. 💖
+        Quería plasmar lo que eres en una carta legendaria que tuviera tu esencia: la manera en que tus palabras me transmiten tanta paz, la ternura que me fuiste regalando poco a poco, y esa pasión tan surreal y bonita cuando hablas de lo que amas. Me hace muy feliz escucharte hablar de tus talleres, de tu familia y de tu perrita. <em>Cuídate mucho, preciosa.</em><br><br>
+        Sé bien que a veces da nervios recibir tanto cariño o que da un poquito de miedo el pasado, pero me alegra inmensamente que estés aquí, queriéndome desde lejos de una forma tan limpia. Me emociona tanto que te vaya bonito en la vida. Gracias por existir. 💖
       </p>
       <div class="back-sig">Con todo mi cariño</div>
       <div class="back-hearts">🫧 💜 🫧</div>
@@ -613,7 +566,6 @@ body::before {
 </div>
 
 <script>
-// LÓGICA: Generación dinámica del sistema de burbujas flotantes de fondo
 const bf=document.getElementById('bubbles');
 for(let i=0;i<24;i++){
   const b=document.createElement('div');
@@ -623,21 +575,18 @@ for(let i=0;i<24;i++){
   bf.appendChild(b);
 }
 
-// LÓGICA: Disparador secuencial para rellenar las barras de stats al terminar de cargar la página
 window.addEventListener('load',()=>{
   document.querySelectorAll('.bar-fill').forEach((b,i)=>{
     setTimeout(()=>{ b.style.width=b.dataset.w+'%' }, 500+i*200);
   });
 });
 
-// LÓGICA: Manejador del clic de rotación e invocación del sistema de partículas físicas
 const card=document.getElementById('card');
 card.addEventListener('click',e=>{
   card.classList.toggle('flipped');
   pop(e.clientX,e.clientY);
 });
 
-// LÓGICA: Emisor de partículas de burbujas dinámicas dispersadas de forma radial en base al clic
 function pop(cx,cy){
   for(let i=0;i<12;i++){
     const el=document.createElement('div');
