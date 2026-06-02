@@ -126,10 +126,10 @@ body::before {
   border-radius:20px;
 }
 
-/* ── ESCENA FLIP (ALTO EQUILIBRADO Y SIMÉTRICO FIJADO A 680PX) ── */
+/* ── ESCENA FLIP (ALTO AMPLIADO Y FIJADO A 740PX PARA EVITAR COMPRESIÓN) ── */
 .scene{
   width:min(440px,96vw);
-  height: 680px; /* Tamaño unificado perfecto para contener holgadamente el frente y el reverso */
+  height: 740px; /* Alargada proporcionalmente para un balance visual perfecto por ambos lados */
   perspective:1400px;
   position:relative;z-index:2;
   animation:splashIn .9s .2s cubic-bezier(.34,1.56,.64,1) both;
@@ -153,7 +153,7 @@ body::before {
   border-radius:28px;
   border:4px solid var(--night);
   box-shadow:6px 6px 0 var(--night),0 16px 50px rgba(0,0,0,.3);
-  overflow: hidden; /* Cierre estricto para evitar barras de scroll */
+  overflow: hidden;
 }
 
 .face-front{
@@ -170,13 +170,13 @@ body::before {
   align-items:center;
   justify-content:space-between;
   text-align:center;
-  padding:1.5rem 1.4rem 1.4rem; /* Distribución optimizada para que entre todo el texto con holgura */
+  padding:2.5rem 2rem 2rem; /* Más aire para que los elementos respiren elegantemente */
 }
 
 /* ── CABECERA CARD ── */
 .ch{
   background:var(--ocean);
-  padding:1.4rem 1.6rem 1rem;
+  padding:1.6rem 1.6rem 1.2rem;
   text-align:center;
   border-bottom:4px dashed var(--night);
   position:relative;
@@ -199,7 +199,7 @@ body::before {
   padding:.3rem 1rem;border-radius:999px;
   border:2.5px solid var(--night);
   box-shadow:3px 3px 0 var(--night);
-  margin-bottom:.5rem;position:relative;
+  margin-bottom:.6rem;position:relative;
 }
 .ch-name{
   font-family:'Fredoka One',cursive;
@@ -219,24 +219,23 @@ body::before {
 
 /* ── SECCIÓN STATS ── */
 .ss{
-  padding:1rem 1.4rem;
+  padding:1.5rem 1.6rem; /* Más balance y espacio vertical entre filas */
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 }
 .ss-label{
   text-align:center;
   font-family:'Fredoka One',cursive;
   font-size:.78rem;letter-spacing:2.5px;
   color:var(--ocean-d);text-transform:uppercase;
-  margin-bottom:1.1rem;opacity:.85;
+  margin-bottom:0.5rem;opacity:.85;
 }
 
 /* ── FILA STAT ── */
-.sr{position:relative;margin-bottom:0.9rem}
-.sr:last-child{margin-bottom:0}
-.sr-top{display:flex;align-items:center;gap:.55rem;margin-bottom:.32rem}
+.sr{position:relative;margin-bottom:0px} /* Espaciado controlado por flex distribution en .ss */
+.sr-top{display:flex;align-items:center;gap:.55rem;margin-bottom:.35rem}
 .sr-icon{
   width:36px;height:36px;border-radius:12px;
   display:flex;align-items:center;justify-content:center;
@@ -331,7 +330,7 @@ body::before {
 
 /* ── PIE DE CARD ── */
 .cf{
-  padding:.85rem 1.4rem;
+  padding:1rem 1.4rem;
   border-top:4px dashed var(--night);
   background:rgba(0,180,216,.12);
   display:flex;align-items:center;justify-content:space-between;
@@ -355,29 +354,29 @@ body::before {
 }
 
 /* ── REVERSO ELEMENTOS ── */
-.back-shell{font-size:3rem;animation:float 3s ease-in-out infinite;margin-bottom:.2rem;display:flex;justify-content:center;align-items:center;}
-.back-shell img { width:65px; height:65px; object-fit:contain; }
+.back-shell{font-size:3.5rem;animation:float 3s ease-in-out infinite;margin-bottom:.4rem;display:flex;justify-content:center;align-items:center;}
+.back-shell img { width:70px; height:70px; object-fit:contain; }
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
 .back-day{
   font-family:'Fredoka One',cursive;font-size:.85rem;
-  letter-spacing:2.5px;color:#2dc653;text-transform:uppercase;margin-bottom:.3rem;
+  letter-spacing:2.5px;color:#2dc653;text-transform:uppercase;margin-bottom:.5rem;
 }
 .back-title{
-  font-family:'Fredoka One',cursive;font-size:1.6rem;
-  color:var(--ocean-dk);line-height:1.2;margin-bottom:0.7rem;
+  font-family:'Fredoka One',cursive;font-size:1.75rem;
+  color:var(--ocean-dk);line-height:1.2;margin-bottom:1.2rem;
   text-shadow:1px 1px 0 #fff;
 }
 .back-msg{
-  font-size:.86rem;color:#1a1a2e;line-height:1.7;
-  max-width:350px;text-align:justify;margin-bottom:0.9rem;
+  font-size:.88rem;color:#1a1a2e;line-height:1.8;
+  max-width:360px;text-align:justify;margin-bottom:1.5rem;
 }
 .back-msg em{color:#2dc653;font-style:normal;font-weight:800}
 
-.back-sig{font-family:'Fredoka One',cursive;font-size:0.95rem;color:var(--ocean-d)}
-.back-hearts{margin-top:.2rem;font-size:1.3rem;letter-spacing:4px;animation:hb 1.8s ease-in-out infinite}
+.back-sig{font-family:'Fredoka One',cursive;font-size:1.05rem;color:var(--ocean-d)}
+.back-hearts{margin-top:.3rem;font-size:1.4rem;letter-spacing:4px;animation:hb 1.8s ease-in-out infinite}
 @keyframes hb{0%,100%{transform:scale(1)}30%{transform:scale(1.12)}60%{transform:scale(.96)}}
-.back-return{margin-top:0.6rem;font-size:.72rem;color:var(--ocean-d);opacity:.65;font-weight:700}
+.back-return{margin-top:0.8rem;font-size:.72rem;color:var(--ocean-d);opacity:.65;font-weight:700}
 
 /* BURBUJAS POP en click ─────────────────────────────────── */
 .bpop{
@@ -455,7 +454,7 @@ body::before {
 
 <!-- ── HEADER ───────────────────────────────────────────── -->
 <header class="hdr">
-  <div class="hdr-label">✨ CARTA LEGENDARY ✨</div>
+  <div class="hdr-label">✨ CARTA LEGENDARIA ✨</div>
   <h1 class="hdr-title">Ficha de Personaje</h1>
   <p class="hdr-sub">Edición Exclusiva · Día 05 🫧</p>
 </header>
@@ -497,7 +496,7 @@ body::before {
         <div class="sr s1">
           <div class="sr-top">
             <div class="sr-icon">🌼</div>
-            <div class="sr-name">Ternura Pura y Guardada</div>
+            <div class="sr-name">Ternura Sincera y Protegida</div>
             <div class="sr-val">100 / 100</div>
           </div>
           <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
@@ -511,7 +510,7 @@ body::before {
         <div class="sr s2">
           <div class="sr-top">
             <div class="sr-icon">🔥</div>
-            <div class="sr-name">Pasión al Hablar & su Trabajo</div>
+            <div class="sr-name">Pasión Surreal & Amor al Trabajo</div>
             <div class="sr-val">∞ / ∞</div>
           </div>
           <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
@@ -525,7 +524,7 @@ body::before {
         <div class="sr s3">
           <div class="sr-top">
             <div class="sr-icon">🌊</div>
-            <div class="sr-name">Sabiduría & Espacio Seguro</div>
+            <div class="sr-name">Sabiduría & Comodidad Total</div>
             <div class="sr-val">INVUL.</div>
           </div>
           <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
@@ -539,7 +538,7 @@ body::before {
         <div class="sr s4">
           <div class="sr-top">
             <div class="sr-icon">🛡️</div>
-            <div class="sr-name">Valentía al Querer (con Miedo)</div>
+            <div class="sr-name">Valentía Sincera al Querer</div>
             <div class="sr-val">100 / 100</div>
           </div>
           <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
@@ -553,7 +552,7 @@ body::before {
         <div class="sr s5">
           <div class="sr-top">
             <div class="sr-icon">🌟</div>
-            <div class="sr-name">Le Emociona tu Felicidad</div>
+            <div class="sr-name">Felicidad por tus Logros</div>
             <div class="sr-val">ÚNICO</div>
           </div>
           <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
@@ -606,7 +605,6 @@ window.addEventListener('load',()=>{
   });
 });
 
-// Restaurado el clic global en toda la tarjeta para máxima comodidad
 const card=document.getElementById('card');
 card.addEventListener('click',e=>{
   card.classList.toggle('flipped');
