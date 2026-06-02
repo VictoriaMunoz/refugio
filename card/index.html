@@ -1,666 +1,654 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>✨ Bikini Bottom Stats • Ame ✨</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=VT323&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --sea-blue:   #30b1ce;
-      --sea-dark:   #1b6879;
-      --bubble:     #e0f7fc;
-      --coral:      #ff7597;
-      --coral-d:    #e05375;
-      --sponge-y:   #fff176;
-      --sponge-d:   #fbc02d;
-      --sand:       #fff59d;
-      --deep-ocean: #102a43;
-      --white80:    rgba(255,255,255,0.85);
-      --white40:    rgba(255,255,255,0.40);
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>✨ Bikini Bottom Stats · Ame ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&family=Bubblegum+Sans&display=swap" rel="stylesheet"/>
+<style>
+/* ── VARIABLES GLOBALES DE CONFIGURACIÓN ── */
+:root {
+  --ocean:    #00b4d8;
+  --ocean-d:  #0077b6;
+  --ocean-dk: #023e8a;
+  --sand:     #ffd166;
+  --sand-d:   #f4a522;
+  --coral:    #ef233c;
+  --coral-l:  #ff758f;
+  --kelp:     #2dc653;
+  --kelp-d:   #1a7a31;
+  --bubble:   rgba(255,255,255,0.55);
+  --foam:     #e0f7fa;
+  --night:    #03045e;
+  --gary:     #9d4edd;
+}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-    body {
-      min-height: 100vh;
-      background: #4ec3e0;
-      /* Fondo clásico de Bob Esponja con gradiente de agua marina profunda */
-      background-image:
-        radial-gradient(circle at 50% 20%, #76deeb 0%, transparent 60%),
-        radial-gradient(circle at 10% 80%, #3caec7 0%, transparent 50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Nunito', sans-serif;
-      padding: 2rem 1rem 4rem;
-      overflow-x: hidden;
-      position: relative;
-    }
+/* ── CONFIGURACIÓN DEL LIENZO PRINCIPAL (BODY) ── */
+body {
+  min-height:100vh;
+  background: #006994;
+  /* Capas de degradado para simular la profundidad del mar */
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 0%,   #00b4d8 0%,  transparent 65%),
+    radial-gradient(ellipse 60% 40% at 20% 80%,  #0096c7 0%,  transparent 50%),
+    radial-gradient(ellipse 50% 35% at 85% 70%,  #023e8a 0%,  transparent 55%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:2rem 1rem 5rem;
+  font-family:'Nunito',sans-serif;
+  overflow-x:hidden;
+  position:relative;
+}
 
-    /* ─── Bikini Bottom Flower Clouds ─── */
-    .sky-flowers {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      opacity: 0.25;
-    }
-    .flower-cloud {
-      position: absolute;
-      fill: none;
-      stroke-width: 12;
-      animation: floatFlower 12s ease-in-out infinite alternate;
-    }
-    @keyframes floatFlower {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(-20px) rotate(15deg); }
-    }
+/* Rayas de luz solar filtrándose en el agua */
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  background: repeating-linear-gradient(
+    170deg,
+    transparent 0px,
+    transparent 60px,
+    rgba(255,255,255,0.04) 60px,
+    rgba(255,255,255,0.04) 62px
+  );
+  pointer-events:none;
+  z-index:0;
+}
 
-    /* ─── Floating bubbles bg ─── */
-    .bubble-field {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    }
-    .bubble-bg {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: inset -5px -5px 10px rgba(0,0,0,0.05), inset 3px 3px 6px rgba(255,255,255,0.8);
-      animation: rise var(--d, 6s) linear infinite;
-      bottom: -50px;
-    }
-    @keyframes rise {
-      0% { transform: translateY(0) translateX(0); opacity: 0; }
-      10% { opacity: 0.8; }
-      90% { opacity: 0.4; }
-      100% { transform: translateY(-105vh) translateX(var(--tx, 40px)); opacity: 0; }
-    }
+/* ── CONTENEDOR DE BURBUJAS DE FONDO ── */
+#bubbles{position:fixed;inset:0;pointer-events:none;z-index:0}
+.bub{
+  position:absolute;
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 25%, rgba(255,255,255,0.8), rgba(255,255,255,0.1));
+  border:1.5px solid rgba(255,255,255,0.5);
+  bottom:-80px;
+  animation:rise var(--d) ease-in infinite;
+  animation-delay:var(--delay);
+}
+@keyframes rise{
+  0%  {transform:translateY(0)   translateX(0)      scale(0.8);opacity:0}
+  8%  {opacity:.7}
+  90% {opacity:.3}
+  100%{transform:translateY(-110vh) translateX(var(--tx)) scale(1.1);opacity:0}
+}
 
-    /* ─── Header ─── */
-    .header {
-      text-align: center;
-      margin-bottom: 2rem;
-      position: relative; z-index: 1;
-      animation: floatIn 0.8s ease both;
-    }
-    .header-eyebrow {
-      font-family: 'Fredoka One', cursive;
-      font-size: 1rem;
-      color: var(--sea-dark);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      text-shadow: 0 2px 0 rgba(255,255,255,0.4);
-      margin-bottom: 0.4rem;
-    }
-    .header-title {
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(1.8rem, 6vw, 2.8rem);
-      color: var(--sponge-y);
-      -webkit-text-stroke: 2px var(--sea-dark);
-      text-shadow: 3px 3px 0px var(--sea-dark);
-    }
-    .header-sub {
-      margin-top: 0.5rem;
-      font-size: 0.95rem;
-      color: #ffffff;
-      font-weight: 700;
-      background: rgba(27, 104, 121, 0.3);
-      padding: 0.3rem 1rem;
-      border-radius: 20px;
-      display: inline-block;
-    }
+/* ── ALGAS MARINAS (ANIMACIÓN DE BALANCEO) ── */
+.seaweed{
+  position:fixed;bottom:0;pointer-events:none;z-index:0;opacity:.55;
+}
+.seaweed svg path{animation:sway 4s ease-in-out infinite alternate}
+.seaweed-r{right:2%;animation-delay:-2s}
+.seaweed-l{left:2%}
+@keyframes sway{
+  0%  {transform:skewX(-6deg) scaleY(1)}
+  100%{transform:skewX(8deg)  scaleY(1.05)}
+}
 
-    /* ─── Card flip container ─── */
-    .scene {
-      width: min(420px, 95vw);
-      perspective: 1200px;
-      position: relative; z-index: 1;
-    }
-    .card-flip {
-      width: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.9s cubic-bezier(0.4, 0.2, 0.2, 1);
-      cursor: pointer;
-    }
-    .card-flip.flipped { transform: rotateY(180deg); }
+/* ── ILUSTRACIÓN DE PIEDRAS EN LA BASE ── */
+.rocks{position:fixed;bottom:0;left:0;right:0;pointer-events:none;z-index:0;opacity:.45}
 
-    .card-face {
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      border-radius: 32px;
-      overflow: hidden;
-      box-shadow:
-        0 12px 45px rgba(16, 42, 67, 0.3),
-        0 4px 12px rgba(16, 42, 67, 0.15),
-        inset 0 2px 0 rgba(255,255,255,0.6);
-      border: 4px solid var(--sea-dark);
-    }
-    .card-face--front {
-      background: linear-gradient(145deg, #f0fcfc 0%, var(--sand) 100%);
-    }
-    .card-face--back {
-      position: absolute;
-      inset: 0;
-      transform: rotateY(180deg);
-      background: linear-gradient(145deg, var(--sand) 0%, #e0f9ff 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2.2rem 1.8rem;
-      text-align: center;
-    }
+/* ── HEADER SUPERIOR (TÍTULO DE LA WEB) ── */
+.hdr{text-align:center;position:relative;z-index:2;margin-bottom:1.8rem;animation:splashIn .9s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes splashIn{
+  0%  {opacity:0;transform:scale(.7) translateY(-20px)}
+  100%{opacity:1;transform:scale(1)  translateY(0)}
+}
+.hdr-label{
+  display:inline-block;
+  font-family:'Fredoka One',cursive;
+  font-size:.8rem;letter-spacing:3px;
+  color:var(--night);
+  background:var(--sand);
+  border:3px solid var(--night);
+  border-radius999px;
+  padding:.2rem 1.1rem;
+  margin-bottom:.6rem;
+  box-shadow:3px 3px 0 var(--night);
+}
+.hdr-title{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(2rem,6vw,3rem);
+  color:#fff;
+  -webkit-text-stroke:2.5px var(--night);
+  text-shadow:4px 4px 0 var(--night);
+  line-height:1;
+}
+.hdr-sub{
+  font-family:'Bubblegum Sans',cursive;
+  font-size:.95rem;
+  color:#fff;
+  margin-top:.5rem;
+  background:rgba(0,0,0,.25);
+  display:inline-block;
+  padding:.25rem 1rem;
+  border-radius:20px;
+}
 
-    /* ─── Front card inner ─── */
-    .card-header {
-      padding: 1.8rem 1.8rem 1rem;
-      text-align: center;
-      background: linear-gradient(180deg, rgba(78,195,224,0.2) 0%, transparent 100%);
-      border-bottom: 3px dashed var(--sea-dark);
-    }
-    .char-badge {
-      display: inline-flex;
-      align-items: center;
-      background: var(--coral);
-      color: white;
-      font-family: 'Fredoka One', cursive;
-      font-size: 0.8rem;
-      letter-spacing: 1px;
-      padding: 0.3rem 1rem;
-      border-radius: 999px;
-      margin-bottom: 0.6rem;
-      border: 2px solid var(--sea-dark);
-      box-shadow: 0 4px 0px var(--sea-dark);
-    }
-    .char-name {
-      font-family: 'Fredoka One', cursive;
-      font-size: 2.4rem;
-      color: var(--sea-dark);
-      text-shadow: 2px 2px 0px #fff;
-      line-height: 1.1;
-    }
-    .char-title {
-      font-size: 0.85rem;
-      color: var(--sea-dark);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-top: 0.4rem;
-      font-weight: 800;
-    }
-    .char-divider {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      justify-content: center;
-      margin-top: 0.6rem;
-      color: var(--coral);
-      font-size: 0.9rem;
-    }
+/* ── CONFIGURACIÓN DEL EFECTO 3D (GIRO DE LA TARJETA) ── */
+.scene {
+  width:min(440px,96vw);
+  perspective:1400px; /* Profundidad del efecto de volteo */
+  position:relative;z-index:2;
+  animation:splashIn .9s .2s cubic-bezier(.34,1.56,.64,1) both;
+}
+.flip {
+  width:100%;position:relative;
+  transform-style:preserve-3d;
+  transition:transform 1s cubic-bezier(.4,.2,.2,1);
+  cursor:pointer;
+}
+.flip.flipped{transform:rotateY(180deg)} /* Gatillo JS para rotar 180 grados */
 
-    /* ─── Stats section ─── */
-    .stats-section {
-      padding: 1.2rem 1.5rem 1.5rem;
-    }
-    .stats-label {
-      font-family: 'Fredoka One', cursive;
-      font-size: 0.85rem;
-      letter-spacing: 2px;
-      color: var(--sea-dark);
-      text-align: center;
-      margin-bottom: 1.2rem;
-      text-transform: uppercase;
-      opacity: 0.8;
-    }
+.face {
+  backface-visibility:hidden; /* Oculta la cara contraria durante el giro */
+  -webkit-backface-visibility:hidden;
+  border-radius:28px;
+  border:4px solid var(--night);
+  box-shadow:6px 6px 0 var(--night),0 16px 50px rgba(0,0,0,.3);
+  overflow:hidden;
+}
+.face-front{background:#e0f7fa}
+.face-back{
+  position:absolute;inset:0;
+  transform:rotateY(180deg);
+  background:#fff9e6;
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;
+  padding:2rem 1.8rem;
+}
 
-    /* ─── Stat row ─── */
-    .stat-row {
-      position: relative;
-      margin-bottom: 1.1rem;
-    }
-    .stat-row:last-child { margin-bottom: 0; }
+/* ── BLOQUE SUPERIOR DE LA TARJETA (NOMBRE Y NIVEL) ── */
+.ch {
+  background:var(--ocean);
+  padding:1.6rem 1.6rem 1.1rem;
+  text-align:center;
+  border-bottom:4px dashed var(--night);
+  position:relative;
+  overflow:hidden;
+}
+.ch::before{
+  content:'';
+  position:absolute;inset:0;
+  background: repeating-linear-gradient(
+    45deg, transparent 0,transparent 12px,
+    rgba(255,255,255,.07) 12px,rgba(255,255,255,.07) 14px
+  );
+}
+.ch-badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:var(--sand);
+  color:var(--night);
+  font-family:'Fredoka One',cursive;
+  font-size:.78rem;letter-spacing:1px;
+  padding:.3rem 1rem;border-radius:999px;
+  border:2.5px solid var(--night);
+  box-shadow:3px 3px 0 var(--night);
+  margin-bottom:.7rem;position:relative;
+}
+.ch-name{
+  font-family:'Fredoka One',cursive;
+  font-size:2.6rem;color:#fff;
+  -webkit-text-stroke:2px var(--night);
+  text-shadow:3px 3px 0 var(--night);
+  position:relative;line-height:1;
+}
+.ch-title{
+  font-size:.8rem;color:#fff;
+  font-weight:800;letter-spacing:2px;
+  text-transform:uppercase;margin-top:.35rem;
+  position:relative;opacity:.9;
+}
+.ch-divs{display:flex;gap:.5rem;justify-content:center;margin-top:.5rem;position:relative}
+.ch-div{width:8px;height:8px;border-radius:50%;background:#fff;opacity:.6}
 
-    .stat-top {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      margin-bottom: 0.35rem;
-    }
-    .stat-icon {
-      width: 34px; height: 34px;
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-      border: 2px solid var(--sea-dark);
-      box-shadow: 2px 2px 0px var(--sea-dark);
-      transition: transform 0.2s ease;
-    }
-    .stat-row:hover .stat-icon { transform: scale(1.15) rotate(-5deg); }
+/* ── CONTENEDOR DE ATRIBUTOS (STATS) ── */
+.ss{padding:1.2rem 1.4rem 1.4rem}
+.ss-label{
+  text-align:center;
+  font-family:'Fredoka One',cursive;
+  font-size:.78rem;letter-spacing:2.5px;
+  color:var(--ocean-d);text-transform:uppercase;
+  margin-bottom:1.1rem;opacity:.85;
+}
 
-    .stat-name {
-      font-weight: 800;
-      font-size: 0.9rem;
-      color: var(--deep-ocean);
-      flex: 1;
-      line-height: 1.2;
-    }
-    .stat-value {
-      font-family: 'Fredoka One', cursive;
-      font-size: 1.1rem;
-      white-space: nowrap;
-      text-shadow: 1px 1px 0px #fff;
-    }
+/* ── FILA INDIVIDUAL DE ESTADÍSTICA ── */
+.sr{position:relative;margin-bottom:1rem}
+.sr:last-child{margin-bottom:0}
+.sr-top{display:flex;align-items:center;gap:.55rem;margin-bottom:.32rem}
 
-    /* Bar */
-    .stat-bar-track {
-      height: 12px;
-      border-radius: 999px;
-      background: rgba(27, 104, 121, 0.15);
-      border: 2px solid var(--sea-dark);
-      overflow: hidden;
-    }
-    .stat-bar-fill {
-      height: 100%;
-      border-radius: 999px;
-      position: relative;
-      width: 0;
-      transition: width 1.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+/* CAJA DEL ICONO: Modificada para aceptar imágenes fluidas */
+.sr-icon {
+  width:36px;height:36px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+  border:2.5px solid var(--night);
+  box-shadow:2px 2px 0 var(--night);
+  transition:transform .2s ease;
+  overflow: hidden; /* Evita que las imágenes se desborden de los bordes redondeados */
+  background: white; /* Da un fondo limpio por si el PNG tiene transparencia */
+}
 
-    /* Bikini Bottom Colors per stat */
-    .stat-0 .stat-icon { background: #ff8fa3; }
-    .stat-0 .stat-value { color: var(--coral-d); }
-    .stat-0 .stat-bar-fill { background: linear-gradient(90deg, var(--coral), #ff4071); }
+/* Ajuste para que las nuevas imágenes PNG ocupen el espacio de forma armoniosa */
+.sr-icon img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
 
-    .stat-1 .stat-icon { background: #b3e5fc; }
-    .stat-1 .stat-value { color: #0288d1; }
-    .stat-1 .stat-bar-fill { background: linear-gradient(90deg, #4fc3f7, #0288d1); }
+.sr:hover .sr-icon{transform:scale(1.2) rotate(-8deg)}
+.sr-name{font-weight:800;font-size:.88rem;color:var(--night);flex:1;line-height:1.2}
+.sr-val{
+  font-family:'Fredoka One',cursive;font-size:1.05rem;
+  white-space:nowrap;
+}
 
-    .stat-2 .stat-icon { background: #ccff90; }
-    .stat-2 .stat-value { color: #558b2f; }
-    .stat-2 .stat-bar-fill { background: linear-gradient(90deg, #a65f, #689f38); }
+/* Estructura de las Barras de Carga */
+.bar-track{
+  height:13px;border-radius:999px;
+  background:rgba(0,0,0,.1);
+  border:2px solid var(--night);overflow:hidden;
+}
+.bar-fill{
+  height:100%;border-radius:999px;
+  width:0;transition:width 1.5s cubic-bezier(.4,0,.2,1);
+}
 
-    .stat-3 .stat-icon { background: var(--sponge-y); }
-    .stat-3 .stat-value { color: #f57c00; }
-    .stat-3 .stat-bar-fill { background: linear-gradient(90deg, var(--sponge-y), #ffb300); }
+/* COLORES PERSONALIZADOS PARA CADA FILA DE ATRIBUTO */
+.s0 .sr-icon{background:#ffb3c6}
+.s0 .sr-val {color:var(--coral)}
+.s0 .bar-fill{background:linear-gradient(90deg,#ff758f,#ef233c)}
 
-    .stat-4 .stat-icon { background: #b2dfdb; }
-    .stat-4 .stat-value { color: #00796b; }
-    .stat-4 .stat-bar-fill { background: linear-gradient(90deg, #4db6ac, #00796b); }
+.s1 .sr-icon{background:#ffe8a3}
+.s1 .sr-val {color:#c77700}
+.s1 .bar-fill{background:linear-gradient(90deg,#ffd166,#f4a522)}
 
-    /* Tooltip Customizado como Nube de Texto */
-    .tooltip {
-      position: absolute;
-      bottom: calc(100% + 10px);
-      left: 50%;
-      transform: translateX(-50%) translateY(6px);
-      background: #ffffff;
-      color: var(--deep-ocean);
-      border-radius: 18px;
-      padding: 0.8rem 1.1rem;
-      font-size: 0.82rem;
-      line-height: 1.5;
-      width: 280px;
-      max-width: 85vw;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.25s ease, transform 0.25s ease;
-      z-index: 10;
-      box-shadow: 0 8px 30px rgba(16,42,67,0.2);
-      border: 3px solid var(--sea-dark);
-    }
-    .tooltip::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 8px solid transparent;
-      border-top-color: #ffffff;
-    }
-    .tooltip::before {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 11px solid transparent;
-      border-top-color: var(--sea-dark);
-      z-index: -1;
-    }
-    .tooltip strong {
-      display: block;
-      font-family: 'Fredoka One', cursive;
-      font-size: 0.85rem;
-      color: var(--coral-d);
-      margin-bottom: 0.3rem;
-    }
-    .stat-row:hover .tooltip {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
+.s2 .sr-icon{background:#b7f0c5}
+.s2 .sr-val {color:var(--kelp-d)}
+.s2 .bar-fill{background:linear-gradient(90deg,#2dc653,#1a7a31)}
 
-    /* Card footer */
-    .card-footer {
-      padding: 0.9rem 1.5rem;
-      border-top: 3px dashed var(--sea-dark);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: linear-gradient(180deg, transparent, rgba(78,195,224,0.1));
-    }
-    .footer-tag {
-      font-family: 'Fredoka One', cursive;
-      font-size: 0.75rem;
-      letter-spacing: 1px;
-      color: var(--sea-dark);
-      opacity: 0.8;
-    }
-    .flip-hint {
-      display: inline-flex;
-      align-items: center;
-      background: var(--coral);
-      color: white;
-      font-family: 'Fredoka One', cursive;
-      font-size: 0.75rem;
-      padding: 0.3rem 0.9rem;
-      border-radius: 999px;
-      border: 2px solid var(--sea-dark);
-      box-shadow: 2px 2px 0px var(--sea-dark);
-      animation: pulseHint 2s ease-in-out infinite;
-    }
-    @keyframes pulseHint {
-      0%, 100% { transform: scale(1); }
-      50%       { transform: scale(1.05); box-shadow: 3px 3px 0px var(--sea-dark); }
-    }
+.s3 .sr-icon{background:#c0e8ff}
+.s3 .sr-val {color:var(--ocean-dk)}
+.s3 .bar-fill{background:linear-gradient(90deg,#48cae4,#023e8a)}
 
-    /* ─── Back side ─── */
-    .back-deco {
-      font-size: 3.5rem;
-      margin-bottom: 0.6rem;
-      animation: floatEmoji 3s ease-in-out infinite;
-    }
-    @keyframes floatEmoji {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-8px); }
-    }
-    .back-day {
-      font-family: 'Fredoka One', cursive;
-      font-size: 0.9rem;
-      letter-spacing: 2px;
-      color: var(--coral-d);
-      text-transform: uppercase;
-      margin-bottom: 0.4rem;
-    }
-    .back-title {
-      font-family: 'Fredoka One', cursive;
-      font-size: 1.6rem;
-      color: var(--sea-dark);
-      margin-bottom: 1rem;
-      line-height: 1.3;
-      text-shadow: 1px 1px 0px #fff;
-    }
-    .back-message {
-      font-size: 0.92rem;
-      color: var(--deep-ocean);
-      line-height: 1.7;
-      max-width: 350px;
-      margin-bottom: 1.4rem;
-      text-align: justify;
-    }
-    .back-message em {
-      color: var(--coral-d);
-      font-style: normal;
-      font-weight: 800;
-    }
-    .back-sig {
-      font-family: 'Fredoka One', cursive;
-      font-size: 1rem;
-      color: var(--sea-dark);
-    }
-    .back-hearts {
-      margin-top: 0.4rem;
-      font-size: 1.4rem;
-      letter-spacing: 4px;
-      animation: heartbeat 1.8s ease-in-out infinite;
-    }
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      30%       { transform: scale(1.1); }
-      60%       { transform: scale(0.95); }
-    }
-    .back-flip-hint {
-      margin-top: 1.2rem;
-      font-size: 0.75rem;
-      color: var(--sea-dark);
-      opacity: 0.7;
-      font-weight: 700;
-    }
+.s4 .sr-icon{background:#e0d0ff}
+.s4 .sr-val {color:#5a189a}
+.s4 .bar-fill{background:linear-gradient(90deg,#9d4edd,#5a189a)}
 
-    /* ─── Entrance animations ─── */
-    @keyframes floatIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .scene { animation: floatIn 0.8s 0.2s ease both; }
+.s5 .sr-icon{background:#ffd6a5}
+.s5 .sr-val {color:#7f4f00}
+.s5 .bar-fill{background:linear-gradient(90deg,#ffb347,#7f4f00)}
 
-    /* Bubble particles on click */
-    .bubble-pop {
-      position: fixed;
-      pointer-events: none;
-      width: 14px; height: 14px;
-      background: rgba(224, 247, 252, 0.6);
-      border: 1px solid rgba(255,255,255,0.9);
-      border-radius: 50%;
-      box-shadow: inset -2px -2px 4px rgba(0,0,0,0.05);
-      animation: bubbleScatter 1s ease forwards;
-      z-index: 999;
-    }
-    @keyframes bubbleScatter {
-      0%   { opacity: 1; transform: translate(0,0) scale(0.5); }
-      100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.5); }
-    }
-  </style>
+/* ── TOOLTIPS INTERACTIVOS (NUBES DE INFORMACIÓN) ── */
+.tip{
+  position:absolute;bottom:calc(100% + 12px);left:50%;
+  transform:translateX(-50%) translateY(8px);
+  background:#fff;color:var(--night);
+  border-radius:16px;padding:.75rem 1rem;
+  font-size:.8rem;line-height:1.55;
+  width:270px;max-width:88vw;
+  pointer-events:none;opacity:0;
+  transition:opacity .22s,transform .22s;
+  z-index:20;
+  border:3px solid var(--night);
+  box-shadow:4px 4px 0 var(--night);
+}
+.tip::after{
+  content:'';position:absolute;top:100%;left:50%;
+  transform:translateX(-50%);
+  border:8px solid transparent;
+  border-top-color:#fff;
+}
+.tip::before{
+  content:'';position:absolute;top:100%;left:50%;
+  transform:translateX(-50%);
+  border:11px solid transparent;
+  border-top-color:var(--night);z-index:-1;
+}
+.tip strong{
+  display:block;font-family:'Fredoka One',cursive;
+  font-size:.82rem;color:var(--coral);margin-bottom:.25rem;
+}
+.sr:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── PIE DE LA TARJETA ── */
+.cf{
+  padding:.85rem 1.4rem;
+  border-top:4px dashed var(--night);
+  background:rgba(0,180,216,.12);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.cf-tag{
+  font-family:'Fredoka One',cursive;font-size:.72rem;
+  letter-spacing:1px;color:var(--ocean-d);opacity:.8;
+}
+.flip-hint{
+  display:inline-flex;align-items:center;gap:.3rem;
+  background:var(--coral-l);color:#fff;
+  font-family:'Fredoka One',cursive;font-size:.75rem;
+  padding:.3rem .9rem;border-radius:999px;
+  border:2.5px solid var(--night);
+  box-shadow:2px 2px 0 var(--night);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%    {transform:scale(1.06)}
+}
+
+/* ── DISEÑO DE LA CARA TRASERA (REVERSO) ── */
+/* Modificado por si quieres cambiar la caracola 🐚 por una imagen o vector */
+.back-shell {
+  font-size:3.5rem;
+  animation:float 3s ease-in-out infinite;
+  margin-bottom:.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.back-shell img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.back-day{
+  font-family:'Fredoka One',cursive;font-size:.85rem;
+  letter-spacing:2.5px;color:var(--coral);text-transform:uppercase;margin-bottom:.4rem;
+}
+.back-title{
+  font-family:'Fredoka One',cursive;font-size:1.6rem;
+  color:var(--ocean-dk);line-height:1.3;margin-bottom:1rem;
+  text-shadow:1px 1px 0 #fff;
+}
+.back-msg{
+  font-size:.88rem;color:#1a1a2e;line-height:1.75;
+  max-width:340px;text-align:justify;margin-bottom:1.3rem;
+}
+.back-msg em{color:var(--coral);font-style:normal;font-weight:800}
+.back-sig{font-family:'Fredoka One',cursive;font-size:1rem;color:var(--ocean-d)}
+.back-hearts{margin-top:.4rem;font-size:1.4rem;letter-spacing:4px;animation:hb 1.8s ease-in-out infinite}
+@keyframes hb{0%,100%{transform:scale(1)}30%{transform:scale(1.12)}60%{transform:scale(.96)}}
+.back-return{margin-top:1rem;font-size:.72rem;color:var(--ocean-d);opacity:.65;font-weight:700}
+
+/* ELEMENTOS EMITIDOS POR EL SCRIPT AL HACER CLICK */
+.bpop{
+  position:fixed;pointer-events:none;
+  width:12px;height:12px;border-radius:50%;
+  background:rgba(255,255,255,.6);
+  border:1.5px solid rgba(255,255,255,.9);
+  animation:bscatter .9s ease forwards;z-index:999;
+}
+@keyframes bscatter{
+  0%   {opacity:1;transform:translate(0,0) scale(.4)}
+  100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.6)}
+}
+
+/* Ilustraciones de Fondo (Bob Esponja, Calardo, etc.) */
+/* Modificado para soportar imágenes e iconos fluidos si decides usarlos en vez de emojis */
+.deco-sponge {
+  position:fixed;pointer-events:none;z-index:1;
+  opacity:.18;
+  font-size:6rem;
+  animation:wobble 8s ease-in-out infinite alternate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.deco-sponge img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+@keyframes wobble{
+  0%   {transform:rotate(-8deg) scale(1)}
+  100%{transform:rotate(6deg)  scale(1.05)}
+}
+</style>
 </head>
 <body>
 
-<!-- Bikini Bottom Flower Clouds Backdrop -->
-<div class="sky-flowers">
-  <!-- Flores dibujadas con la clásica geometría orgánica de la serie -->
-  <svg class="flower-cloud" style="top:10%; left:5%; width:120px; height:120px;" viewBox="0 0 100 100">
-    <path d="M50,35 C40,20 20,40 35,50 C20,60 40,80 50,65 C60,80 80,60 65,50 C80,40 60,20 50,35 Z" stroke="#3caec7"/>
-  </svg>
-  <svg class="flower-cloud" style="top:60%; right:8%; width:150px; height:150px;" viewBox="0 0 100 100">
-    <path d="M50,35 C40,20 20,40 35,50 C20,60 40,80 50,65 C60,80 80,60 65,50 C80,40 60,20 50,35 Z" stroke="#3caec7"/>
+<!-- ── ELEMENTOS DECORATIVOS DIFUMINADOS EN LAS ESQUINAS ── -->
+<!-- TIP: Para usar vectores PNG reales en lugar de los emojis de Bob Esponja (🧽, 🦀, etc.),
+     puedes borrar el emoji dentro del div e insertar una etiqueta img.
+     Ejemplo: <div class="deco-sponge" style="bottom:12%;left:-1%"><img src="bob_esponja.png" alt="Bob"></div> -->
+<div class="deco-sponge" style="bottom:12%;left:-1%">🧽</div>
+<div class="deco-sponge" style="top:10%;right:-1%;animation-delay:-4s;font-size:4rem">🦀</div>
+<div class="deco-sponge" style="bottom:20%;right:2%;animation-delay:-2s;font-size:3.5rem">🐙</div>
+<div class="deco-sponge" style="top:30%;left:1%;font-size:3rem;animation-delay:-6s">🐚</div>
+
+<!-- Elementos dinámicos inyectados por JavaScript -->
+<div id="bubbles"></div>
+
+<!-- Alga Izquierda SVG -->
+<div class="seaweed seaweed-l">
+  <svg width="60" height="220" viewBox="0 0 60 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30,220 Q10,190 25,165 Q40,140 20,115 Q5,90 22,65 Q38,40 28,10" stroke="#2dc653" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M30,220 Q50,185 35,160 Q20,135 40,110 Q55,85 38,60 Q22,35 32,10" stroke="#1a7a31" stroke-width="5" stroke-linecap="round" fill="none" opacity=".7"/>
+    <ellipse cx="25" cy="165" rx="16" ry="8" fill="#2dc653" opacity=".6" transform="rotate(-30 25 165)"/>
+    <ellipse cx="22" cy="115" rx="14" ry="7" fill="#1a7a31" opacity=".6" transform="rotate(25 22 115)"/>
+    <ellipse cx="22" cy="65"  rx="13" ry="7" fill="#2dc653" opacity=".5" transform="rotate(-20 22 65)"/>
+    <ellipse cx="38" cy="110" rx="12" ry="6" fill="#52b788" opacity=".5" transform="rotate(30 38 110)"/>
   </svg>
 </div>
 
-<!-- Floating background bubbles -->
-<div class="bubble-field" id="bubbleField"></div>
+<!-- Alga Derecha SVG -->
+<div class="seaweed seaweed-r">
+  <svg width="60" height="260" viewBox="0 0 60 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30,260 Q50,225 35,195 Q20,165 38,135 Q55,105 40,75 Q25,45 35,10" stroke="#2dc653" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M30,260 Q12,220 28,192 Q44,164 26,132 Q10,102 24,72 Q38,42 27,10" stroke="#1a7a31" stroke-width="5" stroke-linecap="round" fill="none" opacity=".7"/>
+    <ellipse cx="35" cy="195" rx="16" ry="8" fill="#2dc653" opacity=".6" transform="rotate(25 35 195)"/>
+    <ellipse cx="38" cy="135" rx="14" ry="7" fill="#1a7a31" opacity=".6" transform="rotate(-25 38 135)"/>
+    <ellipse cx="40" cy="75"  rx="13" ry="6" fill="#2dc653" opacity=".5" transform="rotate(20 40 75)"/>
+    <ellipse cx="26" cy="132" rx="12" ry="6" fill="#52b788" opacity=".5" transform="rotate(-30 26 132)"/>
+  </svg>
+</div>
 
-<!-- Header -->
-<header class="header">
-  <div class="header-eyebrow">✦ BIKINI BOTTOM STATS ✦</div>
-  <h1 class="header-title">Ficha de Personaje</h1>
-  <p class="header-sub">Edición Especial · Día 05 🌊</p>
+<!-- Rocas vectoriales de la base de Fondo de Bikini -->
+<div class="rocks">
+  <svg width="100%" height="90" viewBox="0 0 800 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="80"  cy="75" rx="70"  ry="22" fill="#5e503f"/>
+    <ellipse cx="220" cy="80" rx="100" ry="18" fill="#4a3f35"/>
+    <ellipse cx="400" cy="72" rx="85"  ry="24" fill="#6b5044"/>
+    <ellipse cx="570" cy="78" rx="90"  ry="20" fill="#523d32"/>
+    <ellipse cx="720" cy="74" rx="75"  ry="22" fill="#5e503f"/>
+    <rect x="0" y="78" width="800" height="12" rx="0" fill="#c9a84c" opacity=".6"/>
+    <circle cx="150" cy="68" r="7" fill="#ef233c" opacity=".5"/>
+    <circle cx="155" cy="62" r="5" fill="#ff758f" opacity=".5"/>
+    <circle cx="480" cy="65" r="8" fill="#ef233c" opacity=".45"/>
+    <circle cx="488" cy="59" r="5" fill="#ff758f" opacity=".4"/>
+    <circle cx="310" cy="70" r="6" fill="#ffd166" opacity=".5"/>
+    <circle cx="640" cy="67" r="7" fill="#ef233c" opacity=".4"/>
+  </svg>
+</div>
+
+<!-- ── TEXTOS DEL ENCABEZADO ── -->
+<header class="hdr">
+  <div class="hdr-label">🌊 BIKINI BOTTOM STATS 🌊</div>
+  <h1 class="hdr-title">Ficha de Personaje</h1>
+  <p class="hdr-sub">Edición Especial · Día 05 🫧</p>
 </header>
 
-<!-- Card flip scene -->
+<!-- ── NÚCLEO CENTRAL DE LA INTERFAZ (TARJETA) ── -->
 <div class="scene">
-  <div class="card-flip" id="cardFlip">
+  <div class="flip" id="card">
 
-    <!-- FRONT -->
-    <div class="card-face card-face--front">
-      <div class="card-header">
-        <div class="char-badge">👑 SER INTERIOR PURO & LEGENDARIO 👑</div>
-        <div class="char-name">Ame</div>
-        <div class="char-title">Sabiduría Océanica · Level MAX</div>
-        <div class="char-divider">🫧 🫧 🫧</div>
+    <!-- FACE FRONT: ESTADÍSTICAS Y BARRA DE ATRIBUTOS -->
+    <div class="face face-front">
+      <div class="ch">
+        <div class="ch-badge">🐠 SER RARO Y EXTRAORDINARIO 🐠</div>
+        <div class="ch-name">Ame</div>
+        <div class="ch-title">Criatura Única del Océano · Level ∞</div>
+        <div class="ch-divs">
+          <div class="ch-div"></div><div class="ch-div"></div><div class="ch-div"></div>
+          <div class="ch-div"></div><div class="ch-div"></div>
+        </div>
       </div>
 
-      <div class="stats-section">
-        <div class="stats-label">— estadísticas únicas —</div>
+      <div class="ss">
+        <div class="ss-label">— atributos únicos e irrepetibles —</div>
 
-        <!-- Stat 0: Ternura Oculta -->
-        <div class="stat-row stat-0">
-          <div class="stat-top">
-            <div class="stat-icon">💖</div>
-            <div class="stat-name">Ternura Pura y Sincera</div>
-            <div class="stat-value">100 / 100</div>
+        <!-- TIP PARA REEMPLAZAR ICONOS POR PNG:
+             En lugar de poner el emoji crudo dentro de <div class="sr-icon">, 
+             inserta una etiqueta img con tu archivo local o URL. 
+             Ejemplo: <div class="sr-icon"><img src="iconos/musica.png" alt="Música"></div> -->
+
+        <!-- Fila Atributo 0: Voz Melodiosa -->
+        <div class="sr s0">
+          <div class="sr-top">
+            <div class="sr-icon">🎵</div>
+            <div class="sr-name">Voz Melodiosa & Cantadita</div>
+            <div class="sr-val">MAX ∞</div>
           </div>
-          <div class="stat-bar-track">
-            <div class="stat-bar-fill" data-width="100"></div>
-          </div>
-          <div class="tooltip">
-            <strong>✦ Atributo Especial Guardado</strong>
-            El lado más genuino y transparente de su ser. No se expone a todo el mundo ni en cualquier momento; es un tesoro valioso que requiere tiempo descubrir, revelando el afecto más honesto y real.
+          <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
+          <div class="tip">
+            <strong>✦ Habilidad Pasiva Permanente</strong>
+            Escuchar su voz es como tener puesta tu canción favorita en repeat eterno. El acento mexicano cantadito genera una calidez única que atraviesa cualquier pantalla. Incluye el uso frecuente de "preciosa", técnica catalogada como irresistible.
           </div>
         </div>
 
-        <!-- Stat 1: Acento Cantadito -->
-        <div class="stat-row stat-1">
-          <div class="stat-top">
-            <div class="stat-icon">🗣️</div>
-            <div class="stat-name">Acento Cantadito Lindo</div>
-            <div class="stat-value">MAX ∞</div>
+        <!-- Fila Atributo 1: Ternura Guardada -->
+        <div class="sr s1">
+          <div class="sr-top">
+            <div class="sr-icon">🌼</div>
+            <div class="sr-name">Ternura Pura y Guardada</div>
+            <div class="sr-val">100 / 100</div>
           </div>
-          <div class="stat-bar-track">
-            <div class="stat-bar-fill" data-width="100"></div>
-          </div>
-          <div class="tooltip">
-            <strong>✦ Habilidad Pasiva Constante</strong>
-            Modulación de voz con un tono mexicano cantadito capaz de derretir cualquier rincón del refugio digital. Multiplica el confort por chat y viene equipado con el uso frecuente de la palabra "preciosa".
+          <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
+          <div class="tip">
+            <strong>✦ Tesoro de Acceso Restringido</strong>
+            El lado más genuino, limpio y sincero de su ser. No se expone fácilmente: hay que ganárselo con tiempo y presencia. Una vez que te lo muestra, es el regalo más bonito que puede darte alguien.
           </div>
         </div>
 
-        <!-- Stat 2: Pasión Surreal -->
-        <div class="stat-row stat-2">
-          <div class="stat-top">
-            <div class="stat-icon">🔥</div>
-            <div class="stat-name">Pasión al Hablar & Trabajo</div>
-            <div class="stat-value">∞ / ∞</div>
+        <!-- Fila Atributo 2: Pasión al Hablar -->
+        <div class="sr s2">
+          <div class="sr-top">
+            <div class="sr-icon">🔥</div>
+            <div class="sr-name">Pasión al Hablar & su Trabajo</div>
+            <div class="sr-val">∞ / ∞</div>
           </div>
-          <div class="stat-bar-track">
-            <div class="stat-bar-fill" data-width="100"></div>
-          </div>
-          <div class="tooltip">
-            <strong>✦ Aura de Inspiración</strong>
-            Pasión surreal transmitida al expresarse sobre lo que hace. Aunque las rutinas laborales sean densas, se percibe de inmediato el inmenso amor que le pone a su labor. Transmite una energía brillante.
+          <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
+          <div class="tip">
+            <strong>✦ Aura de Contagio Inmediato</strong>
+            Cuando habla de lo que hace, su voz cambia. Se siente que ama su trabajo con el alma, aunque no sea bien remunerado. Esa pasión surreal e incontrolable es de las cosas más bonitas que se puede percibir en alguien.
           </div>
         </div>
 
-        <!-- Stat 3: Escudo Protector de Corazón -->
-        <div class="stat-row stat-3">
-          <div class="stat-top">
-            <div class="stat-icon">🛡️</div>
-            <div class="stat-name">Cuidado del Corazón (Miedos)</div>
-            <div class="stat-value">95 / 100</div>
+        <!-- Fila Atributo 3: Sabiduría y Espacio Seguro -->
+        <div class="sr s3">
+          <div class="sr-top">
+            <div class="sr-icon">🌊</div>
+            <div class="sr-name">Sabiduría & Espacio Seguro</div>
+            <div class="sr-val">INVUL.</div>
           </div>
-          <div class="stat-bar-track">
-            <div class="stat-bar-fill" data-width="95"></div>
+          <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
+          <div class="tip">
+            <strong>✦ Efecto de Refugio Activo</strong>
+            Conocimiento inmenso y madurez genuina. Con ella se puede hablar absolutamente de todo con una comodidad increíble y sin filtros. Su familia, su perrita y los talleres que frecuenta son su pilar y su calma.
           </div>
-          <div class="tooltip">
+        </div>
+
+        <!-- Fila Atributo 4: Escudo del Corazón -->
+        <div class="sr s4">
+          <div class="sr-top">
+            <div class="sr-icon">🛡️</div>
+            <div class="sr-name">Valentía al Querer (con Miedo)</div>
+            <div class="sr-val">95 / 100</div>
+          </div>
+          <div class="bar-track"><div class="bar-fill" data-w="95"></div></div>
+          <div class="tip">
             <strong>✦ Modificador de Vulnerabilidad</strong>
-            Mecanismo que genera nervios ante el amor desbordado por temor a salir lastimada. A pesar de las heridas previas, posee la valentía inmensa de seguir queriendo de forma honesta y limpia desde la distancia.
+            Le dan nervios recibir amor desbordado. Tiene miedo a querer demasiado y salir lastimada, como ya sucedió antes. Aun así, desde lejos, sigue queriendo de manera honesta y hermosa. Eso toma una valentía inmensa.
           </div>
         </div>
 
-        <!-- Stat 4: Sabiduría y Comodidad Total -->
-        <div class="stat-row stat-4">
-          <div class="stat-top">
-            <div class="stat-icon">🦉</div>
-            <div class="stat-name">Sabiduría & Espacio Seguro</div>
-            <div class="stat-value">INVUL.</div>
+        <!-- Fila Atributo 5: Felicidad Compartida -->
+        <div class="sr s5">
+          <div class="sr-top">
+            <div class="sr-icon">🌟</div>
+            <div class="sr-name">Le Emociona tu Felicidad</div>
+            <div class="sr-val">ÚNICO</div>
           </div>
-          <div class="stat-bar-track">
-            <div class="stat-bar-fill" data-width="100"></div>
-          </div>
-          <div class="tooltip">
-            <strong>✦ Efecto de Entorno Activo</strong>
-            Nivel de conocimiento inmenso y madurez. Facilita una comodidad increíble para conversar absolutamente de todo sin filtros, volviendo su presencia un refugio cálido, su perrita y su familia su pilar.
+          <div class="bar-track"><div class="bar-fill" data-w="100"></div></div>
+          <div class="tip">
+            <strong>✦ Buff Especial sin Cooldown</strong>
+            Le emociona genuinamente que te vaya bonito en la vida. No lo finge, no lo dice por decir: se siente en cada palabra. Es de las personas que celebran tus logros como si fueran propios.
           </div>
         </div>
 
       </div>
 
-      <div class="card-footer">
-        <span class="footer-tag">SERIE: DÍA 05 · NÁUTICA</span>
-        <div class="flip-hint" onclick="event.stopPropagation()">
-          🫧 voltear
-        </div>
+      <div class="cf">
+        <span class="cf-tag">SERIE: DÍA 05 · NÁUTICA</span>
+        <div class="flip-hint">🫧 voltear</div>
       </div>
-    </div><!-- /front -->
+    </div>
+    <!-- /frente -->
 
-    <!-- BACK -->
-    <div class="card-face card-face--back">
-      <div class="back-deco">🐚</div>
+    <!-- FACE BACK: MENSAJE INTERNO EMOCIONAL -->
+    <div class="face face-back">
+      <!-- TIP PARA LA CARACOLA TRASERA: puedes cambiar 🐚 por una imagen si lo prefieres:
+           <div class="back-shell"><img src="iconos/caracola.png" alt="Caracola"></div> -->
+      <div class="back-shell">🐚</div>
       <div class="back-day">✦ día 05 ✦</div>
       <h2 class="back-title">¡Feliz día cinco,<br>mi vida preciosa!</h2>
-      <p class="back-message">
-        Hoy me puse <em>un poquito creativa</em> y analicé con todo el cuidado del mundo a mi personaje favorito de todo el universo: <em>tú</em>. 🤭<br><br>
-        Como compartimos ese gusto tan lindo por los mundos virtuales y los retos, te armé tu ficha oficial inspirada en las profundidades del mar. Quería plasmar esos atributos únicos que te hacen un ser tan extraordinario: <em>tu sabiduría inmensa, tu pasión al hablar que contagia, y esa ternura tan pura y sincera que me dejas conocer.</em><br><br>
-        Sé que a veces da nervios recibir tanto amor o da miedo el pasado, pero me hace feliz ver cómo estás aquí, queriéndome tan bonito desde lejos. Me emociona tanto que te vaya bien en la vida. Gracias por existir. 💖
+      <p class="back-msg">
+        Hoy me puse <em>muy creativa</em> y analicé con todo el cuidado del universo a mi personaje favorito de todo Bikini Bottom: <em>tú</em>. 🤭<br><br>
+        Quería plasmar lo que eres en algo que tuviera tu esencia: la manera en que tu voz suena como música, la ternura que me regalaste poco a poco, esa pasión tan surreal cuando hablas de lo que amas. Me hace feliz saber que pasas tiempo con tu familia, tu perrita y tus talleres. <em>Cuídate mucho, preciosa.</em><br><br>
+        Sé que a veces da miedo querer y a veces da nervios recibir tanto cariño. Pero me alegra que estés aquí, queriéndome desde lejos tan bonito. Me emociona que te vaya bien en la vida, de verdad. 💖
       </p>
       <div class="back-sig">Con todo mi cariño</div>
       <div class="back-hearts">🫧 💜 🫧</div>
-      <div class="back-flip-hint">← toca para volver a tus stats</div>
-    </div><!-- /back -->
+      <div class="back-return">← toca para volver a tus stats</div>
+    </div>
 
-  </div><!-- /card-flip -->
-</div><!-- /scene -->
+  </div>
+</div>
 
 <script>
-  // ─── Bubble field background ───────────────────────────────────
-  const bf = document.getElementById('bubbleField');
-  for (let i = 0; i < 20; i++) {
-    const b = document.createElement('div');
-    b.className = 'bubble-bg';
-    b.style.cssText = `
-      left: ${Math.random()*100}vw;
-      width:  ${Math.random()*15+8}px;
-      height: ${Math.random()*15+8}px;
-      --d: ${(Math.random()*4+5).toFixed(1)}s;
-      --delay: -${(Math.random()*6).toFixed(1)}s;
-      --tx: ${(Math.random()*60-30).toFixed(0)}px;
-    `;
-    b.style.animationDelay = b.style.getPropertyValue('--delay');
-    bf.appendChild(b);
-  }
+// LÓGICA: Generación dinámica del sistema de burbujas flotantes de fondo
+const bf=document.getElementById('bubbles');
+for(let i=0;i<24;i++){
+  const b=document.createElement('div');
+  b.className='bub';
+  const s=Math.random()*18+6;
+  b.style.cssText=`left:${Math.random()*100}vw;width:${s}px;height:${s}px;--d:${(Math.random()*5+6).toFixed(1)}s;--delay:-${(Math.random()*8).toFixed(1)}s;--tx:${(Math.random()*60-30).toFixed(0)}px`;
+  bf.appendChild(b);
+}
 
-  // ─── Bar animation on load ─────────────────────────────────────
-  function animateBars() {
-    document.querySelectorAll('.stat-bar-fill').forEach((bar, i) => {
-      const target = bar.dataset.width;
-      setTimeout(() => {
-        bar.style.width = target + '%';
-      }, 400 + i * 180);
-    });
-  }
-  window.addEventListener('load', animateBars);
-
-  // ─── Card flip ────────────────────────────────────────────────
-  const card = document.getElementById('cardFlip');
-  card.addEventListener('click', (e) => {
-    card.classList.toggle('flipped');
-    spawnBubbles(e.clientX, e.clientY);
+// LÓGICA: Disparador secuencial para rellenar las barras de stats al terminar de cargar la página
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.bar-fill').forEach((b,i)=>{
+    setTimeout(()=>{ b.style.width=b.dataset.w+'%' }, 500+i*200);
   });
+});
 
-  // ─── Bubble scatter effect on click ───────────────────────────
-  function spawnBubbles(cx, cy) {
-    for (let i = 0; i < 10; i++) {
-      const el = document.createElement('div');
-      el.className = 'bubble-pop';
-      const angle = (i / 10) * Math.PI * 2;
-      const dist = 40 + Math.random() * 50;
-      el.style.cssText = `
-        left: ${cx}px; top: ${cy}px;
-        --dx: ${(Math.cos(angle)*dist).toFixed(0)}px;
-        --dy: ${(Math.sin(angle)*dist).toFixed(0)}px;
-      `;
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 1000);
-    }
+// LÓGICA: Manejador del clic de rotación e invocación del sistema de partículas físicas
+const card=document.getElementById('card');
+card.addEventListener('click',e=>{
+  card.classList.toggle('flipped');
+  pop(e.clientX,e.clientY);
+});
+
+// LÓGICA: Emisor de partículas de burbujas dinámicas dispersadas de forma radial en base al clic
+function pop(cx,cy){
+  for(let i=0;i<12;i++){
+    const el=document.createElement('div');
+    el.className='bpop';
+    const a=(i/12)*Math.PI*2;
+    const d=45+Math.random()*55;
+    el.style.cssText=`left:${cx}px;top:${cy}px;--dx:${(Math.cos(a)*d).toFixed(0)}px;--dy:${(Math.sin(a)*d).toFixed(0)}px;width:${(Math.random()*8+6).toFixed(0)}px;height:${(Math.random()*8+6).toFixed(0)}px`;
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),950);
   }
+}
 </script>
 </body>
 </html>
