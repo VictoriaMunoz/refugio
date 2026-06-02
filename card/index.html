@@ -126,10 +126,11 @@ body::before {
   border-radius:20px;
 }
 
-/* ── ESCENA FLIP (ALTO FIJO CONFIGURADO PARA PREVENIR MAREOS) ── */
+/* ── ESCENA FLIP (DISEÑO AUTOAJUSTABLE ELIMINA ALTURA FIJA CRÍTICA) ── */
 .scene{
   width:min(440px,96vw);
-  height: 600px; /* Alto estricto bloqueado para que ambas caras mantengan simetría total */
+  height: auto;
+  min-height: 610px;
   perspective:1400px;
   position:relative;z-index:2;
   animation:splashIn .9s .2s cubic-bezier(.34,1.56,.64,1) both;
@@ -140,30 +141,32 @@ body::before {
   position:relative;
   transform-style:preserve-3d;
   transition:transform 1s cubic-bezier(.4,.2,.2,1);
-  cursor:pointer;
 }
 .flip.flipped{transform:rotateY(180deg)}
 
 .face{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
   border-radius:28px;
   border:4px solid var(--night);
   box-shadow:6px 6px 0 var(--night),0 16px 50px rgba(0,0,0,.3);
-  overflow: hidden; /* Garantiza contención absoluta de bordes */
+  width: 100%;
 }
 
 .face-front{
   background:#e0f7fa;
+  position: relative;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .face-back{
+  position:absolute;
+  top:0; left:0; width:100%;
+  height:100%;
+  min-height: 100%;
   transform:rotateY(180deg);
   background:#fff9e6;
   display:flex;
@@ -171,17 +174,20 @@ body::before {
   align-items:center;
   justify-content:space-between;
   text-align:center;
-  padding:1.8rem 1.6rem 1.5rem; /* Ajuste sutil de aire para encaje milimétrico */
+  padding:2rem 1.6rem 1.6rem;
+  border-radius:24px;
+  overflow-y: auto; /* Permite scroll interno sutil si el dispositivo móvil es extremadamente pequeño */
 }
 
 /* ── CABECERA CARD ── */
 .ch{
   background:var(--ocean);
-  padding:1.4rem 1.6rem 1rem;
+  padding:1.6rem 1.6rem 1.1rem;
   text-align:center;
   border-bottom:4px dashed var(--night);
   position:relative;
   overflow:hidden;
+  flex-shrink: 0;
 }
 .ch::before{
   content:'';
@@ -200,7 +206,7 @@ body::before {
   padding:.3rem 1rem;border-radius:999px;
   border:2.5px solid var(--night);
   box-shadow:3px 3px 0 var(--night);
-  margin-bottom:.5rem;position:relative;
+  margin-bottom:.7rem;position:relative;
 }
 .ch-name{
   font-family:'Fredoka One',cursive;
@@ -220,26 +226,26 @@ body::before {
 
 /* ── SECCIÓN STATS ── */
 .ss{
-  padding:1rem 1.4rem;
-  flex: 1;
+  padding:1.2rem 1.4rem;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 }
 .ss-label{
   text-align:center;
   font-family:'Fredoka One',cursive;
   font-size:.78rem;letter-spacing:2.5px;
   color:var(--ocean-d);text-transform:uppercase;
-  margin-bottom:0.8rem;opacity:.85;
+  margin-bottom:1.1rem;opacity:.85;
 }
 
 /* ── FILA STAT ── */
-.sr{position:relative;margin-bottom:0.85rem}
+.sr{position:relative;margin-bottom:1rem}
 .sr:last-child{margin-bottom:0}
 .sr-top{display:flex;align-items:center;gap:.55rem;margin-bottom:.32rem}
 .sr-icon{
-  width:34px;height:34px;border-radius:12px;
+  width:36px;height:36px;border-radius:12px;
   display:flex;align-items:center;justify-content:center;
   font-size:1.1rem;flex-shrink:0;
   border:2.5px solid var(--night);
@@ -254,10 +260,7 @@ body::before {
   object-fit: contain;
 }
 .sr:hover .sr-icon{transform:scale(1.2) rotate(-8deg)}
-
-/* ¡RESTAURADO! Los títulos de los atributos recuperan su prominente e intensa negrita */
 .sr-name{font-weight:900;font-size:.88rem;color:var(--night);flex:1;line-height:1.2}
-
 .sr-val{
   font-family:'Fredoka One',cursive;font-size:1.05rem;
   white-space:nowrap;
@@ -299,9 +302,9 @@ body::before {
 .s5 .sr-val {color:#7f4f00}
 .s5 .bar-fill{background:linear-gradient(90deg,#ffb347,#7f4f00)}
 
-/* Tooltip ────────────────────────────────────────────────── */
+/* Tooltip (Corregido posicionamiento relativo nativo al hover de la fila) ── */
 .tip{
-  position:absolute;bottom:calc(100% + 12px);left:50%;
+  position:absolute;bottom:calc(100% + 10px);left:50%;
   transform:translateX(-50%) translateY(8px);
   background:#fff;color:var(--night);
   border-radius:16px;padding:.75rem 1rem;
@@ -325,26 +328,24 @@ body::before {
   border:11px solid transparent;
   border-top-color:var(--night);z-index:-1;
 }
-
-/* ¡CAMBIADO! Quitada la negrita y cambiada la fuente a la principal del sitio para lectura limpia y fluida */
 .tip strong{
   display:block;
   font-family:'Nunito', sans-serif;
-  font-weight:700; /* Peso estándar legible sin empaste */
+  font-weight:700;
   font-size:.85rem;color:#2dc653;margin-bottom:.25rem;
-  letter-spacing: 0px;
 }
 .sr:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* ── PIE DE CARD ── */
 .cf{
-  padding:.75rem 1.4rem;
+  padding:.85rem 1.4rem;
   border-top:4px dashed var(--night);
   background:rgba(0,180,216,.12);
   display:flex;align-items:center;justify-content:space-between;
+  flex-shrink: 0;
 }
 .cf-tag{
-  font-family:'Fredoka One',cursive;font-size:0.72rem;
+  font-family:'Fredoka One',cursive;font-size:0.75rem;
   letter-spacing:1px;color:var(--ocean-d);opacity:.8;
 }
 .flip-hint{
@@ -355,6 +356,7 @@ body::before {
   border:2.5px solid var(--night);
   box-shadow:2px 2px 0 var(--night);
   animation:pulse 2s ease-in-out infinite;
+  cursor: pointer;
 }
 @keyframes pulse{
   0%,100%{transform:scale(1)}
@@ -362,32 +364,29 @@ body::before {
 }
 
 /* ── REVERSO ELEMENTOS ── */
-.back-shell{font-size:3.2rem;animation:float 3s ease-in-out infinite;margin-bottom:.2rem;display:flex;justify-content:center;align-items:center;}
-.back-shell img { width:65px; height:65px; object-fit:contain; }
+.back-shell{font-size:3.5rem;animation:float 3s ease-in-out infinite;margin-bottom:.5rem;display:flex;justify-content:center;align-items:center;}
+.back-shell img { width:70px; height:70px; object-fit:contain; }
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
-/* ¡CAMBIADO! El "✦ día 05 ✦" del reverso ahora viste el verde bonito de Fondo de Bikini */
 .back-day{
   font-family:'Fredoka One',cursive;font-size:.85rem;
-  letter-spacing:2.5px;color:#2dc653;text-transform:uppercase;margin-bottom:.2rem;
+  letter-spacing:2.5px;color:#2dc653;text-transform:uppercase;margin-bottom:.4rem;
 }
 .back-title{
   font-family:'Fredoka One',cursive;font-size:1.6rem;
-  color:var(--ocean-dk);line-height:1.2;margin-bottom:0.6rem;
+  color:var(--ocean-dk);line-height:1.3;margin-bottom:1rem;
   text-shadow:1px 1px 0 #fff;
 }
 .back-msg{
-  font-size:.85rem;color:#1a1a2e;line-height:1.65;
-  max-width:360px;text-align:justify;margin-bottom:0.8rem;
+  font-size:.88rem;color:#1a1a2e;line-height:1.75;
+  max-width:340px;text-align:justify;margin-bottom:1.3rem;
 }
-
-/* Énfasis en verde brillante */
 .back-msg em{color:#2dc653;font-style:normal;font-weight:800}
 
-.back-sig{font-family:'Fredoka One',cursive;font-size:0.95rem;color:var(--ocean-d)}
-.back-hearts{margin-top:.2rem;font-size:1.3rem;letter-spacing:4px;animation:hb 1.8s ease-in-out infinite}
+.back-sig{font-family:'Fredoka One',cursive;font-size:1rem;color:var(--ocean-d)}
+.back-hearts{margin-top:.4rem;font-size:1.4rem;letter-spacing:4px;animation:hb 1.8s ease-in-out infinite}
 @keyframes hb{0%,100%{transform:scale(1)}30%{transform:scale(1.12)}60%{transform:scale(.96)}}
-.back-return{margin-top:0.5rem;font-size:.72rem;color:var(--ocean-d);opacity:.65;font-weight:700}
+.back-return{margin-top:1rem;font-size:.72rem;color:var(--ocean-d);opacity:.65;font-weight:700}
 
 /* BURBUJAS POP en click ─────────────────────────────────── */
 .bpop{
@@ -577,7 +576,7 @@ body::before {
 
       <div class="cf">
         <span class="cf-tag">CARTA LEGENDARIA · ED. EXCLUSIVA</span>
-        <div class="flip-hint">🫧 voltear</div>
+        <div class="flip-hint" id="btnVoltearFront">🫧 voltear</div>
       </div>
     </div>
     <!-- /frente -->
@@ -589,12 +588,12 @@ body::before {
       <h2 class="back-title">¡Feliz día cinco, mi vida!</h2>
       <p class="back-msg">
         Hoy me puse <em>muy creativa</em> y analicé con todo el cuidado del universo a mi personaje favorito de todo Bikini Bottom: <em>tú</em>. 🤭<br><br>
-        Quería plasmar lo que eres en una carta legendaria que tuviera tu esencia: la manera en que tus palabras me transmiten tanta paz, la ternura que me fuiste regalando poco a poco, y esa pasión tan surreal y bonita cuando hablas de lo que amas. Soy completamente consciente de la cantidad de cosas enormes que manejas en tu día a día, y me vuela la cabeza ver cómo logras hacer absolutamente todas a la perfección. Es admirable ver todo tu esfuerzo. Me hace muy feliz escucharte hablar de tu familia y de tu perrita. <em>Cuídate mucho, preciosa.</em><br><br>
+        Quería plasmar lo que eres en una carta legendaria que tuviera tu essence: la manera en que tus palabras me transmiten tanta paz, la ternura que me fuiste regalando poco a poco, y esa pasión tan surreal y bonita cuando hablas de lo que amas. Soy completamente consciente de la cantidad de cosas enormes que manejas en tu día a día, y me vuela la cabeza ver cómo logras hacer absolutamente todas a la perfección. Es admirable ver todo tu esfuerzo. Me hace muy feliz escucharte hablar de tu familia y de tu perrita. <em>Cuídate mucho, preciosa.</em><br><br>
         Sé bien que a veces da nervios recibir tanto cariño o que da un poquito de miedo el pasado, pero me alegra inmensamente que estés aquí, queriéndome desde lejos de una forma tan limpia. Me emociona tanto que te vaya bonito en la vida, de verdad. Gracias por existir. 💖
       </p>
       <div class="back-sig">Con todo mi cariño</div>
       <div class="back-hearts">🫧 💜 🫧</div>
-      <div class="back-return">← toca para volver a tus stats</div>
+      <div class="back-return" id="btnVoltearBack">← toca para volver a tus stats</div>
     </div>
 
   </div>
@@ -617,8 +616,19 @@ window.addEventListener('load',()=>{
 });
 
 const card=document.getElementById('card');
-card.addEventListener('click',e=>{
-  card.classList.toggle('flipped');
+const frontBtn=document.getElementById('btnVoltearFront');
+const backBtn=document.getElementById('btnVoltearBack');
+
+// Manejo del volteo exclusivo en botones para evitar mareos al tocar los tooltips
+frontBtn.addEventListener('click',e=>{
+  e.stopPropagation();
+  card.classList.add('flipped');
+  pop(e.clientX,e.clientY);
+});
+
+backBtn.addEventListener('click',e=>{
+  e.stopPropagation();
+  card.classList.remove('flipped');
   pop(e.clientX,e.clientY);
 });
 
