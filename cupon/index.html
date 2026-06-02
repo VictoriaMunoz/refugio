@@ -512,7 +512,7 @@ body::before{
     Escríbeme: <em>"activo La Misma Mesa"</em> y elegimos juntas la receta por el chat. Cocinamos cada una en nuestro momento y nos mandamos el resultado. Sin presión de que quede perfecto — el caos también es parte del plan.
   </div>
   <div class="modal-actions">
-    <button class="mbtn mbtn-p" onclick="copyMsg('🍳 ¡Activo el cupón: La Misma Mesa, Dos Cocinas! ¿Qué cocinamos? 👩‍🍳')">Copiar mensaje de activación 📋</button>
+    <button class="mbtn mbtn-p" onclick="copyMsg('¡Activo el cupón: La Misma Mesa, Dos Cocinas! ¿Qué cocinamos?')">Copiar mensaje de activación 📋</button>
   </div>
 </div>
 </div>
@@ -552,7 +552,7 @@ body::before{
     <em>"Lo que más admiro de ti es..."</em>
   </div>
   <div class="modal-actions">
-    <button class="mbtn mbtn-p" onclick="copyMsg('✍️ Activo el cupón: La Carta Sin Razón. Prepárate para recibir algo con mucho amor 💌🌿')">Anunciar la carta 📋</button>
+    <button class="mbtn mbtn-p" onclick="copyMsg('Activo el cupón: La Carta Sin Razón. Prepárate para recibir algo con mucho amor 💌')">Anunciar la carta</button>
   </div>
 </div>
 </div>
@@ -564,17 +564,17 @@ body::before{
   <span class="modal-emoji">💆</span>
   <div class="modal-num">CUPÓN · 006 · AMISTAD SIN FRONTERAS</div>
   <h3 class="modal-title">Ritual de Autocuidado Paralelo</h3>
-  <p class="modal-body">Misma mascarilla, mismo té o mismo baño de burbujas — cada una en su noche, haciendo lo mismo. Nos mandamos fotos, nos contamos cómo nos sentimos, y por un momento la distancia desaparece. 🛁🍵🌙</p>
+  <p class="modal-body">Misma mascarilla, mismo té o mismo baño de burbujas — cada una en su noche, haciendo lo mismo. Nos mandamos fotos, nos contamos cómo nos sentimos, y por un momento la distancia desaparece. </p>
   <div class="modal-box">
-    <strong>🧴 Ideas de rituales para sincronizar:</strong>
-    Mascarilla de arcilla o lámina 🧖 · Té de menta o manzanilla 🍵 · Baño largo con música 🛁 · Sesión de estiramiento/yoga 🧘 · Skincare nocturno completo ✨ · Noche sin pantallas con libro y vela 🕯️ · La que cada una prefiera 💛
+    <strong> Ideas de rituales para sincronizar:</strong>
+    Mascarilla de arcilla o lámina · Té de menta o manzanilla · Baño largo con música · Sesión de estiramiento/yoga · Skincare nocturno completo · Noche sin pantallas con libro y vela · La que cada una prefiera 
   </div>
   <div class="modal-box" style="background:var(--warm-white);border:1.5px solid var(--dusty-rose);">
     <strong style="color:var(--terracotta);">🌙 Cómo activarlo:</strong>
     Escríbeme: <em>"activo el Ritual"</em> y acordamos qué haremos. No tiene que ser el mismo día ni la misma hora — lo hacemos cada una en su noche y nos contamos cómo estuvo.
   </div>
   <div class="modal-actions">
-    <button class="mbtn mbtn-p" onclick="copyMsg('💆 ¡Activo el cupón: Ritual de Autocuidado Paralelo! ¿Qué hacemos esta semana? 🛁🍵')">Copiar mensaje de activación 📋</button>
+    <button class="mbtn mbtn-p" onclick="copyMsg('¡Activo el cupón: Ritual de Autocuidado Paralelo! ¿Qué hacemos esta semana? ')">Copiar mensaje de activación 📋</button>
   </div>
 </div>
 </div>
@@ -592,7 +592,7 @@ body::before{
     1. Acordamos título por el chat. 2. Cada una lo ve en su propio tiempo (mismo día, misma semana, sin presión). 3. Mandamos reseña de voz o texto antes de ver la reseña de la otra — para no influenciarnos. 4. Leemos/escuchamos la del otro y respondemos. ¡Debate libre!
   </div>
   <div class="modal-actions">
-    <button class="mbtn mbtn-p" onclick="copyMsg('🎬 ¡Activo el cupón: Cine Club Asincrónico! ¿Qué vemos? Te propongo algo... 🍿')">Copiar mensaje de activación 📋</button>
+    <button class="mbtn mbtn-p" onclick="copyMsg('🎬 ¡Activo el cupón: Cine Club Asincrónico! ¿Qué vemos? Te propongo algo... ')">Copiar mensaje de activación </button>
     <a href="https://letterboxd.com/" target="_blank" class="mbtn mbtn-s">Ver ideas en Letterboxd ↗</a>
   </div>
 </div>
@@ -661,10 +661,10 @@ function savePuzzleLink(){
   const disp=document.getElementById('puzzle-link-display');
   const anch=document.getElementById('puzzle-link-anchor');
   anch.href=v;anch.textContent=v;disp.style.display='block';
-  showToast('¡Link guardado! Ahora compártelo con ella 💌');
+  showToast('¡Link guardado! Ahora compártelo con ella');
 }
 function copyPuzzleLink(){
-  if(!savedPuzzleLink){showToast('Aún no has guardado un link 🧩');return;}
+  if(!savedPuzzleLink){showToast('Aún no has guardado un link');return;}
   copyMsg(savedPuzzleLink);
 }
 
