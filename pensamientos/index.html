@@ -1,0 +1,206 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Lato:wght@300;400;500&display=swap');
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.page { background: #0d1117; min-height: 100vh; font-family: 'Lato', sans-serif; display: flex; flex-direction: column; border-radius: 12px; overflow: hidden; }
+.hero { padding: 2.5rem 2rem 1.5rem; text-align: center; border-bottom: 1px solid #1e2a22; }
+.hero-day { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #5DCAA5; font-weight: 300; margin-bottom: 0.5rem; }
+.hero-title { font-family: 'Playfair Display', serif; font-size: 24px; color: #e8f5f0; font-weight: 400; font-style: italic; line-height: 1.4; }
+.hero-sub { font-size: 12px; color: #3a5a4a; margin-top: 0.5rem; letter-spacing: 0.04em; }
+.chat-area { flex: 1; padding: 2rem 1.5rem; max-width: 520px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 0; }
+.bubble-wrap { display: flex; flex-direction: column; align-items: flex-start; opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.5s ease; margin-bottom: 6px; }
+.bubble-wrap.visible { opacity: 1; transform: translateY(0); }
+.bubble { background: #1a2a22; color: #c8ead8; border-radius: 18px 18px 18px 4px; padding: 12px 16px; max-width: 85%; font-size: 15px; line-height: 1.6; font-family: 'Lato', sans-serif; font-weight: 300; box-shadow: 0 2px 12px rgba(0,0,0,0.2); }
+.bubble-time { font-size: 11px; color: #3a5a4a; margin-top: 4px; margin-left: 4px; text-align: left; }
+.typing-wrap { display: flex; align-items: flex-end; gap: 8px; margin-bottom: 16px; opacity: 0; transition: opacity 0.3s ease; justify-content: flex-start; }
+.typing-wrap.visible { opacity: 1; }
+.typing-bubble { background: #1a2a22; border-radius: 18px 18px 18px 4px; padding: 12px 16px; display: flex; gap: 4px; align-items: center; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: #5DCAA5; animation: bounce 1.2s infinite; }
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-4px); opacity: 1; } }
+.controls { padding: 1.5rem; max-width: 520px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid #1e2a22; }
+.btn-next { width: 100%; padding: 14px; border-radius: 14px; border: 1px solid transparent; background: #1D9E75; color: #e8f5f0; font-size: 15px; font-family: 'Lato', sans-serif; font-weight: 400; cursor: pointer; transition: all 0.2s; letter-spacing: 0.03em; }
+.btn-next:hover:not(:disabled) { background: transparent; border-color: #1D9E75; color: #1D9E75; }
+.btn-next:active { transform: scale(0.98); }
+.btn-next:disabled { opacity: 0.3; cursor: default; }
+.btn-shuffle { width: 100%; padding: 10px; border-radius: 14px; border: 1px solid #1e2a22; background: transparent; color: #3a5a4a; font-size: 13px; font-family: 'Lato', sans-serif; cursor: pointer; transition: all 0.2s; letter-spacing: 0.03em; }
+.btn-shuffle:hover { color: #5DCAA5; border-color: #5DCAA5; }
+.counter { text-align: center; font-size: 12px; color: #3a5a4a; letter-spacing: 0.06em; }
+
+.end-card { max-width: 520px; width: 100%; margin: 0 auto 1.5rem; padding: 0 1.5rem; opacity: 0; transform: translateY(16px); transition: opacity 0.9s ease, transform 0.9s ease; }
+.end-card.visible { opacity: 1; transform: translateY(0); }
+.end-card-inner { background: #111d16; border: 1px solid #1e3328; border-radius: 18px; padding: 1.4rem 1.6rem; text-align: center; }
+.end-card-icon { font-size: 22px; margin-bottom: 0.6rem; }
+.end-card-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: 17px; color: #e8f5f0; line-height: 1.5; margin-bottom: 0.5rem; }
+.end-card-sub { font-size: 13px; color: #3d6b52; line-height: 1.6; font-weight: 300; }
+</style>
+
+<div class="page">
+  <div class="hero">
+    <p class="hero-day">día 7</p>
+    <h1 class="hero-title">Todo lo que pensé<br>y no dije</h1>
+    <p class="hero-sub">hasta ahora</p>
+  </div>
+
+  <div class="chat-area" id="chatArea">
+    <div class="typing-wrap" id="typingIndicator">
+      <div class="typing-bubble">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="end-card" id="endCard">
+    <div class="end-card-inner">
+      <div class="end-card-icon">✶</div>
+      <p class="end-card-title">esto no era todo, claro que no.<br>pero las cosas bonitas<br>no se agotan — se van diciendo.</p>
+      <p class="end-card-sub">y tú mereces escucharlas con calma,<br>no todas de golpe.</p>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="counter" id="counter">presiona para leer el primero</div>
+    <button class="btn-next" id="btnNext" onclick="showNext()">leer →</button>
+    <button class="btn-shuffle" onclick="shuffleAndReset()">✦ mezclar de nuevo</button>
+  </div>
+</div>
+
+<script>
+const allMessages = [
+  "A veces pienso en lo que sería dormir contigo. Y eso es raro en mí, porque no me gusta dormir con nadie.",
+  "Vi una foto tuya hoy y tuve que cerrar el teléfono un momento.",
+  "Hay algo en cómo te ríes que me desordena un poco. No sé si eso es un problema o no.",
+  "Me mordí la lengua hoy diciendo algo. Literalmente tú me tienes practicando eso.",
+  "A veces cuando me escribes sonrío antes de leer. Solo con ver tu nombre.",
+  "No sé qué tienen tus ojos pero hacen que quiera mirarte más tiempo del que sería normal.",
+  "Hay días que quisiera estar en el mismo cuarto que tú. Sin hacer nada. Solo eso.",
+  "Te imagino riéndote de algo tonto y me alegra el día. Así, sin más.",
+  "A veces pienso en lo que haría si estuvieras aquí. Y luego mejor no sigo pensando.",
+  "Tienes una forma de decir las cosas que me deja sin respuesta. Y eso no me pasa.",
+  "Vi algo hoy que te hubiera gustado y lo primero que pensé fue en mandártelo. Lo segundo fue guardármelo para contártelo en llamada. ¡Gané!",
+  "Hay algo en tu voz cuando te ríes que me gustaría escuchar todos los días.",
+  "A veces escribo algo, lo borro, lo vuelvo a escribir y lo mando diferente. Tú eres la única persona que me hace hacer eso.",
+  "Me pregunto si sabes el efecto que tienes. Creo que no. O sí sabes y te divierte. Los dos escenarios me gustan.",
+  "Si viviera cerca probablemente te molestaría mucho. Aviso.",
+  "Hay una versión de este mensaje que era mucho más directa. Esta es la versión educada.",
+  "Te mordiste la lengua una vez y llevo días pensando en eso. No sé qué decirte.",
+  "Eres de esas personas que hacen que uno quiera ser mejor. No por presión — sino porque da ganas.",
+  "A veces me pregunto qué estarás haciendo exactamente en ese momento. Y me gusta no saberlo porque así puedo imaginarlo.",
+  "Hay algo en tus ojos que no sé describir bien. Solo sé que me gusta mirarlos aunque sea en foto.",
+  "Me da cosa decirte ciertas cosas porque sé que te van a gustar demasiado y eso me da más cosa.",
+  "Eres la persona con la que más ganas tengo de pasar el tiempo.",
+  "A veces pienso que si nos conociéramos en persona sería un desastre. Del bueno.",
+  "Hay días que quisiera pausar el tiempo justo cuando estamos hablando.",
+  "No sé si es justo lo bonita que eres. Para los demás, digo. Para mí está perfecto.",
+  "Me río sola recordando cosas que me has dicho. En momentos aleatorios. En el bus. Comprando. Así.",
+  "Hay algo que te iba a decir hace semanas y todavía no he podido. Algún día.",
+  "Creo que me acostumbré a ti muy rápido. Y no me arrepiento nada.",
+  "A veces pienso que contigo no necesitaría cobija.",
+  "Me pregunto si abrazas tan bien como imagino. Creo que sí. Creo que mejor.",
+  "Hay personas que dan frío y personas que dan calor. Tú eres de las segundas. Muy de las segundas.",
+  "Si algún día me dejas quedarme cerca, prometo portarme bien. Más o menos.",
+  "Pienso en lo que sería despertar y que lo primero que vea seas tú. Y luego pienso que me gustaría demasiado.",
+  "Eres del tipo de persona con la que da gusto perderse.",
+  "Contigo hasta el silencio se sentiría bonito. Imagínate todo lo demás.",
+  "Si te pudiera abrazar ahorita no te soltaba fácil. Aviso también ese.",
+  "Me pregunto si sabes lo que provocas. Sospecho que sí. Y sospecho que te gusta.",
+  "Hay una distancia entre nosotras que no me gusta nada. Geográficamente hablando. Y en todos los sentidos.",
+  "A veces quisiera estar tan cerca que no hubiera que escribir nada.",
+  "Contigo creo que hasta trasnochar valdría la pena. Y eso sí que es decir mucho.",
+  "Intento disimularlo un poco, pero la verdad es que me pareces la persona más hermosa de este universo.",
+  "Tienes una capacidad increíble para ponerme nerviosa y acelerarme el corazón con un solo mensaje en la pantalla.",
+  "Soñé contigo anoche. Desperté con una sonrisa gigante y unas ganas tremendas de que la distancia no existiera.",
+  "Me encanta cuando me hablas a deshoras y nos quedamos atrapadas en nuestro propio mundo virtual.",
+  "A veces me quedo mirando tus fotos un buen rato y me pongo a imaginar todas las cosas hermosas que viviremos cuando nos veamos.",
+  "Aunque estemos lejos, cada vez que aparece una notificación tuya se me olvida todo lo demás.",
+  "Me da un poquito de timidez admitirlo, pero el efecto que tienes en mí a través de la pantalla es una locura muy bonita.",
+  "Eres mi pensamiento favorito del día y la razón por la que siempre sonrío mirando el celular.",
+  "A veces me pregunto si tú también sientes estos mismos nervios lindos cuando ves que te estoy escribiendo.",
+  "Soñar despierta contigo se ha vuelto mi pasatiempo favorito desde que estás en mi vida.",
+  "No te imaginas la falta que me hace un abrazo tuyo hoy, de esos que duran un montón y se sienten como un refugio.",
+  "Me fascina cómo logras que un día completamente normal se vuelva el más bonito con solo enviarme un mensaje.",
+  "Qué misterio tan lindo cómo alguien que está al otro lado de la pantalla puede hacerme sentir tan acompañada y tan cuidada.",
+  "Me guardo cada nota de voz tuya como un tesoro para cuando tengo un día difícil y necesito escuchar algo lindo.",
+  "A veces veo que estás en línea y me da una alegría hermosa escribirte, porque siempre me hace falta hablar contigo.",
+  "Es increíble cómo la distancia se borra por completo cuando escucho tu risa a través del teléfono.",
+  "Aunque casi todo nuestro mundo sea virtual por ahora, la complicidad que tenemos es de las cosas más reales para mí.",
+  "A veces solo quiero que sepas que, sin importar los kilómetros, me hace inmensamente feliz que existas.",
+  "Eres esa persona con la que puedo ser yo misma al cien por ciento, y eso es algo que no cambio por nada del universo.",
+  "Hay días en los que tu apoyo me da un empujoncito gigante para seguir adelante con una sonrisa.",
+  "Me guardo un montón de planes y lugares bonitos por conocer para cuando por fin podamos compartir el mismo espacio."
+];
+
+function getTime() {
+  const now = new Date();
+  return now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+}
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+let messages = shuffle(allMessages);
+let index = 0;
+let showing = false;
+
+const chatArea = document.getElementById('chatArea');
+const typingIndicator = document.getElementById('typingIndicator');
+const btnNext = document.getElementById('btnNext');
+const counter = document.getElementById('counter');
+const endCard = document.getElementById('endCard');
+
+function showNext() {
+  if (showing || index >= messages.length) return;
+  showing = true;
+  btnNext.disabled = true;
+  typingIndicator.classList.add('visible');
+  chatArea.appendChild(typingIndicator);
+  setTimeout(() => {
+    typingIndicator.classList.remove('visible');
+    const wrap = document.createElement('div');
+    wrap.className = 'bubble-wrap';
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.textContent = messages[index];
+    const time = document.createElement('div');
+    time.className = 'bubble-time';
+    time.textContent = getTime();
+    wrap.appendChild(bubble);
+    wrap.appendChild(time);
+    chatArea.appendChild(wrap);
+    setTimeout(() => wrap.classList.add('visible'), 30);
+    wrap.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    index++;
+    counter.textContent = index + ' de ' + messages.length;
+    if (index >= messages.length) {
+      btnNext.disabled = true;
+      btnNext.textContent = 'eso era todo. por ahora ✿';
+      setTimeout(() => {
+        endCard.classList.add('visible');
+        endCard.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }, 800);
+    } else {
+      btnNext.disabled = false;
+      btnNext.textContent = 'siguiente →';
+    }
+    showing = false;
+  }, 1400);
+}
+
+function shuffleAndReset() {
+  messages = shuffle(allMessages);
+  index = 0;
+  showing = false;
+  while (chatArea.firstChild) chatArea.removeChild(chatArea.firstChild);
+  chatArea.appendChild(typingIndicator);
+  endCard.classList.remove('visible');
+  btnNext.disabled = false;
+  btnNext.textContent = 'leer →';
+  counter.textContent = 'presiona para leer el primero';
+}
+</script>
