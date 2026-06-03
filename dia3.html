@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de conquista internacional // Día 03</title>
+    <style>
+        /* ==========================================================================
+           1. FONDO COZY CYBERPUNK (AZUL BEBÉ Y ROSA PASTEL)
+           ========================================================================== */
+        body {
+            background: #e0f2fe;
+            background-image: linear-gradient(135deg, #bae6fd 0%, #e0f2fe 50%, #fce7f3 100%);
+            color: #4c1d95; /* Texto principal en un violeta profundo y maduro */
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* ==========================================================================
+           2. CAJA DE LA TERMINAL EN VIDRIO ESMERILADO (GLASSMORPHISM)
+           ========================================================================== */
+        .terminal-container {
+            width: 95%;
+            max-width: 700px;
+            /* Efecto cristal translúcido de alta calidad */
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(2, 132, 199, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .terminal-header {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Botones estilo Mac clásicos */
+        .dot { height: 12px; width: 12px; border-radius: 50%; margin-right: 6px; }
+        .red    { background-color: #ff5f56; }
+        .yellow { background-color: #ffbd2e; }
+        .green  { background-color: #27c93f; }
+
+        .terminal-title { color: #475569; font-size: 11px; font-weight: bold; margin-left: 10px; letter-spacing: 0.5px; }
+
+        .terminal-body {
+            padding: 30px;
+            height: 440px;
+            overflow-y: auto;
+            /* Degradado interno sutil para mejorar legibilidad del código */
+            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.25) 100%);
+        }
+
+        .highlight { color: #0f172a; font-weight: bold; }
+
+        .success-highlight {
+            color: #16a34a !important; /* Verde orgánico brillante */
+            font-weight: bold;
+            text-shadow: 0 0 6px rgba(22, 163, 74, 0.2);
+        }
+
+        /* ── Comandos Interactivos Estilizados ── */
+        .command {
+            color: #7c3aed; /* Violeta alegre interactivo */
+            cursor: pointer;
+            margin: 14px 0;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+        .command:hover {
+            color: #0f172a;
+            transform: translateX(4px);
+        }
+
+        .command-nav {
+            color: #64748b;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+        .command-nav.primary {
+            color: #db2777; /* Rosa acento elegante */
+        }
+        .command-nav:hover {
+            color: #0f172a;
+            text-decoration: underline;
+        }
+
+        #access-key {
+            background: transparent;
+            border: none;
+            color: #0f172a;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            font-weight: bold;
+            outline: none;
+            width: 200px;
+        }
+
+        #cursor {
+            display: inline-block;
+            color: #7c3aed;
+            animation: blink 1s infinite;
+        }
+
+        .welcome-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .main-system-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e1b4b;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        #typed-output {
+            line-height: 1.6;
+            font-size: 14px;
+            color: #4338ca; /* Azul índigo nítido y fino */
+            text-align: left;
+            white-space: pre-wrap;
+        }
+
+        #typed-output span.char { opacity: 0; }
+        #typed-output span.char.visible { opacity: 1; }
+
+        /* Resaltado de las palabras clave en Oro Profundo Prestigioso */
+        #typed-output b {
+            color: #b45309 !important; 
+            font-weight: 900 !important;
+            text-shadow: 0 0 8px rgba(180, 83, 9, 0.15) !important;
+            background: rgba(245, 158, 11, 0.08);
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .msg-header {
+            color: #7c3aed;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        #secret-scan {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #64748b;
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            padding-top: 14px;
+            line-height: 1.8;
+        }
+
+        .scan-line {
+            color: #64748b;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .scan-line.ok {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        /* Caja de revelado del mensaje secreto estilo pergamino limpio */
+        .secret-reveal {
+            margin-top: 15px;
+            padding: 14px 18px;
+            border: 1px solid rgba(180, 83, 9, 0.2);
+            border-radius: 6px;
+            background: rgba(251, 191, 36, 0.05);
+        }
+
+        .secret-reveal .secret-label {
+            color: #71717a;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .secret-reveal .secret-words {
+            color: #b45309;
+            font-weight: bold;
+            font-size: 16px;
+            letter-spacing: 1px;
+            display: block;
+            margin-top: 6px;
+            animation: pulseGold 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseGold {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50%       { transform: scale(1.02); opacity: 1; }
+        }
+
+        .footer-msg {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 14px;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+        #login-ascii, #ascii-art { color: #7c3aed; font-size: 11px; line-height: 1.2; margin: 0; }
+
+        /* ==========================================================================
+           3. MODAL DE ALERTA INTEGRADO (COORDINADO CON LA PALETA)
+           ========================================================================== */
+        .custom-alert-bg {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.15);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .custom-alert-bg.show { opacity: 1; pointer-events: all; }
+        .custom-alert {
+            background: #ffffff;
+            border: 2px solid #ef4444;
+            border-radius: 12px;
+            padding: 25px;
+            max-width: 380px;
+            width: 85%;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(239, 68, 68, 0.1);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .custom-alert-bg.show .custom-alert { transform: scale(1); }
+        .alert-icon { color: #ef4444; font-size: 18px; margin-bottom: 12px; font-weight: bold; }
+        .alert-text { color: #334155; font-size: 13px; line-height: 1.6; margin-bottom: 20px; }
+        .alert-btn {
+            background: transparent;
+            color: #ef4444;
+            border: 1px solid #ef4444;
+            padding: 8px 20px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .alert-btn:hover { background: #ef4444; color: #ffffff; }
+    </style>
+</head>
+<body>
+
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="terminal-title">bash — /home/ame/refugio</span>
+        </div>
+        
+        <div class="terminal-body" id="terminal-body">
+            
+            <div id="login-screen">
+                <pre id="login-ascii" style="font-family: monospace; font-size: 10px; line-height: 1.1; margin-bottom: 15px;"></pre>
+                <div id="login-output"></div>
+                <div id="input-line" style="display: none;">
+                    <span class="highlight">guest@refugio:~$</span> 
+                    <input type="text" id="access-key" autofocus autocomplete="off">
+                </div>
+            </div>
+
+            <div id="main-interface" style="display: none;">
+                <div class="welcome-container">
+                    <pre id="ascii-art">
+  /\_/\  
+ ( o.o )  
+  > ^ <   
+                    </pre>
+                    <h1 class="main-system-title">Sistema de conquista internacional &lt;3</h1>
+                </div>
+                <div id="output">
+                    <p>> Conexión establecida... <span class="success-highlight">EXITOSO</span></p>
+                    <p>> Usuario: <span class="success-highlight">Ame</span></p>
+                    <br>
+                    <p>Selecciona un protocolo para ejecutar:</p>
+                    <p class="command" onclick="runCommand('pesado')">[1] ./dia_pesado.sh  --> Si la oficina estuvo densa</p>
+                    <p class="command" onclick="runCommand('sonreir')">[2] ./sacar_sonrisa.sh --> Si te hace falta una alegría</p>
+                    <p class="command" onclick="runCommand('extrañar')">[3] ./abrazo_virtual.sh --> Si quieres sentirme cerca</p>
+                    <span class="command-nav primary" onclick="location.href='index.html'">[9] salir_al_calendario.sh</span>
+                </div>
+                <div id="typed-output"></div>
+                <div id="secret-scan" style="display:none;"></div>
+                <div id="cursor">_</div>
+            </div>
+
+        </div>
+
+        <div class="custom-alert-bg" id="alert-bg">
+            <div class="custom-alert">
+                <div class="alert-icon">⚠️ ACCESO DENEGADO</div>
+                <div class="alert-text">La firma digital no coincide.<br>Revisa la letra de la canción e intenta de nuevo.</div>
+                <button class="alert-btn" onclick="closeAlert()">REINTENTAR</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const mensajes = {
+            pesado: "<div class='msg-header'>=========================================<br>  PROTOCOLO: DESCONEXIÓN Y CALMA <br>=========================================</div><br><br>Sé muy bien lo mucho que te esfuerzas día a día y la dedicación tan increíble que le pones a cada una de las tareas que fábricas o manejas. <b>Aquí</b> tu manera de afrontar los retos en la oficina es admirable, pero a veces las rutinas se vuelven sumamente densas y el cansancio físico y mental empieza a pegar con mucha fuerza. Sé que el ritmo puede ser abrumador, pero justo hoy quería pasar por aquí para recordarte que <b>estoy</b> convencida de que está bien pausar, respirar profundo y soltar el control por un momento. No tienes que cargar con el peso del mundo sobre tus hombros; <b>siempre</b> mantén en mente que eres una mujer sumamente inteligente y tesa, y absolutamente nada de lo que ocurra en un día caótico va a cambiar lo valiosa que eres. Cuando por fin cierres la pantalla hoy, quiero que dejes el estrés ahí adentro. Recuerda que cuentas <b>contigo</b> misma para brillar, pero que también aquí estoy yo, celebrando cada uno de tus procesos, admirándote en silencio y completamente dispuesta a escucharte o a acompañarte en completo silencio, como tú lo prefieras. Desconéctate tranquila, descansa tu mente y recuerda que te mereces toda la paz del mundo, preciosa.",
+            
+            sonreir: "<div class='msg-header'>=========================================<br>  PROTOCOLO: SINCRONÍA Y COMPLICIDAD <br>=========================================</div><br><br>Si terminaste en este comando es porque seguramente al día le está haciendo falta un poquito de luz, y tienes que saber que mi misión favorita siempre va a ser recordarte lo bonito que es compartir la vida. <b>Tu</b> forma de ser es increíble, tienes una chispa única y una <b>felicidad</b> que contagia a cualquiera. Me pasa seguido que me quedo pensando en nuestras charlas, en las bobadas que solo nosotras entendemos, en los chistes internos y en cómo un día cualquiera <b>me</b> parece el mejor momento de la semana con solo ponernos a conversar un rato. Me <b>hace</b> inmensamente feliz saber que, aunque los kilómetros nos separen físicamente en el mapa, compartimos una sintonía tan linda y real. Hemos construido un espacio muy sano en donde nos sentimos <b>bien</b> y podemos hablar de todo con total transparencia, y eso es algo que valoro más de lo que te imaginas. Espero de todo corazón que leer esto te robe esa sonrisa gigante que tanto me gusta ver y que te recuerde que tu bienestar le da un color hermoso a mi realidad. ¡Te adoro un montón, Ame!",
+            
+            extrañar: "<div class='msg-header'>=========================================<br>  PROTOCOLO: ABRAZO A LA DISTANCIA <br>=========================================</div><br><br>Si te dio por presionar este protocolo, quiero pedirte que cierres los ojos un segundo y sientas este lazo tan fuerte que nos une. <b>Eres</b> una persona hermosa en todos los sentidos posibles, tanto por dentro como por fuera, de esas que esparcen <b>magia</b> por donde caminan por la forma tan bonita en que transformas todo a tu alrededor. La distancia puede parecer un obstáculo muy grande, pero se vuelve un número completamente tonto cuando alguien influye <b>en</b> tu día de la manera tan limpia, bonita y honesta in que lo hacemos nosotras. No pasa un solo día en el que no agradezca el haber coincidido contigo en el camino; tu presencia le da un toque hermoso a <b>mi</b> realidad y me encanta escucharte, conocer cada día más de ti, compartir nuestros gustos y saber que estás al otro lado de la pantalla siendo un refugio seguro. No dudes jamás de lo mucho que te llevo conmigo en mis pensamientos. Este rinconcito que acompaña tu <b>vida</b> lo creé con mis propias manos para que nunca tengas espacio a dudar de lo importante que eres para mí, preciosa. Estoy aquí para ti hoy, mañana y siempre."
+        };
+
+        const mensajesSecretos = {
+            pesado:   "Aquí estoy siempre contigo",
+            sonreir:  "Tu felicidad me hace bien",
+            extrañar: "Eres magia en mi vida"
+        };
+
+        const scanLines = [
+            { text: "> Analizando transmisión...",        delay: 0,    ok: false },
+            { text: "> Detectando patrones ocultos...",    delay: 600,  ok: false },
+            { text: "> Palabras clave encontradas: OK",    delay: 1200, ok: true  },
+            { text: "> Decodificando mensaje secreto...",  delay: 1800, ok: false },
+            { text: "> MENSAJE DESCIFRADO:",               delay: 2500, ok: true  },
+        ];
+
+        const loginOutput    = document.getElementById('login-output');
+        const inputLine     = document.getElementById('input-line');
+        const accessKeyInput = document.getElementById('access-key');
+        const loginAscii     = document.getElementById('login-ascii');
+        const alertBg        = document.getElementById('alert-bg');
+
+        const kuromiArt = `
+ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⣀⢠⠋⠉⠉⠒⠲⢤⣀⣠⡀⠀
+⠀⠀⠀⠀⠀⠀⣀⣀⣀⢀⡠⠖⠋⠉⠀⠀⠀⠀⠉⠉⠢⣄⠀⠀⠀⢀⠼⠤⠇⠀
+⠀⠀⠀⣀⠔⠊⠁⠀⢨⠏⠀⠀⠀⣠⣶⣶⣦⠀⠀⠀⠀⠀⠱⣄⡴⠃⠀⠀⠀⠀
+⢸⣉⠿⣁⠀⠀⠀⢀⡇⠀⠀⠀⠀⢿⣽⣿⣼⡠⠤⢄⣀⠀⠀⢱⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠑⢦⡀⢸⠀⠀⠀⡠⠒⠒⠚⠛⠉⠀⢠⣀⡌⠳⡀⡌⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠉⠉⣆⠀⢰⠁⣀⣀⠀⠀⣀⠀⠈⡽⣧⢀⡷⠁⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⡤⢄⠀⠈⠢⣸⣄⢽⣞⡂⠀⠈⠁⣀⡜⠁⣩⡷⠿⠆⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢯⣁⡸⠀⠀⠀⡬⣽⣿⡀⠙⣆⡸⠛⠠⢧⠀⡿⠯⠆⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⣀⡀⠀⠀⡤⠤⣵⠁⢸⣻⡤⠏⠀⠀⠀⠀⢹⠀⠀⠀⡊⠱⣀⠀⠀⠀
+⠀⠀⢀⠜⠀⢘⠀⠀⠱⠲⢜⣢⣤⣧⠀⠀⠀⠀⠀⢴⠇⠀⠀⠀⠧⠠⠜⠀⠀⠀
+⠀⠀⠘⠤⠤⠚⠀⠀⠀⠀⠀⠀⢸⠁⠁⠀⣀⠎⠀⠻⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠣⣀⣀⡴⠤⠄⠴⠁⠀
+`;
+
+        const introText = "> Inyectando protocolos de seguridad...\n> Localizando servidor en México...\n> Acceso restringido.\n\n> PISTA: \"Yo las canciones y tú la...\"\n> Ingrese llave de acceso:";
+
+        let isTyping = false;
+
+        window.onload = () => {
+            loginAscii.textContent = kuromiArt;
+            typeEffect(introText, loginOutput, () => {
+                inputLine.style.display = 'block';
+                accessKeyInput.focus();
+            });
+        };
+
+        accessKeyInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                validarAcceso(this.value.toLowerCase().trim());
+            }
+        });
+
+        function validarAcceso(key) {
+            if (key === 'magia') { 
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-interface').style.display = 'block';
+            } else {
+                alertBg.classList.add('show');
+            }
+        }
+
+        function closeAlert() {
+            alertBg.classList.remove('show');
+            accessKeyInput.value = "";
+            accessKeyInput.focus();
+        }
+
+        function typeEffect(text, container, callback) {
+            let i = 0;
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    container.innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(timer);
+                    if (callback) callback();
+                }
+            }, 45);
+        }
+
+        function resetTerminalMenu() {
+            document.getElementById('output').style.display = 'block';
+            document.getElementById('typed-output').innerHTML = "";
+            document.getElementById('secret-scan').style.display = 'none';
+            document.getElementById('secret-scan').innerHTML = "";
+            const welcomeContainer = document.querySelector('.welcome-container');
+            if (welcomeContainer) welcomeContainer.style.display = 'flex';
+        }
+
+        function runCommand(tipo) {
+            if (isTyping) return;
+            
+            const mainOutput       = document.getElementById('output');
+            const typedDiv         = document.getElementById('typed-output');
+            const secretScanDiv    = document.getElementById('secret-scan');
+            const welcomeContainer = document.querySelector('.welcome-container');
+            const rawText          = mensajes[tipo];
+            
+            mainOutput.style.display    = 'none';
+            secretScanDiv.style.display = 'none';
+            secretScanDiv.innerHTML     = '';
+            if (welcomeContainer) welcomeContainer.style.display = 'none';
+            typedDiv.innerHTML = "";
+            isTyping = true;
+
+            let parsedHTML = "";
+            let j = 0;
+            while (j < rawText.length) {
+                if (rawText.charAt(j) === '<') {
+                    let close = rawText.indexOf('>', j);
+                    parsedHTML += rawText.slice(j, close + 1);
+                    j = close + 1;
+                } else {
+                    parsedHTML += `<span class="char">${rawText.charAt(j)}</span>`;
+                    j++;
+                }
+            }
+            
+            typedDiv.innerHTML = parsedHTML;
+            
+            const chars = typedDiv.querySelectorAll('.char');
+            let charIndex = 0;
+            
+            function revealChar() {
+                if (charIndex < chars.length) {
+                    chars[charIndex].classList.add('visible');
+                    charIndex++;
+                    setTimeout(revealChar, 35);
+                } else {
+                    isTyping = false;
+                    mostrarEscaneo(tipo);
+                }
+            }
+            revealChar();
+        }
+
+        function mostrarEscaneo(tipo) {
+            const secretScanDiv = document.getElementById('secret-scan');
+            const terminalBody  = document.getElementById('terminal-body');
+            
+            secretScanDiv.style.display = 'block';
+            secretScanDiv.innerHTML     = '';
+
+            scanLines.forEach(({ text, delay, ok }) => {
+                setTimeout(() => {
+                    const line = document.createElement('div');
+                    line.className = ok ? 'scan-line ok' : 'scan-line';
+                    line.textContent = text;
+                    secretScanDiv.appendChild(line);
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                }, delay);
+            });
+
+            const totalDelay = scanLines[scanLines.length - 1].delay + 700;
+
+            setTimeout(() => {
+                const secreto = mensajesSecretos[tipo];
+                const revealDiv = document.createElement('div');
+                revealDiv.className = 'secret-reveal';
+                revealDiv.innerHTML = `
+                    <span class="secret-label">✦ Mensaje oculto detectado ✦</span>
+                    <span class="secret-words">${secreto}</span>
+                `;
+                secretScanDiv.appendChild(revealDiv);
+
+                const footer = document.createElement('p');
+                footer.className = 'footer-msg';
+                footer.textContent = '[ SISTEMA ] Ejecución terminada. Elige una de las siguientes secuencias de comando:';
+                secretScanDiv.appendChild(footer);
+
+                const navContainer = document.createElement('div');
+                navContainer.style.marginTop = '15px';
+                navContainer.style.display = 'flex';
+                navContainer.style.flexDirection = 'column';
+                navContainer.style.gap = '8px';
+                
+                navContainer.innerHTML = `
+                    <span class="command-nav" onclick="resetTerminalMenu()">[0] volver_al_menu_de_comandos.sh</span>
+                    <span class="command-nav primary" onclick="location.href='index.html'">[9] salir_al_calendario.sh</span>
+                `;
+                secretScanDiv.appendChild(navContainer);
+
+                terminalBody.scrollTop = terminalBody.scrollHeight;
+            }, totalDelay);
+        }
+    </script>
+</body>
+</html>
